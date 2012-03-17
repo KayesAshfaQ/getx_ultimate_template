@@ -28,7 +28,7 @@ enum RequestType {
   delete,
 }
 
-// TODO: header customization (isMobile: ture, justForYou keys, etc...)
+// TODO: header customization (isMobile: true, justForYou keys, etc...)
 
 class ApiClient {
   static final Dio _dio = Dio(
@@ -110,29 +110,20 @@ class ApiClient {
         );
       }
 
+      // add refresh token interceptor
+      _dio.interceptors.addIf(isAuthorizationRequired, _getAuthTokenInterceptor());
+
       // add pretty logger if showLog is true
       _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
 
       // add retry interceptor
-      _dio.interceptors.addIf(isRetryRequired, getRetryInterceptor());
+      _dio.interceptors.addIf(isRetryRequired, _getRetryInterceptor());
 
       // Add cache interceptor with global/default options
       _dio.interceptors.addIf(
         isCacheRequired,
-        DioCacheInterceptor(options: await getCacheOptions()),
+        DioCacheInterceptor(options: await _getCacheOptions()),
       );
-
-      // if the api is authorized, then add token to the header
-      if (isAuthorizationRequired) {
-        //Get token from local
-        final String? token = GetStorageHelper.get(authTokenKey);
-
-        //If token is available, then add token inside header.
-        if (token != null) {
-          final tokenHeader = {"Authorization": "Bearer $token"};
-          headers == null ? headers = tokenHeader : headers.addAll(tokenHeader);
-        }
-      }
 
       // 1) indicate loading state
       if (isLoaderRequired) {
@@ -253,22 +244,14 @@ class ApiClient {
       // indicate loading state
       if (isLoaderRequired) showLoader();
 
+      // add refresh token interceptor
+      _dio.interceptors.addIf(isAuthorizationRequired, _getAuthTokenInterceptor());
+
       // add pretty logger if showLog is true
       _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
 
       // add retry interceptor
-      _dio.interceptors.addIf(isRetryRequired, getRetryInterceptor());
-
-      // if authorization required, then add token to the header
-      if (isAuthorizationRequired) {
-        // Get token from local storage
-        final String? token = GetStorageHelper.get(authTokenKey);
-
-        // If token is available, then add token to header.
-        if (token != null) {
-          headers.addAll({"Authorization": "Bearer $token"});
-        }
-      }
+      _dio.interceptors.addIf(isRetryRequired, _getRetryInterceptor());
 
       final response = await _dio.download(
         url,
@@ -333,25 +316,17 @@ class ApiClient {
       // show loader if required
       if (isLoaderRequired) showLoader();
 
+      // add refresh token interceptor
+      _dio.interceptors.addIf(isAuthorizationRequired, _getAuthTokenInterceptor());
+
       // add pretty logger if showLog is true
       _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
 
       // add retry interceptor
-      _dio.interceptors.addIf(isRetryRequired, getRetryInterceptor());
+      _dio.interceptors.addIf(isRetryRequired, _getRetryInterceptor());
 
       // add content type to the header
       headers.addAll({'Content-Type': 'multipart/form-data'});
-
-      // if authorization required, then add token to the header
-      if (isAuthorizationRequired) {
-        // Get token from local storage
-        final String? token = GetStorageHelper.get(authTokenKey);
-
-        // If token is available, then add token to header.
-        if (token != null) {
-          headers.addAll({"Authorization": "Bearer $token"});
-        }
-      }
 
       final formData = FormData.fromMap({
         'file': await MultipartFile.fromFile(filePath, filename: filename),
@@ -388,7 +363,46 @@ class ApiClient {
     }
   }
 
-  static getRetryInterceptor() {
+  // authorization token interceptor
+  static Interceptor _getAuthTokenInterceptor() {
+    return InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        // get token from local storage
+        final String? token = GetStorageHelper.get(authTokenKey);
+
+        // if token is available, then add token to the header
+        if (token != null) {
+          final tokenHeader = {"Authorization": "Bearer $token"};
+          options.headers.addAll(tokenHeader);
+        }
+
+        return handler.next(options);
+      },
+      onError: (error, handler) async {
+        if (error.response?.statusCode == 401) {
+          // If a 401 response is received, refresh the access token
+          String newAccessToken = await _refreshToken();
+
+          // Update the request header with the new access token
+          error.requestOptions.headers['Authorization'] = 'Bearer $newAccessToken';
+
+          // Repeat the request with the updated header
+          return handler.resolve(await dio.fetch(error.requestOptions));
+        }
+        return handler.next(error);
+      },
+    );
+  }
+
+  //TODO: implement refresh token method
+  static Future<String> _refreshToken() async {
+    // Perform a request to the refresh token endpoint and return the new access token.
+    // You can replace this with your own implementation.
+    return 'your_new_access_token';
+  }
+
+  /// Retry interceptor
+  static Interceptor _getRetryInterceptor() {
     return RetryInterceptor(
       dio: _dio,
       logPrint: print, // specify log function (optional)
@@ -403,7 +417,7 @@ class ApiClient {
   }
 
   /// cache options
-  static Future<CacheOptions> getCacheOptions() async {
+  static Future<CacheOptions> _getCacheOptions() async {
     var cacheDir = await path.getTemporaryDirectory();
 
     var cacheStore = HiveCacheStore(
@@ -426,7 +440,7 @@ class ApiClient {
       // Defaults to [null].
       hitCacheOnErrorExcept: [401, 403],
       // Overrides any HTTP directive to delete entry past this duration.
-      // Useful only when origin server has no cache config or custom behaviour is desired.
+      // Useful only when origin server has no cache config or custom behavior is desired.
       // Defaults to [null].
       maxStale: const Duration(days: 1),
       // Default. Allows 3 cache sets and ease cleanup.
