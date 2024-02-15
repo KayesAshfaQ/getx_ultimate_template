@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
+import 'package:sl_v4/app/core/base/base_controller.dart';
 
-class HomeController extends GetxController {
-  //TODO: Implement HomeController
+class HomeController extends BaseController {
+  
 
-  final count = 0.obs;
+  final selectedBottomNav = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +20,5 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  
 }

@@ -2,20 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
+import 'package:sl_v4/app/core/base/base_view.dart';
+import 'package:sl_v4/app/core/config/app_colors.dart';
 
 import '../../../core/localization/localization_service.dart';
 import '../../../core/localization/strings_enum.dart';
 import '../controllers/home_controller.dart';
 
-class HomeView extends GetView<HomeController> {
+class HomeView extends BaseView<HomeController> {
   const HomeView({super.key});
+
   @override
-  Widget build(BuildContext context) {
+  PreferredSizeWidget? appBar(BuildContext context) {
+    return AppBar(
+      title: const Text('HomeView'),
+      centerTitle: true,
+    );
+  }
+
+  @override
+  Widget body(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomeView'),
-        centerTitle: true,
-      ),
       body: Column(
         children: [
           //----------------Language Button----------------//
@@ -50,6 +58,29 @@ class HomeView extends GetView<HomeController> {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget? bottomNavigationBar() {
+    return MoltenBottomNavigationBar(
+      selectedIndex: controller.selectedBottomNav.value,
+      barColor: AppColors.primaryColor,
+      domeCircleColor: AppColors.primaryColor.shade200,
+      onTabChange: (clickedIndex) {
+        controller.selectedBottomNav.value = clickedIndex;
+      },
+      tabs: [
+        MoltenTab(
+          icon: const Icon(Icons.search),
+        ),
+        MoltenTab(
+          icon: const Icon(Icons.home),
+        ),
+        MoltenTab(
+          icon: const Icon(Icons.person),
+        ),
+      ],
     );
   }
 }
