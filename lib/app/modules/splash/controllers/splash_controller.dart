@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-class SplashController extends GetxController {
-  //TODO: Implement SplashController
+import '../../../routes/app_pages.dart';
 
-  final count = 0.obs;
+class SplashController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    //navigate();
   }
 
   @override
@@ -19,5 +19,9 @@ class SplashController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  navigate() {
+    Future.delayed(const Duration(seconds: 2), () {
+      Get.offNamed(Routes.DASHBOARD);
+    });
+  }
 }

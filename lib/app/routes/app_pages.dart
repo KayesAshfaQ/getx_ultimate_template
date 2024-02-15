@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 
 import '../modules/cart/bindings/cart_binding.dart';
@@ -18,18 +20,23 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
+      name: _Paths.SPLASH,
+      page: () => const SplashView(),
+      binding: SplashBinding(),
     ),
     GetPage(
       name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
       binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME,
+      page: () => const HomeView(),
+      binding: HomeBinding(),
     ),
     GetPage(
       name: _Paths.MESSAGE,
@@ -45,11 +52,6 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
-    ),
-    GetPage(
-      name: _Paths.SPLASH,
-      page: () => const SplashView(),
-      binding: SplashBinding(),
     ),
   ];
 }
