@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
-import '../modules/dashboard/bindings/dashboard_binding.dart';
-import '../modules/dashboard/views/dashboard_view.dart';
+import '../modules/navigator/bindings/navigator_binding.dart';
+import '../modules/navigator/views/navigator_view.dart';
 import '../modules/auth/forgot_pass/bindings/forgot_pass_binding.dart';
 import '../modules/auth/forgot_pass/views/forgot_pass_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -35,9 +35,9 @@ class AppPages {
       binding: SplashBinding(),
     ),
     GetPage(
-      name: _Paths.DASHBOARD,
-      page: () => const DashboardView(),
-      binding: DashboardBinding(),
+      name: _Paths.NAVIGATOR,
+      page: () => const NavigatorView(),
+      binding: NavigatorBinding(),
     ),
     GetPage(
       name: _Paths.HOME,

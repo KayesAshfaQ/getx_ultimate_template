@@ -4,13 +4,13 @@ import 'package:sl_v4/app/modules/home/bindings/home_binding.dart';
 import 'package:sl_v4/app/modules/message/bindings/message_binding.dart';
 import 'package:sl_v4/app/modules/profile/bindings/profile_binding.dart';
 
-import '../controllers/dashboard_controller.dart';
+import '../controllers/navigator_controller.dart';
 
-class DashboardBinding extends Bindings {
+class NavigatorBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<DashboardController>(
-      () => DashboardController(),
+    Get.lazyPut<NavigatorController>(
+      () => NavigatorController(),
     );
     HomeBinding().dependencies();
     MessageBinding().dependencies();

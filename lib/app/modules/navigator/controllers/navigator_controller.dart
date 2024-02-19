@@ -6,7 +6,7 @@ import 'package:sl_v4/app/modules/home/views/home_view.dart';
 import 'package:sl_v4/app/modules/message/views/message_view.dart';
 import 'package:sl_v4/app/modules/profile/views/profile_view.dart';
 
-class DashboardController extends BaseController {
+class NavigatorController extends BaseController {
   final selectedBottomNav = 0.obs;
 
   final navPages = <Widget>[

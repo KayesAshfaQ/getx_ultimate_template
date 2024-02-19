@@ -3,10 +3,10 @@ import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 
 import '../../../core/base/base_view.dart';
 import '../../../core/config/app_colors.dart';
-import '../controllers/dashboard_controller.dart';
+import '../controllers/navigator_controller.dart';
 
-class DashboardView extends BaseView<DashboardController> {
-  const DashboardView({super.key});
+class NavigatorView extends BaseView<NavigatorController> {
+  const NavigatorView({super.key});
 
   @override
   PreferredSizeWidget? appBar(BuildContext context) {
