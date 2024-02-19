@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
 import 'package:sl_v4/app/gen/assets.gen.dart';
@@ -21,51 +22,125 @@ class NavigatorView extends BaseView<NavigatorController> {
 
   @override
   Widget? bottomNavigationBar() {
-    return MoltenBottomNavigationBar(
-      selectedIndex: controller.selectedBottomNav.value,
-      barColor: AppColors.primaryColor,
-      domeCircleColor: AppColors.primaryColor.shade300,
-      onTabChange: (clickedIndex) {
-        controller.selectedBottomNav.value = clickedIndex;
-      },
-      tabs: [
-        MoltenTab(
+    return ConvexAppBar(
+      color: AppColors.textColorSwatch,
+      activeColor: AppColors.primaryColor,
+      backgroundColor: AppColors.white,
+      curve: Curves.easeInOutQuad,
+      onTap: (index) => controller.selectedBottomNav.value = index,
+      style: TabStyle.react,
+      items: [
+        TabItem(
           icon: Assets.iconsHome.svg(
             colorFilter: const ColorFilter.mode(
-              AppColors.white,
+              AppColors.textColorSwatch,
               BlendMode.srcIn,
             ),
-            fit: BoxFit.scaleDown,
           ),
+          activeIcon: Assets.iconsHome.svg(
+            colorFilter: const ColorFilter.mode(
+              AppColors.primaryColor,
+              BlendMode.srcIn,
+            ),
+          ),
+          title: 'Home',
         ),
-        MoltenTab(
+        TabItem(
           icon: Assets.iconsChat.svg(
             colorFilter: const ColorFilter.mode(
-              AppColors.white,
+              AppColors.textColorSwatch,
               BlendMode.srcIn,
             ),
-            fit: BoxFit.scaleDown,
           ),
+          activeIcon: Assets.iconsChat.svg(
+            colorFilter: const ColorFilter.mode(
+              AppColors.primaryColor,
+              BlendMode.srcIn,
+            ),
+          ),
+          title: 'Message',
         ),
-        MoltenTab(
+        TabItem(
           icon: Assets.iconsCart.svg(
             colorFilter: const ColorFilter.mode(
-              AppColors.white,
+              AppColors.textColorSwatch,
               BlendMode.srcIn,
             ),
-            fit: BoxFit.scaleDown,
           ),
+          activeIcon: Assets.iconsCart.svg(
+            colorFilter: const ColorFilter.mode(
+              AppColors.primaryColor,
+              BlendMode.srcIn,
+            ),
+          ),
+          title: 'Cart',
         ),
-        MoltenTab(
+        TabItem(
           icon: Assets.iconsUser.svg(
             colorFilter: const ColorFilter.mode(
-              AppColors.white,
+              AppColors.textColorSwatch,
               BlendMode.srcIn,
             ),
-            fit: BoxFit.scaleDown,
           ),
+          activeIcon: Assets.iconsUser.svg(
+            colorFilter: const ColorFilter.mode(
+              AppColors.primaryColor,
+              BlendMode.srcIn,
+            ),
+          ),
+          title: 'Profile',
         ),
       ],
     );
   }
+
+  // @override
+  // Widget? bottomNavigationBar() {
+  //   return MoltenBottomNavigationBar(
+  //     selectedIndex: controller.selectedBottomNav.value,
+  //     barColor: AppColors.primaryColor,
+  //     domeCircleColor: AppColors.primaryColor.shade300,
+  //     onTabChange: (clickedIndex) {
+  //       controller.selectedBottomNav.value = clickedIndex;
+  //     },
+  //     tabs: [
+  //       MoltenTab(
+  //         icon: Assets.iconsHome.svg(
+  //           colorFilter: const ColorFilter.mode(
+  //             AppColors.white,
+  //             BlendMode.srcIn,
+  //           ),
+  //           fit: BoxFit.scaleDown,
+  //         ),
+  //       ),
+  //       MoltenTab(
+  //         icon: Assets.iconsChat.svg(
+  //           colorFilter: const ColorFilter.mode(
+  //             AppColors.white,
+  //             BlendMode.srcIn,
+  //           ),
+  //           fit: BoxFit.scaleDown,
+  //         ),
+  //       ),
+  //       MoltenTab(
+  //         icon: Assets.iconsCart.svg(
+  //           colorFilter: const ColorFilter.mode(
+  //             AppColors.white,
+  //             BlendMode.srcIn,
+  //           ),
+  //           fit: BoxFit.scaleDown,
+  //         ),
+  //       ),
+  //       MoltenTab(
+  //         icon: Assets.iconsUser.svg(
+  //           colorFilter: const ColorFilter.mode(
+  //             AppColors.white,
+  //             BlendMode.srcIn,
+  //           ),
+  //           fit: BoxFit.scaleDown,
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 }
