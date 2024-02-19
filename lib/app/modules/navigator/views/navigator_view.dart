@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:molten_navigationbar_flutter/molten_navigationbar_flutter.dart';
+import 'package:sl_v4/app/gen/assets.gen.dart';
 
 import '../../../core/base/base_view.dart';
 import '../../../core/config/app_colors.dart';
@@ -23,22 +24,46 @@ class NavigatorView extends BaseView<NavigatorController> {
     return MoltenBottomNavigationBar(
       selectedIndex: controller.selectedBottomNav.value,
       barColor: AppColors.primaryColor,
-      domeCircleColor: AppColors.primaryColor.shade200,
+      domeCircleColor: AppColors.primaryColor.shade300,
       onTabChange: (clickedIndex) {
         controller.selectedBottomNav.value = clickedIndex;
       },
       tabs: [
         MoltenTab(
-          icon: const Icon(Icons.home),
+          icon: Assets.iconsHome.svg(
+            colorFilter: const ColorFilter.mode(
+              AppColors.white,
+              BlendMode.srcIn,
+            ),
+            fit: BoxFit.scaleDown,
+          ),
         ),
         MoltenTab(
-          icon: const Icon(Icons.message),
+          icon: Assets.iconsChat.svg(
+            colorFilter: const ColorFilter.mode(
+              AppColors.white,
+              BlendMode.srcIn,
+            ),
+            fit: BoxFit.scaleDown,
+          ),
         ),
         MoltenTab(
-          icon: const Icon(Icons.shopping_cart),
+          icon: Assets.iconsCart.svg(
+            colorFilter: const ColorFilter.mode(
+              AppColors.white,
+              BlendMode.srcIn,
+            ),
+            fit: BoxFit.scaleDown,
+          ),
         ),
         MoltenTab(
-          icon: const Icon(Icons.person),
+          icon: Assets.iconsUser.svg(
+            colorFilter: const ColorFilter.mode(
+              AppColors.white,
+              BlendMode.srcIn,
+            ),
+            fit: BoxFit.scaleDown,
+          ),
         ),
       ],
     );

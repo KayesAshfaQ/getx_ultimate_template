@@ -1,10 +1,5 @@
 import 'package:get/get.dart';
 
-// font families names
-const String fontInter = "inter";
-const String fontBnSolaiman = 'solaiman';
-const String fontBnSiyamRupaliAnsi = 'siyam_rupali';
-
 // keys for local storage
 const String authTokenKey = "auth_token";
 const String refreshToken = "refresh_token";

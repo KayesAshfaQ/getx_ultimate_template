@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sl_v4/app/core/config/app_constants.dart';
+import 'package:sl_v4/app/gen/fonts.gen.dart';
 
 import 'app_colors.dart';
 
@@ -11,7 +11,7 @@ class AppTheme {
       primarySwatch: AppColors.primaryColor,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       scaffoldBackgroundColor: AppColors.white,
-      fontFamily: fontInter,
+      fontFamily: FontFamily.inter,
       primaryIconTheme: const IconThemeData(color: Colors.black),
       appBarTheme: const AppBarTheme(
         centerTitle: false,
