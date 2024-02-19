@@ -1,1 +1,5 @@
-enum ConnectionType { noInternet, wifi, mobileData }
+enum ConnectionType {
+  noInternet,
+  wifi,
+  mobileData,
+}
