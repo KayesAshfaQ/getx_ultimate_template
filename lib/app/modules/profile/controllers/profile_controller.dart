@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
-class ProfileController extends GetxController {
+import '../../../core/base/base_controller.dart';
+
+class ProfileController extends BaseController {
   //TODO: Implement ProfileController
 
   final count = 0.obs;

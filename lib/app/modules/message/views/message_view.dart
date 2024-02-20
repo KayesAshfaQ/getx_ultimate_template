@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:sl_v4/app/core/base/base_view.dart';
 
+import '../../../core/localization/strings_enum.dart';
 import '../controllers/message_controller.dart';
 
-class MessageView extends GetView<MessageController> {
-  const MessageView({Key? key}) : super(key: key);
+class MessageView extends BaseView<MessageController> {
+  const MessageView({super.key});
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('MessageView'),
-        centerTitle: true,
+  Widget body(BuildContext context) {
+    return const Center(
+      child: Text(
+        'MessageView is working',
+        style: TextStyle(fontSize: 20),
       ),
-      body: const Center(
-        child: Text(
-          'MessageView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
+    );
+  }
+
+  @override
+  PreferredSizeWidget? appBar(BuildContext context) {
+    return AppBar(
+      title: Text(Strings.messages.tr),
+      centerTitle: true,
     );
   }
 }
