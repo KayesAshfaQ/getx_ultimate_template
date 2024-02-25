@@ -1,38 +1,26 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../config/app_colors.dart';
-
 class AppSnackbars {
-  static void getSnackBar(
-      {title = "Attention",
-      message = " Some message",
-      int waitingTime = 2,
-      int animationDuration = 500,
-      snackPosition = SnackPosition.TOP,
-      Color backgroundColor = AppColors.black,
-      double backgroundColorOpacity = .7,
-      colorText = AppColors.white,
-      closeAllSnackbars = true}) {
-    closeAllSnackbars ? Get.closeAllSnackbars() : null;
-    Get.snackbar(title, message,
-        snackPosition: snackPosition,
-        duration: Duration(seconds: waitingTime),
-        animationDuration: Duration(milliseconds: animationDuration),
-        backgroundColor: backgroundColor.withOpacity(backgroundColorOpacity),
-        colorText: colorText);
-  }
+  static showCustomSnackBar({
+    required String title,
+    required String message,
+    int durationSeconds = 3,
+    Color? color,
+    SnackPosition snackPosition = SnackPosition.TOP,
+  }) {
+    // close all snackbars before showing a new one
+    Get.closeAllSnackbars();
 
-  static showCustomSnackBar({required String title, required String message, Duration? duration}) {
+    // show snackbar
     Get.snackbar(
       title,
       message,
-      duration: duration ?? const Duration(seconds: 3),
+      duration: Duration(seconds: durationSeconds),
       margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
       colorText: Colors.white,
-      backgroundColor: Colors.green,
+      backgroundColor: color ?? Colors.green,
+      snackPosition: snackPosition,
       icon: const Icon(
         Icons.check_circle,
         color: Colors.white,
@@ -40,12 +28,24 @@ class AppSnackbars {
     );
   }
 
-  static showCustomToast({String? title, required String message, Color? color, Duration? duration}) {
+  static showCustomToast({
+    String? title,
+    required String message,
+    Color? color,
+    Duration? duration,
+    SnackPosition snackPosition = SnackPosition.BOTTOM,
+  }) {
+
+    // close all snackbars before showing a new one
+    Get.closeAllSnackbars();
+
+    // show snackbar
     Get.rawSnackbar(
       title: title,
       duration: duration ?? const Duration(seconds: 3),
       snackStyle: SnackStyle.GROUNDED,
       backgroundColor: color ?? Colors.green,
+      snackPosition: snackPosition,
       onTap: (snack) {
         Get.closeAllSnackbars();
       },

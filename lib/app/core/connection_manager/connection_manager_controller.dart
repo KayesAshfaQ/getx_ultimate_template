@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
@@ -62,7 +63,11 @@ class ConnectionManagerController extends GetxController {
         connectionStatusMessage.value = "No Internet Connection";
         break;
       default:
-        AppSnackbars.getSnackBar(title: 'Error', message: 'Failed to get network connection type!');
+        AppSnackbars.showCustomToast(
+          title: 'Error',
+          message: 'Failed to get network connection type!',
+          color: Colors.red,
+        );
         break;
     }
   }
