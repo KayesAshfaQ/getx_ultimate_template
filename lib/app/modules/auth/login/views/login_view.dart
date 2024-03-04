@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:sl_v4/app/core/common_widgets/app_button.dart';
 import 'package:sl_v4/app/core/common_widgets/app_text_field.dart';
 
+import '../../../../routes/app_pages.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -45,7 +47,16 @@ class LoginView extends GetView<LoginController> {
                 24.verticalSpace,
                 AppButton(
                   buttonText: 'Login',
-                  onTap: () {},
+                  onTap: () {
+                    Get.offAllNamed(Routes.NAVIGATOR);
+
+                    EasyLoading.show(status: 'loading...');
+
+                    // EasyLoading.instance.backgroundColor = Colors.green;
+                    // EasyLoading.showInfo(
+                    //   'Login Successful',
+                    // );
+                  },
                 ),
               ],
             ),

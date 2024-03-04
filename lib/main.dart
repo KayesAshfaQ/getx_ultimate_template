@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:sl_v4/app/core/config/app_theme.dart';
-import 'package:sl_v4/app/core/utils/initial_binding.dart';
 
+import 'app/core/config/app_theme.dart';
+import 'app/core/config/custom_loader_config.dart';
 import 'app/core/localization/localization_service.dart';
+import 'app/core/utils/initial_binding.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
@@ -36,7 +38,17 @@ void main() async {
           getPages: AppPages.routes,
           theme: AppTheme.provideAppTheme(),
           locale: LocalizationService.getCurrentLocal(), // app language
-          translations: LocalizationService.getInstance(), // localization services in app (controller app language)
+          translations: LocalizationService
+              .getInstance(), // localization services in app (controller app language)
+
+          builder: (context, child) {
+            getCustomLoaderInstance();
+
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
+              child: FlutterEasyLoading(child: child!),
+            );
+          },
         );
       },
     ),

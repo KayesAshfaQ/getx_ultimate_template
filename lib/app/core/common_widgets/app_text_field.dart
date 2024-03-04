@@ -14,6 +14,7 @@ enum AppTextFieldType {
   number,
 }
 
+// TODO: Colors needs to be updated according to App color scheme
 class AppTextField extends StatelessWidget {
   const AppTextField({
     super.key,
@@ -115,7 +116,8 @@ class AppTextField extends StatelessWidget {
                         prefixIcon,
                         height: prefixIconSize ?? 20,
                         width: prefixIconSize ?? 20,
-                        colorFilter: ColorFilter.mode(prefixIconColor ?? AppColors.gray.shade400, BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            prefixIconColor ?? AppColors.gray.shade400, BlendMode.srcIn),
                         fit: BoxFit.scaleDown,
                       )
                     : null
@@ -153,7 +155,8 @@ class AppTextField extends StatelessWidget {
                             suffixIcon,
                             height: suffixIconSize ?? 20,
                             width: suffixIconSize ?? 20,
-                            colorFilter: ColorFilter.mode(prefixIconColor ?? AppColors.gray.shade400, BlendMode.srcIn),
+                            colorFilter: ColorFilter.mode(
+                                prefixIconColor ?? AppColors.gray.shade400, BlendMode.srcIn),
                             fit: BoxFit.scaleDown,
                           )
                         : null,

@@ -13,9 +13,8 @@ class ConnectionManagerController extends GetxController {
   final isInternetConnected = true.obs;
   final connectionStatusMessage = "No Internet Connection".obs;
 
-  final connectionType = ConnectionType.wifi.obs;
-
   final _connectivity = Connectivity();
+  final connectionType = ConnectionType.wifi.obs;
 
   late StreamSubscription _streamSubscription;
 
