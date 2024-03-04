@@ -280,11 +280,11 @@ class ApiClient {
   /// from api it will show the reason (the dio message)
   static handleApiError(ApiException apiException) {
     String msg = apiException.toString();
-    AppSnackbars.showCustomToast(message: msg, color: AppColors.errorColor);
+    AppSnackbars.showCustomToast(message: msg, color: AppColors.error);
   }
 
   /// handle errors without response (500, out of time, no internet,..etc)
   static _handleError(String msg) {
-    AppSnackbars.showCustomToast(message: msg, color: AppColors.errorColor);
+    AppSnackbars.showCustomToast(message: msg, color: AppColors.error);
   }
 }

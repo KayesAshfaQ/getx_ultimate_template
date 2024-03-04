@@ -6,8 +6,8 @@ class ShimmerMaker extends StatelessWidget {
   const ShimmerMaker({
     super.key,
     required this.child,
-    this.baseColor = AppColors.shimmerBaseColor,
-    this.highlightColor = AppColors.shimmerHighlightColor,
+    this.baseColor = AppColors.shimmerBase,
+    this.highlightColor = AppColors.shimmerHighlight,
   });
 
   final Widget child;

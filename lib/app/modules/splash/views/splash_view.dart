@@ -14,7 +14,7 @@ class SplashView extends GetView<SplashController> {
       body: Container(
         height: double.maxFinite,
         width: double.maxFinite,
-        color: AppColors.primaryColor,
+        color: AppColors.primary,
         child: const Center(
           child: Text(
             'SPLASH VIEW',

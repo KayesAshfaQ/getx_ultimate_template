@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const MaterialColor primaryColor = MaterialColor(
+  static const MaterialColor primary = MaterialColor(
     0xFFeb1e3a,
     <int, Color>{
       50: Color(0xFFfde9eb),
@@ -17,7 +17,7 @@ class AppColors {
     },
   );
 
-  static const MaterialColor secondaryColor = MaterialColor(
+  static const MaterialColor secondary = MaterialColor(
     0xFF0e0e96,
     <int, Color>{
       50: Color(0xFFe7e7f5),
@@ -33,7 +33,7 @@ class AppColors {
     },
   );
 
-  static const MaterialColor grayColor = MaterialColor(
+  static const MaterialColor gray = MaterialColor(
     0xFF667085,
     <int, Color>{
       50: Color(0xFFf0f1f3),
@@ -60,7 +60,7 @@ class AppColors {
     },
   );
 
-  static const MaterialColor successColor = MaterialColor(
+  static const MaterialColor success = MaterialColor(
     0xFF12b76a,
     <int, Color>{
       50: Color(0xFFe7f8f0),
@@ -76,7 +76,7 @@ class AppColors {
     },
   );
 
-  static const MaterialColor errorColor = MaterialColor(
+  static const MaterialColor error = MaterialColor(
     0xFFf04438,
     <int, Color>{
       50: Color(0xFFfeeceb),
@@ -87,6 +87,6 @@ class AppColors {
   static const white = Color(0xffffffff);
   static const black = Color(0xff000000);
 
-  static const shimmerBaseColor = Color(0xFFD9D9D9);
-  static const shimmerHighlightColor = Color(0xFFF6F6F6);
+  static const shimmerBase = Color(0xFFD9D9D9);
+  static const shimmerHighlight = Color(0xFFF6F6F6);
 }

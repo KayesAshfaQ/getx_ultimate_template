@@ -21,7 +21,7 @@ class SplashController extends GetxController {
 
   navigate() {
     Future.delayed(const Duration(seconds: 2), () {
-      Get.offNamed(Routes.NAVIGATOR);
+      Get.offNamed(Routes.LOGIN);
     });
   }
 }
