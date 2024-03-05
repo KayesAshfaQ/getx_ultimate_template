@@ -249,20 +249,16 @@ class Assets {
   static const AssetGenImage flagsGa = AssetGenImage('assets/flags/ga.png');
 
   /// File path: assets/flags/gb-eng.png
-  static const AssetGenImage flagsGbEng =
-      AssetGenImage('assets/flags/gb-eng.png');
+  static const AssetGenImage flagsGbEng = AssetGenImage('assets/flags/gb-eng.png');
 
   /// File path: assets/flags/gb-nir.png
-  static const AssetGenImage flagsGbNir =
-      AssetGenImage('assets/flags/gb-nir.png');
+  static const AssetGenImage flagsGbNir = AssetGenImage('assets/flags/gb-nir.png');
 
   /// File path: assets/flags/gb-sct.png
-  static const AssetGenImage flagsGbSct =
-      AssetGenImage('assets/flags/gb-sct.png');
+  static const AssetGenImage flagsGbSct = AssetGenImage('assets/flags/gb-sct.png');
 
   /// File path: assets/flags/gb-wls.png
-  static const AssetGenImage flagsGbWls =
-      AssetGenImage('assets/flags/gb-wls.png');
+  static const AssetGenImage flagsGbWls = AssetGenImage('assets/flags/gb-wls.png');
 
   /// File path: assets/flags/gb.png
   static const AssetGenImage flagsGb = AssetGenImage('assets/flags/gb.png');
@@ -789,6 +785,12 @@ class Assets {
   /// File path: assets/icons/cart.svg
   static const SvgGenImage iconsCart = SvgGenImage('assets/icons/cart.svg');
 
+  /// File path: assets/icons/change_language.svg
+  static const SvgGenImage iconsChangeLanguage = SvgGenImage('assets/icons/change_language.svg');
+
+  /// File path: assets/icons/change_password.svg
+  static const SvgGenImage iconsChangePassword = SvgGenImage('assets/icons/change_password.svg');
+
   /// File path: assets/icons/chat.svg
   static const SvgGenImage iconsChat = SvgGenImage('assets/icons/chat.svg');
 
@@ -798,8 +800,39 @@ class Assets {
   /// File path: assets/icons/home.svg
   static const SvgGenImage iconsHome = SvgGenImage('assets/icons/home.svg');
 
+  /// File path: assets/icons/logout.svg
+  static const SvgGenImage iconsLogout = SvgGenImage('assets/icons/logout.svg');
+
+  /// File path: assets/icons/manage_shipping_address.svg
+  static const SvgGenImage iconsManageShippingAddress =
+      SvgGenImage('assets/icons/manage_shipping_address.svg');
+
+  /// File path: assets/icons/my_wishList.svg
+  static const SvgGenImage iconsMyWishList = SvgGenImage('assets/icons/my_wishList.svg');
+
+  /// File path: assets/icons/notifications.svg
+  static const SvgGenImage iconsNotifications = SvgGenImage('assets/icons/notifications.svg');
+
+  /// File path: assets/icons/payment_method.svg
+  static const SvgGenImage iconsPaymentMethod = SvgGenImage('assets/icons/payment_method.svg');
+
+  /// File path: assets/icons/purchase_history.svg
+  static const SvgGenImage iconsPurchaseHistory = SvgGenImage('assets/icons/purchase_history.svg');
+
+  /// File path: assets/icons/refund_requests.svg
+  static const SvgGenImage iconsRefundRequests = SvgGenImage('assets/icons/refund_requests.svg');
+
   /// File path: assets/icons/search.svg
   static const SvgGenImage iconsSearch = SvgGenImage('assets/icons/search.svg');
+
+  /// File path: assets/icons/support_ticket.svg
+  static const SvgGenImage iconsSupportTicket = SvgGenImage('assets/icons/support_ticket.svg');
+
+  /// File path: assets/icons/terms_conditions.svg
+  static const SvgGenImage iconsTermsConditions = SvgGenImage('assets/icons/terms_conditions.svg');
+
+  /// File path: assets/icons/track_orders_icon.svg
+  static const SvgGenImage iconsTrackOrdersIcon = SvgGenImage('assets/icons/track_orders_icon.svg');
 
   /// File path: assets/icons/user.svg
   static const SvgGenImage iconsUser = SvgGenImage('assets/icons/user.svg');
@@ -1063,10 +1096,22 @@ class Assets {
         flagsZm,
         flagsZw,
         iconsCart,
+        iconsChangeLanguage,
+        iconsChangePassword,
         iconsChat,
         iconsHeart,
         iconsHome,
+        iconsLogout,
+        iconsManageShippingAddress,
+        iconsMyWishList,
+        iconsNotifications,
+        iconsPaymentMethod,
+        iconsPurchaseHistory,
+        iconsRefundRequests,
         iconsSearch,
+        iconsSupportTicket,
+        iconsTermsConditions,
+        iconsTrackOrdersIcon,
         iconsUser
       ];
 }
