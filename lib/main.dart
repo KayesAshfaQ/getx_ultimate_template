@@ -19,7 +19,6 @@ void main() async {
   await GetStorage.init();
 
   // TODO: initialize firebase
-  // TODO : initialize easy loading (optional)
 
   runApp(
     ScreenUtilInit(

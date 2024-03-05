@@ -24,6 +24,8 @@ enum RequestType {
 }
 
 // TODO: loader show/hide on api call from client
+// TODO: retry on error
+// TODO: header customization (isMobile: ture, )
 
 class ApiClient {
   static final Dio _dio = Dio(
@@ -68,7 +70,8 @@ class ApiClient {
 
       // check the internet connection before making the api call (if there is no internet connection, then return)
       if (!connectionManager.isInternetConnected.value) {
-        printLog('internet connection status: ${connectionManager.connectionStatusMessage.value}', level: Level.error);
+        printLog('internet connection status: ${connectionManager.connectionStatusMessage.value}',
+            level: Level.error);
         return;
       }
 
@@ -185,7 +188,8 @@ class ApiClient {
   }
 
   /// handle unexpected error
-  static _handleUnexpectedException({Function(ApiException)? onError, required String url, required Object error}) {
+  static _handleUnexpectedException(
+      {Function(ApiException)? onError, required String url, required Object error}) {
     if (onError != null) {
       onError(ApiException(
         message: error.toString(),
@@ -221,7 +225,8 @@ class ApiClient {
   }
 
   /// handle Dio error
-  static _handleDioError({required DioException error, Function(ApiException)? onError, required String url}) {
+  static _handleDioError(
+      {required DioException error, Function(ApiException)? onError, required String url}) {
     // 404 error
     if (error.response?.statusCode == 404) {
       if (onError != null) {
