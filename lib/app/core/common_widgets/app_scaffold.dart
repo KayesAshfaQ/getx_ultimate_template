@@ -19,8 +19,8 @@ class AppScaffold extends StatelessWidget {
   /// - `endDrawer`: The end drawer displayed at the opposite side of the scaffold.
   /// - `bodyPadding`: The padding for the body content.
   /// - `resizeToAvoidBottomInset`: Whether the body should resize when the keyboard appears.
-  /// - `useSafeArea`: Whether to use safe area.
-  /// - `backgroundColor`: The background color of the scaffold.
+  /// - `useSafeArea`: Whether to use safe area. Default value is true.
+  /// - `backgroundColor`: The background color of the scaffold. If no background color is given or `null`, then the background will be gradient.
   /// - `extendBodyBehindAppBar`: Whether the body content should extend behind the app bar.
   /// - `bottomNavigationBar`: The bottom navigation bar displayed at the bottom of the scaffold.
   /// - `bottomSheet`: The bottom sheet displayed at the bottom of the scaffold.
@@ -59,44 +59,21 @@ class AppScaffold extends StatelessWidget {
   });
 
   final PreferredSizeWidget? appBar;
-
   final Widget? body;
-
   final Widget? floatingActionButton;
-
   final Widget? drawer;
-
   final Widget? endDrawer;
-
-  ///padding will be added to the body of the scaffold.
   final EdgeInsets? bodyPadding;
-
   final bool? resizeToAvoidBottomInset;
-
-  ///bool value to decide if the body should be warped inside SafeArea widget
-  ///
-  ///Default value is true.
   final bool useSafeArea;
-
   final Key? scaffoldKey;
-
-  /// This color will be the background color of the scaffold.
-  ///
-  /// If no background color is given or `null`, then the background will be gradient.
   final Color? backgroundColor;
-
   final bool extendBodyBehindAppBar;
-
   final Widget? bottomNavigationBar;
-
   final Widget? bottomSheet;
-
   final bool? extendBody;
-
   final FloatingActionButtonLocation? floatingActionButtonLocation;
-
   final Brightness statusBarBrightness;
-
   final Brightness navigationBarBrightness;
 
   @override
