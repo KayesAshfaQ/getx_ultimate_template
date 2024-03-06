@@ -1,11 +1,6 @@
 import 'package:get/get.dart';
 
-import '../../../core/base/base_controller.dart';
-
-class ProfileController extends BaseController {
-  //TODO: Implement ProfileController
-
-  final count = 0.obs;
+class ProfileController extends GetxController {
   @override
   void onInit() {
     super.onInit();
@@ -20,6 +15,4 @@ class ProfileController extends BaseController {
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 }

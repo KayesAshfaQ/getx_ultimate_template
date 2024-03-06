@@ -19,7 +19,7 @@ dart line length: 999 (for now)
 
 ## Git Commit Message Conventions
 
-When committing changes, we follow certain conventions to make our commit messages more readable and useful. Here are the types of commits we use:
+When committing changes, we follow certain conventions to make our commit messages more readable and useful. Here are the types of commits we must use:
 
 - `feat`: A new feature is introduced with the changes.
 - `fix`: A bug fix has occurred.
@@ -34,3 +34,13 @@ When committing changes, we follow certain conventions to make our commit messag
 - `revert`: Reverts a previous commit.
 
 By following these conventions, we can maintain a clean and understandable commit history.
+
+## Using FlutterGen for Asset Management
+
+FlutterGen is a tool that generates type-safe asset paths for your Flutter project. To use FlutterGen, follow these steps:
+
+```bash
+dart run build_runner build
+```
+
+By using `build_runner` , we can generate asset paths in your Dart code to refer to your assets in a type-safe manner.

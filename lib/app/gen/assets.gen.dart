@@ -782,6 +782,9 @@ class Assets {
   /// File path: assets/flags/zw.png
   static const AssetGenImage flagsZw = AssetGenImage('assets/flags/zw.png');
 
+  /// File path: assets/icons/back.svg
+  static const SvgGenImage iconsBack = SvgGenImage('assets/icons/back.svg');
+
   /// File path: assets/icons/cart.svg
   static const SvgGenImage iconsCart = SvgGenImage('assets/icons/cart.svg');
 
@@ -804,8 +807,7 @@ class Assets {
   static const SvgGenImage iconsLogout = SvgGenImage('assets/icons/logout.svg');
 
   /// File path: assets/icons/manage_shipping_address.svg
-  static const SvgGenImage iconsManageShippingAddress =
-      SvgGenImage('assets/icons/manage_shipping_address.svg');
+  static const SvgGenImage iconsManageShippingAddress = SvgGenImage('assets/icons/manage_shipping_address.svg');
 
   /// File path: assets/icons/my_wishList.svg
   static const SvgGenImage iconsMyWishList = SvgGenImage('assets/icons/my_wishList.svg');
@@ -1095,6 +1097,7 @@ class Assets {
         flagsZa,
         flagsZm,
         flagsZw,
+        iconsBack,
         iconsCart,
         iconsChangeLanguage,
         iconsChangePassword,
