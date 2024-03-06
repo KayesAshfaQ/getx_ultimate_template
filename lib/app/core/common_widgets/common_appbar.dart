@@ -8,13 +8,33 @@ import 'app_image_view.dart';
 import 'ripple_view.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final int cartItemCount;
-  final bool showElevation;
-  final Color? backgroundColor;
-  final bool showBackButton;
-  final VoidCallback? onBackButtonPressed;
-  final VoidCallback? onCartPressed;
-
+  /// `CommonAppBar` is a custom AppBar widget that provides a consistent AppBar
+  /// across the application with a back button, search field, and a cart action.
+  ///
+  /// This widget takes several parameters:
+  /// * `cartItemCount`: The number of items in the cart. Defaults to 0.
+  /// * `showElevation`: A boolean to control the display of the shadow. Defaults to true.
+  /// * `backgroundColor`: The color of the AppBar. Defaults to AppColors.white.
+  /// * `showBackButton`: A boolean to control the display of the back button. Defaults to true.
+  /// * `onBackButtonPressed`: A callback function that is called when the back button is pressed.
+  /// * `onCartPressed`: A callback function that is called when the cart button is pressed.
+  ///
+  /// The `CommonAppBar` implements `PreferredSizeWidget` and has a preferred size of `kToolbarHeight`.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// CommonAppBar(
+  ///   cartItemCount: 5,
+  ///   showElevation: true,
+  ///   showBackButton: true,
+  ///   backgroundColor: AppColors.white,
+  ///   onBackButtonPressed: () => Navigator.of(context).pop(),
+  ///   onCartPressed: () => Navigator.of(context).pushNamed('/cart'),
+  /// )
+  /// ```
+  ///
+  /// Note: The `onBackButtonPressed` and `onCartPressed` callbacks default to popping the current screen
+  /// and navigating to the cart screen respectively if not provided.
   const CommonAppBar({
     super.key,
     this.cartItemCount = 0,
@@ -24,6 +44,13 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onBackButtonPressed,
     this.onCartPressed,
   });
+
+  final int cartItemCount;
+  final bool showElevation;
+  final Color? backgroundColor;
+  final bool showBackButton;
+  final VoidCallback? onBackButtonPressed;
+  final VoidCallback? onCartPressed;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
