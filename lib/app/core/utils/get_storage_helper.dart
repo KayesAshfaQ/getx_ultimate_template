@@ -1,6 +1,9 @@
 import 'package:get_storage/get_storage.dart';
 
 class GetStorageHelper {
+
+  GetStorageHelper._();
+
   static final GetStorage _box = GetStorage();
 
   static dynamic get(String key) {

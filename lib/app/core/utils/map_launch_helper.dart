@@ -5,6 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MapsLaunchHelper {
+
+  MapsLaunchHelper._();
+
   /// Returns a [Uri] that can be launched on the current platform
   /// to open a maps application showing the result of a search query.
   static Uri createQueryUri(String query) {
