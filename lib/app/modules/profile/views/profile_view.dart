@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:sl_v4/app/core/base/base_view.dart';
-import 'package:sl_v4/app/core/common_widgets/app_image_viewer.dart';
+import 'package:sl_v4/app/core/common_widgets/app_image_view.dart';
 import 'package:sl_v4/app/core/utils/print_log.dart';
 
 import '../../../core/config/app_colors.dart';
@@ -65,7 +65,7 @@ class ProfileView extends BaseView<ProfileController> {
                     ),
                     margin: REdgeInsets.all(4),
                     child: ClipRRect(
-                      child: AppImageViewer(
+                      child: AppImageView(
                         Assets.iconsHeart.path, // TODO: Add user image
                       ),
                     ),
@@ -114,7 +114,7 @@ class ProfileView extends BaseView<ProfileController> {
                       ),
                       TextButton.icon(
                         onPressed: () {},
-                        icon: AppImageViewer(
+                        icon: AppImageView(
                           Assets.iconsHeart.path, // TODO: Add star icon
                         ),
                         label: Text(
