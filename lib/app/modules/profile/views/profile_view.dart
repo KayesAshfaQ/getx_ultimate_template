@@ -22,6 +22,7 @@ class ProfileView extends GetView<ProfileController> {
     return AppScaffold(
       appBar: const CommonAppBar(
         cartItemCount: 16,
+        showBackButton: false,
       ),
       body: Padding(
         padding: REdgeInsets.only(bottom: 35, top: 24, right: 16, left: 16),

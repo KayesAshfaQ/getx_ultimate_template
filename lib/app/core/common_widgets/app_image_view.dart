@@ -76,17 +76,7 @@ class AppImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (path.isEmpty) {
-      return Container(
-        height: height,
-        width: width ?? height,
-        decoration: BoxDecoration(
-          shape: isImageCircular ? BoxShape.circle : BoxShape.rectangle,
-          image: DecorationImage(
-            image: AssetImage(errorImage),
-            fit: BoxFit.cover,
-          ),
-        ),
-      );
+      return _imageWidget(AssetImage(errorImage));
     } else if (path.startsWith('http') || path.startsWith('https')) {
       return CachedNetworkImage(
         imageUrl: path,

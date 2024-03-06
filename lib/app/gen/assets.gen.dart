@@ -839,6 +839,9 @@ class Assets {
   /// File path: assets/icons/user.svg
   static const SvgGenImage iconsUser = SvgGenImage('assets/icons/user.svg');
 
+  /// File path: assets/images/pp.jpeg
+  static const AssetGenImage imagesPp = AssetGenImage('assets/images/pp.jpeg');
+
   /// List of all assets
   static List<dynamic> get values => [
         flagsAd,
@@ -1115,7 +1118,8 @@ class Assets {
         iconsSupportTicket,
         iconsTermsConditions,
         iconsTrackOrdersIcon,
-        iconsUser
+        iconsUser,
+        imagesPp
       ];
 }
 

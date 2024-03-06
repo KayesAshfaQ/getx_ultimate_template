@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sl_v4/app/core/common_widgets/app_image_view.dart';
-import 'package:sl_v4/app/core/config/app_colors.dart';
-import 'package:sl_v4/app/gen/assets.gen.dart';
 
+import '../../gen/assets.gen.dart';
 import '../../gen/fonts.gen.dart';
+import '../config/app_colors.dart';
+import 'app_image_view.dart';
+import 'ripple_view.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int cartItemCount;
   final bool showElevation;
   final Color? backgroundColor;
+  final bool showBackButton;
+  final VoidCallback? onBackButtonPressed;
+  final VoidCallback? onCartPressed;
 
   const CommonAppBar({
     super.key,
     this.cartItemCount = 0,
     this.showElevation = true,
+    this.showBackButton = true,
     this.backgroundColor = AppColors.white,
+    this.onBackButtonPressed,
+    this.onCartPressed,
   });
 
   @override
@@ -52,14 +59,25 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       child: Row(children: [
         // ---------------- Back Button ----------------
-        Container(
-          padding: REdgeInsets.symmetric(horizontal: 16),
-          alignment: Alignment.centerLeft,
-          child: AppImageView(
-            Assets.iconsBack.path,
-            height: 16.h,
-          ),
-        ),
+        showBackButton
+            ? Container(
+                margin: REdgeInsets.symmetric(horizontal: 8),
+                alignment: Alignment.centerLeft,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: RippleView(
+                  onTap: onBackButtonPressed ?? () => Navigator.of(context).pop(),
+                  isCircular: true,
+                  padding: 8,
+                  child: AppImageView(
+                    Assets.iconsBack.path,
+                    height: 16.h,
+                    isImageCircular: true,
+                  ),
+                ),
+              )
+            : SizedBox(width: 16.w),
 
         // ---------------- Search Field ----------------
         Expanded(
@@ -89,37 +107,44 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         // ---------------- Cart Action ----------------
         Container(
           alignment: Alignment.centerRight,
-          padding: REdgeInsets.symmetric(horizontal: 16),
-          child: Stack(
-            children: <Widget>[
-              AppImageView(
-                Assets.iconsCart.path,
-                height: 24.h,
-              ),
-              if (cartItemCount > 0)
-                Positioned(
-                  right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(1),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: const BoxConstraints(
-                      minWidth: 12,
-                      minHeight: 12,
-                    ),
-                    child: Text(
-                      '$cartItemCount',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 8,
+          padding: REdgeInsets.symmetric(horizontal: 12),
+          child: RippleView(
+            onTap: onCartPressed ??
+                () {
+                  // TODO: Navigate to cart screen
+                },
+            isCircular: true,
+            child: Stack(
+              children: <Widget>[
+                AppImageView(
+                  Assets.iconsCart.path,
+                  height: 24.h,
+                ),
+                if (cartItemCount > 0)
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      padding: const EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                      textAlign: TextAlign.center,
+                      constraints: const BoxConstraints(
+                        minWidth: 12,
+                        minHeight: 12,
+                      ),
+                      child: Text(
+                        '$cartItemCount',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 8,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ]),
