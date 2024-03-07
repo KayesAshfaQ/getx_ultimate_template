@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dio/dio.dart';
 
 class ApiException implements Exception {
@@ -12,6 +13,20 @@ class ApiException implements Exception {
     this.response,
     this.statusCode,
   });
+
+  ApiException copyWith({
+    String? url,
+    String? message,
+    int? statusCode,
+    Response? response,
+  }) {
+    return ApiException(
+      url: url ?? this.url,
+      message: message ?? this.message,
+      statusCode: statusCode ?? this.statusCode,
+      response: response ?? this.response,
+    );
+  }
 
   /// IMPORTANT NOTE
   /// here you can take advantage of toString() method to display the error for user

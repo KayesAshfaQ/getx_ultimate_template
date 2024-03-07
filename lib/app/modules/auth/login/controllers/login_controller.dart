@@ -1,5 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sl_v4/app/core/utils/misc.dart';
+import 'package:sl_v4/app/data/repository/auth_repository.dart';
+
+import '../../../../core/utils/get_storage_helper.dart';
+import '../../../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -11,6 +17,11 @@ class LoginController extends GetxController {
 
   @override
   void onInit() {
+    if (kDebugMode) {
+      emailController.text = 'shishir@gmail.com';
+      passwordController.text = 'Usb123456@';
+    }
+
     super.onInit();
   }
 
@@ -22,5 +33,16 @@ class LoginController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void onPressLogin() async {
+    final res = await AuthRepository.login(emailController.text, passwordController.text);
+
+    if (res != null) {
+      final token = GetStorageHelper.get<String>('key');
+      printLog(token!);
+
+      Get.offAllNamed(Routes.NAVIGATOR);
+    }
   }
 }

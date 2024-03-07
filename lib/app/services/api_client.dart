@@ -24,9 +24,9 @@ enum RequestType {
   delete,
 }
 
-// TODO: loader show/hide on api call from client
 // TODO: retry on error
-// TODO: header customization (isMobile: ture, )
+// TODO: header customization (isMobile: ture, etc.)
+// TODO: caching mechanism
 
 class ApiClient {
   static final Dio _dio = Dio(
@@ -51,27 +51,27 @@ class ApiClient {
   /// dio getter (used for testing)
   static get dio => _dio;
 
+  /// connection manager
+  /// used to check the internet connection before making the api call
+  static final _connectionManager = Get.find<ConnectionManagerController>();
+
   /// perform safe api request
-  static Future<Result<Response, ApiException>> call(
+  static Future<Result<Response<String>, ApiException>> call(
     String url,
     RequestType requestType, {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
-    Function(ApiException)? onError, // if you want to handle the error manually
     Function(int value, int progress)? onReceiveProgress,
     Function(int total, int progress)? onSendProgress, // while sending (uploading) progress
-    bool showLoader = false,
-    bool isAuthorized = true,
-    bool showLog = false,
+    bool isAuthorizationRequired = true,
+    bool isLoaderRequired = false,
+    bool isLogRequired = false,
+    bool isErrorToastRequired = true,
     dynamic data,
   }) async {
     try {
-      final connectionManager = Get.find<ConnectionManagerController>();
-
       // check the internet connection before making the api call (if there is no internet connection, then return)
-      if (!connectionManager.isInternetConnected.value) {
-        Utils.printLog('internet connection status: ${connectionManager.connectionStatusMessage.value}',
-            level: Level.error);
+      if (!_checkInternetConnection()) {
         return Result.error(
           ApiException(
             message: Strings.noInternetConnection.tr,
@@ -81,10 +81,10 @@ class ApiClient {
       }
 
       // add pretty logger if showLog is true
-      _dio.interceptors.addIf(showLog, _prettyDioLog);
+      _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
 
       // if the api is authorized, then add token to the header
-      if (isAuthorized) {
+      if (isAuthorizationRequired) {
         //Get token from local
         final String? token = GetStorageHelper.get(authTokenKey);
 
@@ -96,10 +96,12 @@ class ApiClient {
       }
 
       // 1) indicate loading state
-      if (showLoader) Utils.showLoader;
+      if (isLoaderRequired) {
+        showLoader();
+      }
 
       // 2) try to perform http request
-      late Response response;
+      late Response<String> response;
       if (requestType == RequestType.get) {
         response = await _dio.get(
           url,
@@ -143,48 +145,73 @@ class ApiClient {
           options: Options(headers: headers),
         );
       }
-      // 3) return response (api done successfully)
+
+      // 3) hide loader if it's showing
+      if (isLoaderRequired) hideLoader();
+
+      // 4) return response (api done successfully)
       return Result.success(response);
     } on DioException catch (error) {
       // dio error (api reach the server but not performed successfully
-      _handleDioError(error: error, url: url, onError: onError);
+      return _handleDioError(error: error, url: url, isErrorToastRequired: isErrorToastRequired);
     } on SocketException {
       // No internet connection
-      _handleSocketException(url: url, onError: onError);
+      return _handleSocketException(url: url, isErrorToastRequired: isErrorToastRequired);
     } on TimeoutException {
       // Api call went out of time
-      _handleTimeoutException(url: url, onError: onError);
+      return _handleTimeoutException(url: url, isErrorToastRequired: isErrorToastRequired);
     } catch (error, stackTrace) {
       // print the line of code that throw unexpected exception
-      Logger().e(stackTrace);
+      printLog(error.toString(), level: Level.error, stackTrace: stackTrace);
       // unexpected error for example (parsing json error)
-      _handleUnexpectedException(url: url, onError: onError, error: error);
+      return _handleUnexpectedException(
+        url: url,
+        error: error,
+        isErrorToastRequired: isErrorToastRequired,
+      );
     }
+  }
 
-    // hide loader if it's showing
-    if(showLoader) Utils.hideLoader();
-
-    
-
-    return Result.error(ApiException(message: 'Unknown Error', url: url));
+  static bool _checkInternetConnection() {
+    // check the internet connection before making the api call (if there is no internet connection, then return)
+    if (!_connectionManager.isInternetConnected.value) {
+      printLog(
+        'internet connection status: ${_connectionManager.connectionStatusMessage.value}',
+        level: Level.error,
+      );
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /// download file
-  static download({
+  static Future<Result<Response, ApiException>> download({
     required String url, // file url
     required String savePath, // where to save file
-    Function(ApiException)? onError,
     Function(int value, int progress)? onReceiveProgress,
-    required Function onSuccess,
-    bool showLog = true,
+    bool isLogRequired = false,
+    bool isLoaderRequired = false,
+    bool isErrorToastRequired = true,
   }) async {
     try {
-      // TODO: check the internet connection before making the api call (if there is no internet connection, then return)
+      // check the internet connection before making the api call (if there is no internet connection, then return)
+      if (!_checkInternetConnection()) {
+        return Result.error(
+          ApiException(
+            message: Strings.noInternetConnection.tr,
+            url: url,
+          ),
+        );
+      }
 
       // add pretty logger if showLog is true
-      _dio.interceptors.addIf(showLog, _prettyDioLog);
+      _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
 
-      await _dio.download(
+      // indicate loading state
+      if (isLoaderRequired) showLoader();
+
+      final response = await _dio.download(
         url,
         savePath,
         options: Options(
@@ -192,118 +219,112 @@ class ApiClient {
             sendTimeout: const Duration(seconds: _timeoutInSeconds)),
         onReceiveProgress: onReceiveProgress,
       );
-      onSuccess();
+
+      return Result.success(response);
     } catch (error) {
-      var exception = ApiException(url: url, message: error.toString());
-      onError?.call(exception) ?? _handleError(error.toString(), url);
+      final exception = ApiException(url: url, message: error.toString());
+      return _handleError(showToast: isErrorToastRequired, exception);
     }
   }
 
   /// handle unexpected error
-  static _handleUnexpectedException(
-      {Function(ApiException)? onError, required String url, required Object error}) {
-    if (onError != null) {
-      onError(ApiException(
+  static _handleUnexpectedException({
+    required String url,
+    required Object error,
+    required bool isErrorToastRequired,
+  }) {
+    _handleError(
+      showToast: isErrorToastRequired,
+      ApiException(
         message: error.toString(),
         url: url,
-      ));
-    } else {
-      _handleError(error.toString(), url);
-    }
+      ),
+    );
   }
 
   /// handle timeout exception
-  static _handleTimeoutException({Function(ApiException)? onError, required String url}) {
-    if (onError != null) {
-      onError(ApiException(
+  static _handleTimeoutException({required String url, required bool isErrorToastRequired}) {
+    _handleError(
+      showToast: isErrorToastRequired,
+      ApiException(
         message: Strings.serverNotResponding.tr,
         url: url,
-      ));
-    } else {
-      _handleError(Strings.serverNotResponding.tr, url);
-    }
+      ),
+    );
   }
 
-  /// handle timeout exception
-  static _handleSocketException({Function(ApiException)? onError, required String url}) {
-    if (onError != null) {
-      onError(ApiException(
+  /// handle no internet connection exception
+  static _handleSocketException({
+    Function(ApiException)? onError,
+    required String url,
+    required bool isErrorToastRequired,
+  }) {
+    return _handleError(
+      showToast: isErrorToastRequired,
+      ApiException(
         message: Strings.noInternetConnection.tr,
         url: url,
-      ));
-    } else {
-      _handleError(Strings.noInternetConnection.tr, url);
-    }
+      ),
+    );
   }
 
   /// handle Dio error
-  static _handleDioError(
-      {required DioException error, Function(ApiException)? onError, required String url}) {
+  static _handleDioError({
+    required DioException error,
+    required String url,
+    required bool isErrorToastRequired,
+  }) {
     // 404 error
     if (error.response?.statusCode == 404) {
-      if (onError != null) {
-        return onError(ApiException(
+      return _handleError(
+        showToast: isErrorToastRequired,
+        ApiException(
           message: Strings.urlNotFound.tr,
           url: url,
           statusCode: 404,
-        ));
-      } else {
-        return _handleError(Strings.urlNotFound.tr, url);
-      }
+        ),
+      );
     }
 
     // no internet connection
     if (error.message != null && error.message!.toLowerCase().contains('socket')) {
-      if (onError != null) {
-        return onError(ApiException(
-          message: Strings.noInternetConnection.tr,
-          url: url,
-        ));
-      } else {
-        return _handleError(Strings.noInternetConnection.tr, url);
-      }
+      return _handleSocketException;
     }
 
     // check if the error is 500 (server problem)
     if (error.response?.statusCode == 500) {
-      var exception = ApiException(
-        message: Strings.serverError.tr,
-        url: url,
-        statusCode: 500,
-        response: error.response,
+      return _handleError(
+        showToast: isErrorToastRequired,
+        ApiException(
+          message: Strings.serverError.tr,
+          url: url,
+          statusCode: 500,
+          response: error.response,
+        ),
       );
-
-      if (onError != null) {
-        return onError(exception);
-      } else {
-        return handleApiError(exception);
-      }
     }
 
-    var exception = ApiException(
+    return _handleError(
+      showToast: isErrorToastRequired,
+      ApiException(
         url: url,
         message: error.message ?? 'Un Expected Api Error!',
         response: error.response,
-        statusCode: error.response?.statusCode);
-    if (onError != null) {
-      return onError(exception);
-    } else {
-      return handleApiError(exception);
-    }
+        statusCode: error.response?.statusCode,
+      ),
+    );
   }
 
   /// handle error automatically (if user didn't pass onError) method
   /// it will try to show the message from api if there is no message
   /// from api it will show the reason (the dio message)
-  static handleApiError(ApiException apiException) {
+  static _handleError(ApiException apiException, {required bool showToast}) {
     String msg = apiException.toString();
     AppSnackbars.showCustomToast(message: msg, color: AppColors.error);
-    return Result.error(apiException);
-  }
 
-  /// handle errors without response (500, out of time, no internet,..etc)
-  static _handleError(String msg, String url) {
-    AppSnackbars.showCustomToast(message: msg, color: AppColors.error);
-    return Result.error(ApiException(message: msg, url: url));
+    // hide loader again in case error occurred and a loader still showing
+    hideLoader();
+
+    return Result.error(apiException);
   }
 }

@@ -47,15 +47,12 @@ class LoginView extends GetView<LoginController> {
                 24.verticalSpace,
                 AppButton(
                   buttonText: 'Login',
+                  buttonTextStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: Colors.white,
+                      ),
                   onTap: () {
-                    Get.offAllNamed(Routes.NAVIGATOR);
-
-                    EasyLoading.show(status: 'loading...');
-
-                    // EasyLoading.instance.backgroundColor = Colors.green;
-                    // EasyLoading.showInfo(
-                    //   'Login Successful',
-                    // );
+                    //Get.offAllNamed(Routes.NAVIGATOR);
+                    controller.onPressLogin();
                   },
                 ),
               ],

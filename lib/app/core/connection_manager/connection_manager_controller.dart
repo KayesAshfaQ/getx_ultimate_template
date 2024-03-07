@@ -38,7 +38,7 @@ class ConnectionManagerController extends GetxController {
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
-      Utils.printLog("PlatformException", error: e);
+      printLog("PlatformException", error: e);
 
       return _updateConnectivityState(result);
     }

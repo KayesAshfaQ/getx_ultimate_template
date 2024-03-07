@@ -229,7 +229,7 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                       ProfileRow(
                         onTap: () {
-                          Utils.printLog('Changes Language Called!');
+                          printLog('Changes Language Called!');
                           LocalizationService.updateLanguage(
                             LocalizationService.getCurrentLocal().languageCode == 'en'
                                 ? 'bn'
