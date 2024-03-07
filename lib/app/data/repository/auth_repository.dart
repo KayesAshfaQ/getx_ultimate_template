@@ -10,6 +10,7 @@ class AuthRepository {
     final res = await ApiClient.call(
       'http://192.168.145.167:9040/api/v1/customer/auth/login',
       RequestType.post,
+      isAuthorizationRequired: false,
       isLoaderRequired: true,
       isLogRequired: true,
       data: {

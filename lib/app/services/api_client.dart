@@ -254,7 +254,7 @@ class ApiClient {
   }
 
   /// handle no internet connection exception
-  static _handleSocketException({
+  static Result<Response<String>, ApiException> _handleSocketException({
     Function(ApiException)? onError,
     required String url,
     required bool isErrorToastRequired,
@@ -269,7 +269,7 @@ class ApiClient {
   }
 
   /// handle Dio error
-  static _handleDioError({
+  static Result<Response<String>, ApiException> _handleDioError({
     required DioException error,
     required String url,
     required bool isErrorToastRequired,
@@ -288,7 +288,7 @@ class ApiClient {
 
     // no internet connection
     if (error.message != null && error.message!.toLowerCase().contains('socket')) {
-      return _handleSocketException;
+      return _handleSocketException(isErrorToastRequired: isErrorToastRequired, url: url);
     }
 
     // check if the error is 500 (server problem)
@@ -318,7 +318,8 @@ class ApiClient {
   /// handle error automatically (if user didn't pass onError) method
   /// it will try to show the message from api if there is no message
   /// from api it will show the reason (the dio message)
-  static _handleError(ApiException apiException, {required bool showToast}) {
+  static Result<Response<String>, ApiException> _handleError(ApiException apiException,
+      {required bool showToast}) {
     String msg = apiException.toString();
     AppSnackbars.showCustomToast(message: msg, color: AppColors.error);
 
