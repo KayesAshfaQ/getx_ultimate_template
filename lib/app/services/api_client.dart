@@ -8,7 +8,8 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:sl_v4/app/core/common_widgets/app_snackbars.dart';
 import 'package:sl_v4/app/core/config/app_colors.dart';
 import 'package:sl_v4/app/core/utils/get_storage_helper.dart';
-import 'package:sl_v4/app/core/utils/print_log.dart';
+import 'package:sl_v4/app/core/utils/misc.dart';
+import 'package:sl_v4/app/services/result.dart';
 
 import '../core/config/app_constants.dart';
 import '../core/connection_manager/connection_manager_controller.dart';
@@ -51,16 +52,15 @@ class ApiClient {
   static get dio => _dio;
 
   /// perform safe api request
-  static safeApiCall(
+  static Future<Result<Response, ApiException>> call(
     String url,
     RequestType requestType, {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? queryParameters,
-    required Function(Response response) onSuccess,
-    Function(ApiException)? onError,
+    Function(ApiException)? onError, // if you want to handle the error manually
     Function(int value, int progress)? onReceiveProgress,
     Function(int total, int progress)? onSendProgress, // while sending (uploading) progress
-    Function? onLoading,
+    bool showLoader = false,
     bool isAuthorized = true,
     bool showLog = false,
     dynamic data,
@@ -70,9 +70,14 @@ class ApiClient {
 
       // check the internet connection before making the api call (if there is no internet connection, then return)
       if (!connectionManager.isInternetConnected.value) {
-        printLog('internet connection status: ${connectionManager.connectionStatusMessage.value}',
+        Utils.printLog('internet connection status: ${connectionManager.connectionStatusMessage.value}',
             level: Level.error);
-        return;
+        return Result.error(
+          ApiException(
+            message: Strings.noInternetConnection.tr,
+            url: url,
+          ),
+        );
       }
 
       // add pretty logger if showLog is true
@@ -91,7 +96,7 @@ class ApiClient {
       }
 
       // 1) indicate loading state
-      await onLoading?.call();
+      if (showLoader) Utils.showLoader;
 
       // 2) try to perform http request
       late Response response;
@@ -139,7 +144,7 @@ class ApiClient {
         );
       }
       // 3) return response (api done successfully)
-      return await onSuccess(response);
+      return Result.success(response);
     } on DioException catch (error) {
       // dio error (api reach the server but not performed successfully
       _handleDioError(error: error, url: url, onError: onError);
@@ -155,6 +160,13 @@ class ApiClient {
       // unexpected error for example (parsing json error)
       _handleUnexpectedException(url: url, onError: onError, error: error);
     }
+
+    // hide loader if it's showing
+    if(showLoader) Utils.hideLoader();
+
+    
+
+    return Result.error(ApiException(message: 'Unknown Error', url: url));
   }
 
   /// download file
@@ -183,7 +195,7 @@ class ApiClient {
       onSuccess();
     } catch (error) {
       var exception = ApiException(url: url, message: error.toString());
-      onError?.call(exception) ?? _handleError(error.toString());
+      onError?.call(exception) ?? _handleError(error.toString(), url);
     }
   }
 
@@ -196,7 +208,7 @@ class ApiClient {
         url: url,
       ));
     } else {
-      _handleError(error.toString());
+      _handleError(error.toString(), url);
     }
   }
 
@@ -208,7 +220,7 @@ class ApiClient {
         url: url,
       ));
     } else {
-      _handleError(Strings.serverNotResponding.tr);
+      _handleError(Strings.serverNotResponding.tr, url);
     }
   }
 
@@ -220,7 +232,7 @@ class ApiClient {
         url: url,
       ));
     } else {
-      _handleError(Strings.noInternetConnection.tr);
+      _handleError(Strings.noInternetConnection.tr, url);
     }
   }
 
@@ -236,7 +248,7 @@ class ApiClient {
           statusCode: 404,
         ));
       } else {
-        return _handleError(Strings.urlNotFound.tr);
+        return _handleError(Strings.urlNotFound.tr, url);
       }
     }
 
@@ -248,7 +260,7 @@ class ApiClient {
           url: url,
         ));
       } else {
-        return _handleError(Strings.noInternetConnection.tr);
+        return _handleError(Strings.noInternetConnection.tr, url);
       }
     }
 
@@ -286,10 +298,12 @@ class ApiClient {
   static handleApiError(ApiException apiException) {
     String msg = apiException.toString();
     AppSnackbars.showCustomToast(message: msg, color: AppColors.error);
+    return Result.error(apiException);
   }
 
   /// handle errors without response (500, out of time, no internet,..etc)
-  static _handleError(String msg) {
+  static _handleError(String msg, String url) {
     AppSnackbars.showCustomToast(message: msg, color: AppColors.error);
+    return Result.error(ApiException(message: msg, url: url));
   }
 }

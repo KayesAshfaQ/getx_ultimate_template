@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../utils/print_log.dart';
+import '../utils/misc.dart';
 import '../common_widgets/app_snackbars.dart';
 import 'connection_type.dart';
 
@@ -38,7 +38,7 @@ class ConnectionManagerController extends GetxController {
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
-      printLog("PlatformException", error: e);
+      Utils.printLog("PlatformException", error: e);
 
       return _updateConnectivityState(result);
     }

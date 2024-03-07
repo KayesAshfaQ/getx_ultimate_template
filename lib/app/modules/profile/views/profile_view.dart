@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:sl_v4/app/core/common_widgets/app_image_view.dart';
 import 'package:sl_v4/app/core/common_widgets/app_scaffold.dart';
 import 'package:sl_v4/app/core/common_widgets/common_appbar.dart';
-import 'package:sl_v4/app/core/utils/print_log.dart';
+import 'package:sl_v4/app/core/utils/misc.dart';
 
 import '../../../core/config/app_colors.dart';
 import '../../../core/localization/localization_service.dart';
@@ -229,7 +229,7 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                       ProfileRow(
                         onTap: () {
-                          printLog('Changes Language Called!');
+                          Utils.printLog('Changes Language Called!');
                           LocalizationService.updateLanguage(
                             LocalizationService.getCurrentLocal().languageCode == 'en'
                                 ? 'bn'

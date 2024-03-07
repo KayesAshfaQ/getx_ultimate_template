@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'app/core/config/app_theme.dart';
-import 'app/core/config/custom_loader_config.dart';
+import 'app/core/config/loader_style.dart';
 import 'app/core/localization/localization_service.dart';
 import 'app/core/utils/initial_binding.dart';
 import 'app/routes/app_pages.dart';
