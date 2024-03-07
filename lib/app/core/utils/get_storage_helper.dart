@@ -1,16 +1,15 @@
 import 'package:get_storage/get_storage.dart';
 
 class GetStorageHelper {
-
   GetStorageHelper._();
 
   static final GetStorage _box = GetStorage();
 
-  static dynamic get(String key) {
-    return _box.read(key);
+  static T? get<T>(String key) {
+    return _box.read<T>(key);
   }
 
-  static Future<void> save({required String key, required dynamic value}) async {
+  static Future<void> save<T>({required String key, required T value}) async {
     await _box.write(key, value);
   }
 
