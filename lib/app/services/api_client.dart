@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -24,7 +25,6 @@ enum RequestType {
   delete,
 }
 
-// TODO: retry on error
 // TODO: header customization (isMobile: ture, etc.)
 // TODO: caching mechanism
 
@@ -56,7 +56,7 @@ class ApiClient {
   static final _connectionManager = Get.find<ConnectionManagerController>();
 
   /// perform safe api request
-  static Future<Result<Response<String>, ApiException>> call(
+  static Future<Result<Response<Map<String, dynamic>>, ApiException>> call(
     String url,
     RequestType requestType, {
     Map<String, dynamic>? headers,
@@ -66,6 +66,7 @@ class ApiClient {
     bool isAuthorizationRequired = true,
     bool isLoaderRequired = false,
     bool isLogRequired = false,
+    bool isRetryRequired = false,
     bool isErrorToastRequired = true,
     dynamic data,
   }) async {
@@ -82,6 +83,22 @@ class ApiClient {
 
       // add pretty logger if showLog is true
       _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
+
+      // add retry interceptor
+      _dio.interceptors.addIf(
+        isRetryRequired,
+        RetryInterceptor(
+          dio: dio,
+          logPrint: print, // specify log function (optional)
+          retries: 3, // retry count (optional)
+          retryDelays: const [
+            // set delays between retries (optional)
+            Duration(seconds: 1), // wait 1 sec before first retry
+            Duration(seconds: 2), // wait 2 sec before second retry
+            Duration(seconds: 3), // wait 3 sec before third retry
+          ],
+        ),
+      );
 
       // if the api is authorized, then add token to the header
       if (isAuthorizationRequired) {
@@ -101,7 +118,7 @@ class ApiClient {
       }
 
       // 2) try to perform http request
-      late Response<String> response;
+      late Response<Map<String, dynamic>> response;
       if (requestType == RequestType.get) {
         response = await _dio.get(
           url,
@@ -254,8 +271,7 @@ class ApiClient {
   }
 
   /// handle no internet connection exception
-  static Result<Response<String>, ApiException> _handleSocketException({
-    Function(ApiException)? onError,
+  static Result<Response<Map<String, dynamic>>, ApiException> _handleSocketException({
     required String url,
     required bool isErrorToastRequired,
   }) {
@@ -269,7 +285,7 @@ class ApiClient {
   }
 
   /// handle Dio error
-  static Result<Response<String>, ApiException> _handleDioError({
+  static Result<Response<Map<String, dynamic>>, ApiException> _handleDioError({
     required DioException error,
     required String url,
     required bool isErrorToastRequired,
@@ -318,7 +334,8 @@ class ApiClient {
   /// handle error automatically (if user didn't pass onError) method
   /// it will try to show the message from api if there is no message
   /// from api it will show the reason (the dio message)
-  static Result<Response<String>, ApiException> _handleError(ApiException apiException,
+  static Result<Response<Map<String, dynamic>>, ApiException> _handleError(
+      ApiException apiException,
       {required bool showToast}) {
     String msg = apiException.toString();
     AppSnackbars.showCustomToast(message: msg, color: AppColors.error);

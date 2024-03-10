@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
@@ -39,13 +38,7 @@ class ApiException implements Exception {
   toString() {
     String result = '';
 
-    if (response?.data != null) {
-      // resonse.data is not type of Map<String, dynamic> convert string to map
-      final Map<String, dynamic> data =
-          response?.data is String ? json.decode(response?.data) : response?.data;
-
-      result += data['message'] ?? '';
-    }
+    result += response?.data['message'] ?? '';
 
     if (result.isEmpty) {
       result += message; // message is the (dio error message) so usually its not user friendly

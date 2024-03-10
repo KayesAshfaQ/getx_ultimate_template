@@ -13,6 +13,7 @@ class AuthRepository {
       isAuthorizationRequired: false,
       isLoaderRequired: true,
       isLogRequired: true,
+      isRetryRequired: true,
       data: {
         "email_or_phone": email,
         "password": password,
@@ -20,7 +21,9 @@ class AuthRepository {
     );
 
     if (res.isSuccess && res.value.data != null) {
-      final resObj = loginResponseFromJson(res.value.data!);
+
+      // convert response to SignInResponse
+      final resObj = SignInResponse.fromJson(res.value.data!);
 
       // save token to local storage
       GetStorageHelper.save<String>(key: 'key', value: resObj.data!.accessToken!);
