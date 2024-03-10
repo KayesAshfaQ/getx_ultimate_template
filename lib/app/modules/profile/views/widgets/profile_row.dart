@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../gen/fonts.gen.dart';
+
 class ProfileRow extends StatelessWidget {
   final String icon, title, count;
   final bool hasCount, hasIcon, hasDivider;
@@ -44,10 +46,7 @@ class ProfileRow extends StatelessWidget {
                         matchTextDirection: true,
                         height: 18.h,
                         width: 18.h,
-                        color: /*imgColor*/
-                            hasDivider
-                                ? const Color.fromRGBO(102, 102, 102, 1)
-                                : Colors.red,
+                        color: hasDivider ? const Color.fromRGBO(102, 102, 102, 1) : Colors.red,
                       ),
                     )
                   : const SizedBox(),
@@ -67,20 +66,15 @@ class ProfileRow extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,
-                            color: hasDivider
-                                ? const Color.fromRGBO(102, 102, 102, 1)
-                                : Colors.red,
-                            fontFamily: 'imedium',
+                            color: hasDivider ? const Color.fromRGBO(102, 102, 102, 1) : Colors.red,
+                            fontFamily: FontFamily.inter,
                           ),
                         ),
                       ),
                       // const Spacer(),
                       Container(
-                        padding: const EdgeInsets.only(
-                                left: 13, right: 13, bottom: 3, top: 4)
-                            .r,
-                        margin:
-                            EdgeInsets.only(bottom: 11, top: top, right: 10).r,
+                        padding: const EdgeInsets.only(left: 13, right: 13, bottom: 3, top: 4).r,
+                        margin: EdgeInsets.only(bottom: 11, top: top, right: 10).r,
                         decoration: BoxDecoration(
                             color: hasCount != true ? null : boxColor,
                             borderRadius: BorderRadius.circular(3).r),

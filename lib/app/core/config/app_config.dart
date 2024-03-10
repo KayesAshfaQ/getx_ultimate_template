@@ -4,5 +4,7 @@ class AppConfig {
 
   static String appVersion = "4.0.0";
 
+  static String appName = "shop_lover";
+
 
 }

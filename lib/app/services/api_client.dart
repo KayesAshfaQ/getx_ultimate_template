@@ -2,12 +2,16 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:logger/logger.dart';
+import 'package:path_provider/path_provider.dart' as path;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:sl_v4/app/core/common_widgets/app_snackbars.dart';
 import 'package:sl_v4/app/core/config/app_colors.dart';
+import 'package:sl_v4/app/core/config/app_config.dart';
 import 'package:sl_v4/app/core/utils/get_storage_helper.dart';
 import 'package:sl_v4/app/core/utils/misc.dart';
 import 'package:sl_v4/app/services/result.dart';
@@ -25,7 +29,7 @@ enum RequestType {
   delete,
 }
 
-// TODO: header customization (isMobile: ture, etc.)
+// TODO: header customization (isMobile: ture, justForYou keys, etc...)
 // TODO: caching mechanism
 
 class ApiClient {
@@ -68,6 +72,7 @@ class ApiClient {
     bool isLogRequired = false,
     bool isRetryRequired = false,
     bool isErrorToastRequired = true,
+    bool isCacheRequired = false,
     dynamic data,
   }) async {
     try {
@@ -85,19 +90,12 @@ class ApiClient {
       _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
 
       // add retry interceptor
+      _dio.interceptors.addIf(isRetryRequired, getRetryInterceptor());
+
+      // Add cache interceptor with global/default options
       _dio.interceptors.addIf(
-        isRetryRequired,
-        RetryInterceptor(
-          dio: dio,
-          logPrint: print, // specify log function (optional)
-          retries: 3, // retry count (optional)
-          retryDelays: const [
-            // set delays between retries (optional)
-            Duration(seconds: 1), // wait 1 sec before first retry
-            Duration(seconds: 2), // wait 2 sec before second retry
-            Duration(seconds: 3), // wait 3 sec before third retry
-          ],
-        ),
+        isCacheRequired,
+        DioCacheInterceptor(options: await getCacheOptions()),
       );
 
       // if the api is authorized, then add token to the header
@@ -189,19 +187,6 @@ class ApiClient {
     }
   }
 
-  static bool _checkInternetConnection() {
-    // check the internet connection before making the api call (if there is no internet connection, then return)
-    if (!_connectionManager.isInternetConnected.value) {
-      printLog(
-        'internet connection status: ${_connectionManager.connectionStatusMessage.value}',
-        level: Level.error,
-      );
-      return false;
-    } else {
-      return true;
-    }
-  }
-
   /// download file
   static Future<Result<Response, ApiException>> download({
     required String url, // file url
@@ -244,13 +229,82 @@ class ApiClient {
     }
   }
 
+  static getRetryInterceptor() {
+    return RetryInterceptor(
+      dio: _dio,
+      logPrint: print, // specify log function (optional)
+      retries: 3, // retry count (optional)
+      retryDelays: const [
+        // set delays between retries (optional)
+        Duration(seconds: 1), // wait 1 sec before first retry
+        Duration(seconds: 2), // wait 2 sec before second retry
+        Duration(seconds: 3), // wait 3 sec before third retry
+      ],
+    );
+  }
+
+  /// cache options
+  static Future<CacheOptions> getCacheOptions() async {
+    var cacheDir = await path.getTemporaryDirectory();
+
+    var cacheStore = HiveCacheStore(
+      cacheDir.path,
+      hiveBoxName: AppConfig.appName,
+    );
+
+    // add cache interceptor
+    // Global options
+    final options = CacheOptions(
+      // A default store is required for interceptor.
+      store: cacheStore,
+
+      // All subsequent fields are optional.
+
+      // Default.
+      policy: CachePolicy.request,
+      // Returns a cached response on error but for statuses 401 & 403.
+      // Also allows to return a cached response on network errors (e.g. offline usage).
+      // Defaults to [null].
+      hitCacheOnErrorExcept: [401, 403],
+      // Overrides any HTTP directive to delete entry past this duration.
+      // Useful only when origin server has no cache config or custom behaviour is desired.
+      // Defaults to [null].
+      maxStale: const Duration(days: 1),
+      // Default. Allows 3 cache sets and ease cleanup.
+      priority: CachePriority.normal,
+      // Default. Body and headers encryption with your own algorithm.
+      cipher: null,
+      // Default. Key builder to retrieve requests.
+      keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+      // Default. Allows to cache POST requests.
+      // Overriding [keyBuilder] is strongly recommended when [true].
+      allowPostMethod: false,
+    );
+
+    return options;
+  }
+
+  /// check internet connection
+  static bool _checkInternetConnection() {
+    // check the internet connection before making the api call (if there is no internet connection, then return)
+    if (!_connectionManager.isInternetConnected.value) {
+      printLog(
+        'internet connection status: ${_connectionManager.connectionStatusMessage.value}',
+        level: Level.error,
+      );
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   /// handle unexpected error
-  static _handleUnexpectedException({
+  static Result<Response<Map<String, dynamic>>, ApiException> _handleUnexpectedException({
     required String url,
     required Object error,
     required bool isErrorToastRequired,
   }) {
-    _handleError(
+   return _handleError(
       showToast: isErrorToastRequired,
       ApiException(
         message: error.toString(),
@@ -260,8 +314,8 @@ class ApiClient {
   }
 
   /// handle timeout exception
-  static _handleTimeoutException({required String url, required bool isErrorToastRequired}) {
-    _handleError(
+  static Result<Response<Map<String, dynamic>>, ApiException> _handleTimeoutException({required String url, required bool isErrorToastRequired}) {
+   return _handleError(
       showToast: isErrorToastRequired,
       ApiException(
         message: Strings.serverNotResponding.tr,

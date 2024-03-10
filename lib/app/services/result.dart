@@ -11,4 +11,3 @@ class Result<R, E> {
   R get value => _value!;
   E get error => _error!;
 }
-

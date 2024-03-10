@@ -14,6 +14,7 @@ class AuthRepository {
       isLoaderRequired: true,
       isLogRequired: true,
       isRetryRequired: true,
+      isCacheRequired: true,
       data: {
         "email_or_phone": email,
         "password": password,
@@ -21,7 +22,6 @@ class AuthRepository {
     );
 
     if (res.isSuccess && res.value.data != null) {
-
       // convert response to SignInResponse
       final resObj = SignInResponse.fromJson(res.value.data!);
 
