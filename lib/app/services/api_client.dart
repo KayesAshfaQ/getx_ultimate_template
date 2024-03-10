@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
-import 'package:get/get.dart' hide Response;
+import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart' as path;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -30,7 +30,6 @@ enum RequestType {
 }
 
 // TODO: header customization (isMobile: ture, justForYou keys, etc...)
-// TODO: caching mechanism
 
 class ApiClient {
   static final Dio _dio = Dio(
@@ -59,7 +58,33 @@ class ApiClient {
   /// used to check the internet connection before making the api call
   static final _connectionManager = Get.find<ConnectionManagerController>();
 
-  /// perform safe api request
+  /// `call` is a method used to make HTTP requests.
+  ///
+  /// Parameters:
+  /// - `url`: The URL to which the request is to be made.
+  /// - `requestType`: The type of HTTP request (GET, POST, PUT, PATCH, DELETE).
+  /// - `headers`: Optional. A map of headers to be included in the request.
+  /// - `queryParameters`: Optional. A map of query parameters to be included in the request.
+  /// - `onReceiveProgress`: Optional. A callback function to handle progress updates while receiving data.
+  /// - `onSendProgress`: Optional. A callback function to handle progress updates while sending data.
+  /// - `isAuthorizationRequired`: Optional. A boolean indicating whether authorization is required for the request. Default is true.
+  /// - `isLoaderRequired`: Optional. A boolean indicating whether to show a loader during the request. Default is false.
+  /// - `isLogRequired`: Optional. A boolean indicating whether to log the request and response data. Default is false.
+  /// - `isRetryRequired`: Optional. A boolean indicating whether to retry the request if it fails. Default is false.
+  /// - `isErrorToastRequired`: Optional. A boolean indicating whether to show a toast message if an error occurs. Default is true.
+  /// - `isCacheRequired`: Optional. A boolean indicating whether to cache the response. Default is false.
+  /// - `data`: Optional. The data to be sent with the request.
+  ///
+  /// Returns:
+  /// A `Future` that completes with a `Result` of either a successful `Response<Map<String, dynamic>>` or an `ApiException`.
+  ///
+  /// This method first checks the internet connection. If there is no internet connection, it returns an `ApiException` with a message indicating no internet connection.
+  /// If logging is required, it adds a pretty logger to the Dio interceptors.
+  /// If retrying is required, it adds a retry interceptor to the Dio interceptors.
+  /// If caching is required, it adds a cache interceptor to the Dio interceptors.
+  /// If authorization is required, it gets the token from local storage and adds it to the headers.
+  /// If a loader is required, it shows a loader before making the request and hides it after the request is completed.
+  /// It then makes the HTTP request using the Dio library. If the request is successful, it returns a `Result` with the response. If the request fails, it handles the error and returns a `Result` with an `ApiException`.
   static Future<Result<Response<Map<String, dynamic>>, ApiException>> call(
     String url,
     RequestType requestType, {
@@ -187,7 +212,23 @@ class ApiClient {
     }
   }
 
-  /// download file
+  /// `download` is a method used to download a file from a given URL and save it to a specified path.
+  ///
+  /// Parameters:
+  /// - `url`: The URL of the file to be downloaded.
+  /// - `savePath`: The path where the file should be saved.
+  /// - `onReceiveProgress`: Optional. A callback function to handle progress updates while receiving data.
+  /// - `isLogRequired`: Optional. A boolean indicating whether to log the request and response data. Default is false.
+  /// - `isLoaderRequired`: Optional. A boolean indicating whether to show a loader during the download. Default is false.
+  /// - `isErrorToastRequired`: Optional. A boolean indicating whether to show a toast message if an error occurs. Default is true.
+  ///
+  /// Returns:
+  /// A `Future` that completes with a `Result` of either a successful `Response` or an `ApiException`.
+  ///
+  /// This method first checks the internet connection. If there is no internet connection, it returns an `ApiException` with a message indicating no internet connection.
+  /// If logging is required, it adds a pretty logger to the Dio interceptors.
+  /// If a loader is required, it shows a loader before making the request and hides it after the request is completed.
+  /// It then makes the download request using the Dio library. If the request is successful, it returns a `Result` with the response. If the request fails, it handles the error and returns a `Result` with an `ApiException`.
   static Future<Result<Response, ApiException>> download({
     required String url, // file url
     required String savePath, // where to save file
@@ -220,6 +261,71 @@ class ApiClient {
             receiveTimeout: const Duration(seconds: _timeoutInSeconds),
             sendTimeout: const Duration(seconds: _timeoutInSeconds)),
         onReceiveProgress: onReceiveProgress,
+      );
+
+      return Result.success(response);
+    } catch (error) {
+      final exception = ApiException(url: url, message: error.toString());
+      return _handleError(showToast: isErrorToastRequired, exception);
+    }
+  }
+
+  // TODO: retry, loader, log, toast, token on upload
+  static Future<Result> upload(
+    String url, {
+    required String filePath,
+    String? filename,
+    Map<String, dynamic> headers = const {},
+    Map<String, dynamic>? queryParameters,
+    Function(int total, int progress)? onSendProgress,
+    bool isLogRequired = false,
+    bool isLoaderRequired = false,
+    bool isErrorToastRequired = true,
+    bool isAuthorizationRequired = true,
+    bool isRetryRequired = false,
+    bool isCacheRequired = false,
+    dynamic data,
+  }) async {
+    try {
+      // add content type to the header
+      headers.addAll({'Content-Type': 'multipart/form-data'});
+
+      if (isLoaderRequired) showLoader();
+
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(filePath, filename: filename),
+      });
+
+      // if the api is authorized, then add token to the header
+      if (isAuthorizationRequired) {
+        //Get token from local
+        final String? token = GetStorageHelper.get(authTokenKey);
+
+        //If token is available, then add token inside header.
+        if (token != null) {
+          headers.addAll({"Authorization": "Bearer $token"});
+        }
+      }
+
+      // final formData = FormData.fromMap({
+      //   'name': 'dio',
+      //   'date': DateTime.now().toIso8601String(),
+      //   'file': await MultipartFile.fromFile('./text.txt', filename: 'upload.txt'),
+      //   'files': [
+      //     await MultipartFile.fromFile('./text1.txt', filename: 'text1.txt'),
+      //     await MultipartFile.fromFile('./text2.txt', filename: 'text2.txt'),
+      //   ]
+      // });
+
+      final response = await _dio.post(
+        url,
+        data: formData,
+        options: Options(
+          receiveTimeout: const Duration(seconds: _timeoutInSeconds),
+          sendTimeout: const Duration(seconds: _timeoutInSeconds),
+          headers: headers,
+        ),
+        onSendProgress: onSendProgress,
       );
 
       return Result.success(response);
@@ -304,7 +410,7 @@ class ApiClient {
     required Object error,
     required bool isErrorToastRequired,
   }) {
-   return _handleError(
+    return _handleError(
       showToast: isErrorToastRequired,
       ApiException(
         message: error.toString(),
@@ -314,8 +420,9 @@ class ApiClient {
   }
 
   /// handle timeout exception
-  static Result<Response<Map<String, dynamic>>, ApiException> _handleTimeoutException({required String url, required bool isErrorToastRequired}) {
-   return _handleError(
+  static Result<Response<Map<String, dynamic>>, ApiException> _handleTimeoutException(
+      {required String url, required bool isErrorToastRequired}) {
+    return _handleError(
       showToast: isErrorToastRequired,
       ApiException(
         message: Strings.serverNotResponding.tr,
@@ -385,9 +492,7 @@ class ApiClient {
     );
   }
 
-  /// handle error automatically (if user didn't pass onError) method
-  /// it will try to show the message from api if there is no message
-  /// from api it will show the reason (the dio message)
+  /// handle error (show toast and hide loader)
   static Result<Response<Map<String, dynamic>>, ApiException> _handleError(
       ApiException apiException,
       {required bool showToast}) {
