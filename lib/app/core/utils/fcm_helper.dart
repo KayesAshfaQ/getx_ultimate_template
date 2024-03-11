@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logger/logger.dart';
 
+import '../../../firebase_options.dart';
 import '../config/app_keys.dart';
 import 'awesome_notifications_helper.dart';
 import 'get_storage_helper.dart';
@@ -18,9 +19,8 @@ class FcmHelper {
     try {
       // initialize fcm and firebase core
       await Firebase.initializeApp(
-          // TODO: uncomment this line if you connected to firebase via cli
-          //options: DefaultFirebaseOptions.currentPlatform,
-          );
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
 
       // initialize firebase
       messaging = FirebaseMessaging.instance;
@@ -90,7 +90,7 @@ class FcmHelper {
   @pragma('vm:entry-point')
   static Future<void> _fcmBackgroundHandler(RemoteMessage message) async {
     AwesomeNotificationsHelper.showNotification(
-      id: 1,
+      id: 10,
       title: message.notification?.title ?? 'Tittle',
       body: message.notification?.body ?? 'Body',
       payload: message.data
@@ -101,7 +101,7 @@ class FcmHelper {
   //handle fcm notification when app is open
   static Future<void> _fcmForegroundHandler(RemoteMessage message) async {
     AwesomeNotificationsHelper.showNotification(
-      id: 1,
+      id: 10,
       title: message.notification?.title ?? 'Tittle',
       body: message.notification?.body ?? 'Body',
       payload: message.data
