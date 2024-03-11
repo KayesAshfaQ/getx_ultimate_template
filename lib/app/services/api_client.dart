@@ -1,25 +1,24 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import 'package:dio/dio.dart';
+import 'package:logger/logger.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
-import 'package:get/get.dart' hide Response, FormData, MultipartFile;
-import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart' as path;
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:sl_v4/app/core/common_widgets/app_snackbars.dart';
-import 'package:sl_v4/app/core/config/app_colors.dart';
-import 'package:sl_v4/app/core/config/app_config.dart';
-import 'package:sl_v4/app/core/utils/get_storage_helper.dart';
-import 'package:sl_v4/app/core/utils/misc.dart';
-import 'package:sl_v4/app/services/result.dart';
 
-import '../core/config/app_constants.dart';
+import '../core/common_widgets/app_snackbars.dart';
+import '../core/config/app_colors.dart';
+import '../core/config/app_config.dart';
+import '../core/config/app_keys.dart';
 import '../core/connection_manager/connection_manager_controller.dart';
 import '../core/localization/strings_enum.dart';
+import '../core/utils/get_storage_helper.dart';
+import '../core/utils/misc.dart';
 import 'api_exceptions.dart';
+import 'result.dart';
 
 enum RequestType {
   get,
@@ -212,30 +211,33 @@ class ApiClient {
     }
   }
 
-  /// `download` is a method used to download a file from a given URL and save it to a specified path.
+  /// Downloads a file from a given URL and saves it to a specified path.
   ///
-  /// Parameters:
-  /// - `url`: The URL of the file to be downloaded.
-  /// - `savePath`: The path where the file should be saved.
-  /// - `onReceiveProgress`: Optional. A callback function to handle progress updates while receiving data.
-  /// - `isLogRequired`: Optional. A boolean indicating whether to log the request and response data. Default is false.
-  /// - `isLoaderRequired`: Optional. A boolean indicating whether to show a loader during the download. Default is false.
-  /// - `isErrorToastRequired`: Optional. A boolean indicating whether to show a toast message if an error occurs. Default is true.
+  /// [url] is the URL from which the file will be downloaded.
+  /// [savePath] is the path where the downloaded file will be saved (include file name with the save path).
+  /// [headers] are the HTTP headers to be sent with the request. Defaults to an empty map.
+  /// [onReceiveProgress] is a callback function that is called during the download process. It receives the total bytes downloaded and the total bytes to be downloaded.
+  /// [isLoaderRequired] indicates whether a loading indicator should be shown during the download process. Defaults to false.
+  /// [isAuthorizationRequired] indicates whether authorization is required for the download. If true, the method will attempt to add a token from local storage to the request headers. Defaults to true.
+  /// [isLogRequired] indicates whether logs should be generated for the download process. Defaults to false.
+  /// [isRetryRequired] indicates whether the download should be retried in case of failure. Defaults to false.
+  /// [isErrorToastRequired] indicates whether an error message should be shown in case of failure. Defaults to true.
+  /// [data] is the data to be sent with the request.
   ///
-  /// Returns:
-  /// A `Future` that completes with a `Result` of either a successful `Response` or an `ApiException`.
+  /// Returns a `Future` that completes with a `Result` object. If the download is successful, the `Result` object contains a `Response` object. If the download fails, the `Result` object contains an `ApiException` object.
   ///
-  /// This method first checks the internet connection. If there is no internet connection, it returns an `ApiException` with a message indicating no internet connection.
-  /// If logging is required, it adds a pretty logger to the Dio interceptors.
-  /// If a loader is required, it shows a loader before making the request and hides it after the request is completed.
-  /// It then makes the download request using the Dio library. If the request is successful, it returns a `Result` with the response. If the request fails, it handles the error and returns a `Result` with an `ApiException`.
-  static Future<Result<Response, ApiException>> download({
-    required String url, // file url
+  /// Throws an `ApiException` if the download fails.
+  static Future<Result<Response, ApiException>> download(
+    String url, {
     required String savePath, // where to save file
+    Map<String, dynamic> headers = const {},
     Function(int value, int progress)? onReceiveProgress,
-    bool isLogRequired = false,
     bool isLoaderRequired = false,
+    bool isAuthorizationRequired = true,
+    bool isLogRequired = false,
+    bool isRetryRequired = false,
     bool isErrorToastRequired = true,
+    dynamic data,
   }) async {
     try {
       // check the internet connection before making the api call (if there is no internet connection, then return)
@@ -248,11 +250,25 @@ class ApiClient {
         );
       }
 
+      // indicate loading state
+      if (isLoaderRequired) showLoader();
+
       // add pretty logger if showLog is true
       _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
 
-      // indicate loading state
-      if (isLoaderRequired) showLoader();
+      // add retry interceptor
+      _dio.interceptors.addIf(isRetryRequired, getRetryInterceptor());
+
+      // if authorization required, then add token to the header
+      if (isAuthorizationRequired) {
+        // Get token from local storage
+        final String? token = GetStorageHelper.get(authTokenKey);
+
+        // If token is available, then add token to header.
+        if (token != null) {
+          headers.addAll({"Authorization": "Bearer $token"});
+        }
+      }
 
       final response = await _dio.download(
         url,
@@ -263,6 +279,9 @@ class ApiClient {
         onReceiveProgress: onReceiveProgress,
       );
 
+      // hide loader if it's showing
+      if (isLoaderRequired) hideLoader();
+
       return Result.success(response);
     } catch (error) {
       final exception = ApiException(url: url, message: error.toString());
@@ -270,43 +289,75 @@ class ApiClient {
     }
   }
 
-  // TODO: retry, loader, log, toast, token on upload
+  /// Uploads a file to a given URL.
+  ///
+  /// [url] is the URL to which the file will be uploaded.
+  /// [filePath] is the path of the file to be uploaded.
+  /// [filename] is the name of the file to be uploaded. If not provided, the name of the file at [filePath] will be used.
+  /// [headers] are the HTTP headers to be sent with the request. Defaults to an empty map.
+  /// [onSendProgress] is a callback function that is called during the upload process. It receives the total bytes to be uploaded and the bytes already uploaded.
+  /// [isLogRequired] indicates whether logs should be generated for the upload process. Defaults to false.
+  /// [isLoaderRequired] indicates whether a loading indicator should be shown during the upload process. Defaults to false.
+  /// [isErrorToastRequired] indicates whether an error message should be shown in case of failure. Defaults to true.
+  /// [isAuthorizationRequired] indicates whether authorization is required for the upload. If true, the method will attempt to add a token from local storage to the request headers. Defaults to true.
+  /// [isRetryRequired] indicates whether the upload should be retried in case of failure. Defaults to false.
+  /// [data] is the data to be sent with the request.
+  ///
+  /// Returns a `Future` that completes with a `Result` object. If the upload is successful, the `Result` object contains a `Response` object. If the upload fails, the `Result` object contains an `ApiException` object.
+  ///
+  /// Throws an `ApiException` if the upload fails.
   static Future<Result> upload(
     String url, {
     required String filePath,
     String? filename,
     Map<String, dynamic> headers = const {},
-    Map<String, dynamic>? queryParameters,
     Function(int total, int progress)? onSendProgress,
     bool isLogRequired = false,
     bool isLoaderRequired = false,
     bool isErrorToastRequired = true,
     bool isAuthorizationRequired = true,
     bool isRetryRequired = false,
-    bool isCacheRequired = false,
     dynamic data,
   }) async {
     try {
+      // check the internet connection before making the api call (if there is no internet connection, then return)
+      if (!_checkInternetConnection()) {
+        return Result.error(
+          ApiException(
+            message: Strings.noInternetConnection.tr,
+            url: url,
+          ),
+        );
+      }
+
+      // show loader if required
+      if (isLoaderRequired) showLoader();
+
+      // add pretty logger if showLog is true
+      _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
+
+      // add retry interceptor
+      _dio.interceptors.addIf(isRetryRequired, getRetryInterceptor());
+
       // add content type to the header
       headers.addAll({'Content-Type': 'multipart/form-data'});
 
-      if (isLoaderRequired) showLoader();
-
-      final formData = FormData.fromMap({
-        'file': await MultipartFile.fromFile(filePath, filename: filename),
-      });
-
-      // if the api is authorized, then add token to the header
+      // if authorization required, then add token to the header
       if (isAuthorizationRequired) {
-        //Get token from local
+        // Get token from local storage
         final String? token = GetStorageHelper.get(authTokenKey);
 
-        //If token is available, then add token inside header.
+        // If token is available, then add token to header.
         if (token != null) {
           headers.addAll({"Authorization": "Bearer $token"});
         }
       }
 
+      final formData = FormData.fromMap({
+        'file': await MultipartFile.fromFile(filePath, filename: filename),
+      });
+
+      // ----->>> example of formData with multiple files and fields
       // final formData = FormData.fromMap({
       //   'name': 'dio',
       //   'date': DateTime.now().toIso8601String(),
@@ -321,12 +372,14 @@ class ApiClient {
         url,
         data: formData,
         options: Options(
-          receiveTimeout: const Duration(seconds: _timeoutInSeconds),
-          sendTimeout: const Duration(seconds: _timeoutInSeconds),
+          // receiveTimeout: const Duration(seconds: _timeoutInSeconds),
+          // sendTimeout: const Duration(seconds: _timeoutInSeconds),
           headers: headers,
         ),
         onSendProgress: onSendProgress,
       );
+
+      if (isLoaderRequired) hideLoader();
 
       return Result.success(response);
     } catch (error) {

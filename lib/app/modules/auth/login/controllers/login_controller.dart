@@ -39,9 +39,6 @@ class LoginController extends GetxController {
     final res = await AuthRepository.login(emailController.text, passwordController.text);
 
     if (res != null) {
-      final token = GetStorageHelper.get<String>('key');
-      printLog(token!);
-
       Get.offAllNamed(Routes.NAVIGATOR);
     }
   }

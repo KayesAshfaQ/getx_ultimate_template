@@ -1,14 +1,5 @@
 import 'package:get/get.dart';
 
-// keys for local storage
-const String authTokenKey = "auth_token";
-const String refreshToken = "refresh_token";
-const String fcmTokenKey = "fcm_token";
-const String userKey = "user";
-const String languageKey = "language";
-const String themeKey = "theme";
-const String isIntroShownKey = "is_intro_shown";
-
 const Transition transition = Transition.rightToLeft;
 const transitionDuration = 250; // in millisecond
 const otpResendDuration = 60; //in second
