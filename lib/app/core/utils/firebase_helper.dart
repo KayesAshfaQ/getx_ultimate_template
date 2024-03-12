@@ -1,10 +1,11 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sl_v4/app/core/utils/misc.dart';
 
-class CrashlyticsHelper {
+class FirebaseHelper {
   // prevent making instance
-  CrashlyticsHelper._();
+  FirebaseHelper._();
 
   static void initCrashlytics() {
     try {
@@ -40,5 +41,16 @@ class CrashlyticsHelper {
   /// forcefully crashes the app for testing
   static void forceCrash() {
     FirebaseCrashlytics.instance.crash();
+  }
+
+  static Future<void> sendEvent(
+    String eventName, {
+    Map<String, dynamic> parameters = const {},
+  }) async {
+    // send event to analytics
+    await FirebaseAnalytics.instance.logEvent(
+      name: eventName,
+      parameters: parameters,
+    );
   }
 }

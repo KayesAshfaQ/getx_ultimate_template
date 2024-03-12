@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sl_v4/app/core/common_widgets/app_button.dart';
 import 'package:sl_v4/app/core/common_widgets/app_text_field.dart';
+import 'package:sl_v4/app/core/utils/firebase_helper.dart';
+import 'package:sl_v4/app/core/utils/misc.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -48,8 +50,16 @@ class LoginView extends GetView<LoginController> {
                   buttonTextStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: Colors.white,
                       ),
-                  onTap: () {
-                    throw Exception('This is a test crash');
+                  onTap: () async {
+                    await FirebaseHelper.sendEvent('login_button_pressed', parameters: {
+                      'email': 'test mail',
+                      'pass': 'test pass',
+                      'feedback': 'test feedback'
+                    });
+
+                    printLog('Login button pressed');
+
+                    // controller.onPressLogin();
                   },
                 ),
               ],

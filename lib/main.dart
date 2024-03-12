@@ -10,7 +10,7 @@ import 'app/core/config/app_theme.dart';
 import 'app/core/config/loader_style.dart';
 import 'app/core/localization/localization_service.dart';
 import 'app/core/utils/awesome_notifications_helper.dart';
-import 'app/core/utils/crashlytics_helper.dart';
+import 'app/core/utils/firebase_helper.dart';
 import 'app/core/utils/fcm_helper.dart';
 import 'app/core/utils/initial_binding.dart';
 import 'app/routes/app_pages.dart';
@@ -33,7 +33,7 @@ void main() async {
   await AwesomeNotificationsHelper.init();
 
   // initialize crashlytics
-  CrashlyticsHelper.initCrashlytics();
+  FirebaseHelper.initCrashlytics();
 
   runApp(
     ScreenUtilInit(
