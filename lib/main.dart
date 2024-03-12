@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +10,7 @@ import 'app/core/config/app_theme.dart';
 import 'app/core/config/loader_style.dart';
 import 'app/core/localization/localization_service.dart';
 import 'app/core/utils/awesome_notifications_helper.dart';
+import 'app/core/utils/crashlytics_helper.dart';
 import 'app/core/utils/fcm_helper.dart';
 import 'app/core/utils/initial_binding.dart';
 import 'app/routes/app_pages.dart';
@@ -31,6 +31,9 @@ void main() async {
 
   // initialize awesome notifications
   await AwesomeNotificationsHelper.init();
+
+  // initialize crashlytics
+  CrashlyticsHelper.initCrashlytics();
 
   runApp(
     ScreenUtilInit(

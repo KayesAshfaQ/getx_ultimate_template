@@ -49,7 +49,7 @@ class LoginView extends GetView<LoginController> {
                         color: Colors.white,
                       ),
                   onTap: () {
-                    controller.onPressLogin();
+                    throw Exception('This is a test crash');
                   },
                 ),
               ],
