@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sl_v4/app/core/common_widgets/app_button.dart';
 import 'package:sl_v4/app/core/common_widgets/app_text_field.dart';
-import 'package:sl_v4/app/core/utils/firebase_helper.dart';
 import 'package:sl_v4/app/core/utils/misc.dart';
 
+import '../../../../core/utils/analytics_helper.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -51,7 +51,7 @@ class LoginView extends GetView<LoginController> {
                         color: Colors.white,
                       ),
                   onTap: () async {
-                    await FirebaseHelper.sendEvent('login_button_pressed', parameters: {
+                    await AnalyticsHelper.sendEvent('login_button_pressed', parameters: {
                       'email': 'test mail',
                       'pass': 'test pass',
                       'feedback': 'test feedback'

@@ -1,17 +1,17 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:sl_v4/app/core/utils/misc.dart';
 
-class FirebaseHelper {
+import 'misc.dart';
+
+class CrashlyticsHelper {
   // prevent making instance
-  FirebaseHelper._();
+  CrashlyticsHelper._();
 
-  static void initCrashlytics() {
+  static Future<void> initCrashlytics() async {
     try {
       final crashlytics = FirebaseCrashlytics.instance;
 
-      crashlytics.setCrashlyticsCollectionEnabled(true);
+      await crashlytics.setCrashlyticsCollectionEnabled(true);
 
       // Pass all uncaught errors from the framework to Crashlytics.
       FlutterError.onError = (errorDetails) {
@@ -41,16 +41,5 @@ class FirebaseHelper {
   /// forcefully crashes the app for testing
   static void forceCrash() {
     FirebaseCrashlytics.instance.crash();
-  }
-
-  static Future<void> sendEvent(
-    String eventName, {
-    Map<String, dynamic> parameters = const {},
-  }) async {
-    // send event to analytics
-    await FirebaseAnalytics.instance.logEvent(
-      name: eventName,
-      parameters: parameters,
-    );
   }
 }

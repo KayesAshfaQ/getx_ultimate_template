@@ -9,8 +9,9 @@ import 'package:get_storage/get_storage.dart';
 import 'app/core/config/app_theme.dart';
 import 'app/core/config/loader_style.dart';
 import 'app/core/localization/localization_service.dart';
+import 'app/core/utils/analytics_helper.dart';
 import 'app/core/utils/awesome_notifications_helper.dart';
-import 'app/core/utils/firebase_helper.dart';
+import 'app/core/utils/crashlytics_helper.dart';
 import 'app/core/utils/fcm_helper.dart';
 import 'app/core/utils/initial_binding.dart';
 import 'app/routes/app_pages.dart';
@@ -33,7 +34,10 @@ void main() async {
   await AwesomeNotificationsHelper.init();
 
   // initialize crashlytics
-  FirebaseHelper.initCrashlytics();
+  await CrashlyticsHelper.initCrashlytics();
+
+  // initialize analytics
+  await AnalyticsHelper.initAnalytics();
 
   runApp(
     ScreenUtilInit(
@@ -52,9 +56,8 @@ void main() async {
           getPages: AppPages.routes,
           theme: AppTheme.provideAppTheme(),
           locale: LocalizationService.getCurrentLocal(), // app language
-          translations: LocalizationService
-              .getInstance(), // localization services in app (controller app language)
-
+          translations: LocalizationService.getInstance(), // localization services in app (controller app language)
+          navigatorObservers: [AnalyticsHelper.observer()], // sends navigation logs to analytics
           builder: (context, child) {
             getCustomLoaderInstance();
 
