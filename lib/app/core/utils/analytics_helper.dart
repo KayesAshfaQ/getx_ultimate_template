@@ -23,7 +23,7 @@ class AnalyticsHelper {
   }
 
   /// send event to analytics
-  static Future<void> sendEvent(
+  static Future<void> logEvent(
     String eventName, {
     Map<String, dynamic> parameters = const {},
   }) async {

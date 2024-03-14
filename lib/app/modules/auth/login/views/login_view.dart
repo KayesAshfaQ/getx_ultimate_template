@@ -51,15 +51,7 @@ class LoginView extends GetView<LoginController> {
                         color: Colors.white,
                       ),
                   onTap: () async {
-                    await AnalyticsHelper.sendEvent('login_button_pressed', parameters: {
-                      'email': 'test mail',
-                      'pass': 'test pass',
-                      'feedback': 'test feedback'
-                    });
-
-                    printLog('Login button pressed');
-
-                    // controller.onPressLogin();
+                    controller.onPressLogin();
                   },
                 ),
               ],
