@@ -2,6 +2,7 @@ plugins {
     id "com.android.application"
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
+    id "com.google.gms.google-services"
 }
 
 def localProperties = new Properties()
@@ -24,7 +25,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.shoplover.sl_v4"
-    compileSdkVersion 34 //flutter.compileSdkVersion
+    compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -65,5 +66,3 @@ flutter {
 }
 
 dependencies {}
-
-apply plugin: 'com.google.firebase.crashlytics'
