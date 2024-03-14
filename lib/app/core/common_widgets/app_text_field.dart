@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:sl_v4/app/core/utils/extensions/app_validator.dart';
+import 'package:sl_v4/app/core/extensions/app_validator.dart';
 
 import '../../gen/assets.gen.dart';
 import '../config/app_colors.dart';
