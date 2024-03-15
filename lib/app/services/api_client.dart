@@ -550,7 +550,7 @@ class ApiClient {
       ApiException apiException,
       {required bool showToast}) {
     String msg = apiException.toString();
-    AppSnackbars.showCustomToast(message: msg, color: AppColors.error);
+    AppSnackbars.showToast(message: msg, color: AppColors.error);
 
     // hide loader again in case error occurred and a loader still showing
     hideLoader();

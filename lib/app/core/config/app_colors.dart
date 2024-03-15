@@ -68,7 +68,7 @@ class AppColors {
     },
   );
 
-  static const MaterialColor warningColor = MaterialColor(
+  static const MaterialColor warning = MaterialColor(
     0xFFf79009,
     <int, Color>{
       50: Color(0xFFfef4e6),

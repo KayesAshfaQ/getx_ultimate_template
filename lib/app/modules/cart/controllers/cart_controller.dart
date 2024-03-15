@@ -1,6 +1,6 @@
-import '../../../core/base/base_controller.dart';
+import 'package:get/get.dart';
 
-class CartController extends BaseController {
+class CartController extends GetxController {
   @override
   void onInit() {
     super.onInit();

@@ -1,11 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sl_v4/app/core/utils/analytics_helper.dart';
-import 'package:sl_v4/app/core/utils/misc.dart';
-import 'package:sl_v4/app/data/repository/auth_repository.dart';
 
-import '../../../../core/utils/get_storage_helper.dart';
+import '../../../../core/utils/analytics_helper.dart';
+import '../../../../data/repository/auth_repository.dart';
 import '../../../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
@@ -40,7 +38,6 @@ class LoginController extends GetxController {
     final res = await AuthRepository.login(emailController.text, passwordController.text);
 
     if (res != null) {
-
       // send event to analytics
       AnalyticsHelper.logEvent(
         'login',

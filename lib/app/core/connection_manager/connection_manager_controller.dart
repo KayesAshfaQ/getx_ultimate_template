@@ -62,7 +62,7 @@ class ConnectionManagerController extends GetxController {
         connectionStatusMessage.value = "No Internet Connection";
         break;
       default:
-        AppSnackbars.showCustomToast(
+        AppSnackbars.showToast(
           title: 'Error',
           message: 'Failed to get network connection type!',
           color: Colors.red,

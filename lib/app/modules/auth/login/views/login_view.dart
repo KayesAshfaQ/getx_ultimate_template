@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
-import 'package:sl_v4/app/core/common_widgets/app_button.dart';
-import 'package:sl_v4/app/core/common_widgets/app_text_field.dart';
-import 'package:sl_v4/app/core/utils/misc.dart';
+import 'package:sl_v4/app/routes/app_pages.dart';
 
-import '../../../../core/utils/analytics_helper.dart';
 import '../controllers/login_controller.dart';
+import '../../../../core/common_widgets/app_button.dart';
+import '../../../../core/common_widgets/app_text_field.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});
@@ -51,7 +49,8 @@ class LoginView extends GetView<LoginController> {
                         color: Colors.white,
                       ),
                   onTap: () async {
-                    controller.onPressLogin();
+                    //controller.onPressLogin();
+                    Get.offAllNamed(Routes.NAVIGATOR);
                   },
                 ),
               ],
