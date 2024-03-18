@@ -20,6 +20,8 @@ import '../core/utils/misc.dart';
 import 'api_exceptions.dart';
 import 'result.dart';
 
+typedef ApiResponse = Result<Response, ApiException>;
+
 enum RequestType {
   get,
   post,
@@ -84,7 +86,7 @@ class ApiClient {
   /// If authorization is required, it gets the token from local storage and adds it to the headers.
   /// If a loader is required, it shows a loader before making the request and hides it after the request is completed.
   /// It then makes the HTTP request using the Dio library. If the request is successful, it returns a `Result` with the response. If the request fails, it handles the error and returns a `Result` with an `ApiException`.
-  static Future<Result<Response<Map<String, dynamic>>, ApiException>> call(
+  static Future<ApiResponse> call(
     String url,
     RequestType requestType, {
     Map<String, dynamic>? headers,
@@ -218,7 +220,7 @@ class ApiClient {
   /// Returns a `Future` that completes with a `Result` object. If the download is successful, the `Result` object contains a `Response` object. If the download fails, the `Result` object contains an `ApiException` object.
   ///
   /// Throws an `ApiException` if the download fails.
-  static Future<Result<Response, ApiException>> download(
+  static Future<ApiResponse> download(
     String url, {
     required String savePath, // where to save file
     Map<String, dynamic> headers = const {},
@@ -289,7 +291,7 @@ class ApiClient {
   /// Returns a `Future` that completes with a `Result` object. If the upload is successful, the `Result` object contains a `Response` object. If the upload fails, the `Result` object contains an `ApiException` object.
   ///
   /// Throws an `ApiException` if the upload fails.
-  static Future<Result> upload(
+  static Future<ApiResponse> upload(
     String url, {
     required String filePath,
     String? filename,
@@ -472,7 +474,7 @@ class ApiClient {
   }
 
   /// handle unexpected error
-  static Result<Response<Map<String, dynamic>>, ApiException> _handleUnexpectedException({
+  static ApiResponse _handleUnexpectedException({
     required String url,
     required Object error,
     required bool isErrorToastRequired,
@@ -487,7 +489,7 @@ class ApiClient {
   }
 
   /// handle timeout exception
-  static Result<Response<Map<String, dynamic>>, ApiException> _handleTimeoutException(
+  static ApiResponse _handleTimeoutException(
       {required String url, required bool isErrorToastRequired}) {
     return _handleError(
       showToast: isErrorToastRequired,
@@ -499,7 +501,7 @@ class ApiClient {
   }
 
   /// handle no internet connection exception
-  static Result<Response<Map<String, dynamic>>, ApiException> _handleSocketException({
+  static ApiResponse _handleSocketException({
     required String url,
     required bool isErrorToastRequired,
   }) {
@@ -513,7 +515,7 @@ class ApiClient {
   }
 
   /// handle Dio error
-  static Result<Response<Map<String, dynamic>>, ApiException> _handleDioError({
+  static ApiResponse _handleDioError({
     required DioException error,
     required String url,
     required bool isErrorToastRequired,
@@ -560,9 +562,7 @@ class ApiClient {
   }
 
   /// handle error (show toast and hide loader)
-  static Result<Response<Map<String, dynamic>>, ApiException> _handleError(
-      ApiException apiException,
-      {required bool showToast}) {
+  static ApiResponse _handleError(ApiException apiException, {required bool showToast}) {
     String msg = apiException.toString();
     AppSnackbars.showToast(message: msg, color: AppColors.error);
 
