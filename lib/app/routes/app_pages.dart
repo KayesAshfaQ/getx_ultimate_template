@@ -1,21 +1,24 @@
 import 'package:get/get.dart';
 
-import '../modules/cart/bindings/cart_binding.dart';
-import '../modules/cart/views/cart_view.dart';
-import '../modules/navigator/bindings/navigator_binding.dart';
-import '../modules/navigator/views/navigator_view.dart';
 import '../modules/auth/forgot_pass/bindings/forgot_pass_binding.dart';
 import '../modules/auth/forgot_pass/views/forgot_pass_view.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
 import '../modules/auth/login/bindings/login_binding.dart';
 import '../modules/auth/login/views/login_view.dart';
-import '../modules/message/bindings/message_binding.dart';
-import '../modules/message/views/message_view.dart';
-import '../modules/profile/bindings/profile_binding.dart';
-import '../modules/profile/views/profile_view.dart';
 import '../modules/auth/signup/bindings/signup_binding.dart';
 import '../modules/auth/signup/views/signup_view.dart';
+import '../modules/cart/bindings/cart_binding.dart';
+import '../modules/cart/views/cart_view.dart';
+import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/home_view.dart';
+import '../modules/home/views/home_viewx.dart';
+import '../modules/message/bindings/message_binding.dart';
+import '../modules/message/views/message_view.dart';
+import '../modules/navigator/bindings/navigator_binding.dart';
+import '../modules/navigator/views/navigator_view.dart';
+import '../modules/product_details/bindings/product_details_binding.dart';
+import '../modules/product_details/views/product_details_view.dart';
+import '../modules/profile/bindings/profile_binding.dart';
+import '../modules/profile/views/profile_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 
@@ -73,6 +76,11 @@ class AppPages {
       name: _Paths.FORGOT_PASS,
       page: () => const ForgotPassView(),
       binding: ForgotPassBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUCT_DETAILS,
+      page: () => const ProductDetailsView(),
+      binding: ProductDetailsBinding(),
     ),
   ];
 }

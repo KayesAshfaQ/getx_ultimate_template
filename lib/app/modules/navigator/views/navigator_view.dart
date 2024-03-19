@@ -25,7 +25,7 @@ class NavigatorView extends BaseView<NavigatorController> {
   @override
   Widget? bottomNavigationBar() {
     return ConvexAppBar(
-      color: AppColors.textColorSwatch,
+      color: AppColors.text,
       activeColor: AppColors.primary,
       backgroundColor: AppColors.white,
       curve: Curves.easeInOutQuad,
@@ -46,7 +46,7 @@ class NavigatorView extends BaseView<NavigatorController> {
       icon: SvgPicture.asset(
         icon,
         colorFilter: const ColorFilter.mode(
-          AppColors.textColorSwatch,
+          AppColors.text,
           BlendMode.srcIn,
         ),
       ),

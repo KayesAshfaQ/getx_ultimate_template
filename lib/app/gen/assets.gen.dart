@@ -839,8 +839,17 @@ class Assets {
   /// File path: assets/icons/user.svg
   static const SvgGenImage iconsUser = SvgGenImage('assets/icons/user.svg');
 
+  /// File path: assets/images/home_header_bg.png
+  static const AssetGenImage imagesHomeHeaderBg = AssetGenImage('assets/images/home_header_bg.png');
+
   /// File path: assets/images/pp.jpeg
   static const AssetGenImage imagesPp = AssetGenImage('assets/images/pp.jpeg');
+
+  /// File path: assets/logo/shoplover_logo.svg
+  static const SvgGenImage logoShoploverLogo = SvgGenImage('assets/logo/shoplover_logo.svg');
+
+  /// File path: assets/logo/shoplover_logo_for_home.svg
+  static const SvgGenImage logoShoploverLogoForHome = SvgGenImage('assets/logo/shoplover_logo_for_home.svg');
 
   /// List of all assets
   static List<dynamic> get values => [
@@ -1119,7 +1128,10 @@ class Assets {
         iconsTermsConditions,
         iconsTrackOrdersIcon,
         iconsUser,
-        imagesPp
+        imagesHomeHeaderBg,
+        imagesPp,
+        logoShoploverLogo,
+        logoShoploverLogoForHome
       ];
 }
 

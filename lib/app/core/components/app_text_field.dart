@@ -92,7 +92,7 @@ class AppTextField extends StatelessWidget {
         ),
         labelText: label,
         labelStyle: Get.textTheme.bodyMedium?.copyWith(
-          color: AppColors.textColorSwatch,
+          color: AppColors.text,
         ),
         isDense: true,
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -116,17 +116,14 @@ class AppTextField extends StatelessWidget {
                         prefixIcon,
                         height: prefixIconSize ?? 20,
                         width: prefixIconSize ?? 20,
-                        colorFilter: ColorFilter.mode(
-                            prefixIconColor ?? AppColors.gray.shade400, BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(prefixIconColor ?? AppColors.gray.shade400, BlendMode.srcIn),
                         fit: BoxFit.scaleDown,
                       )
                     : null
             : null,
 
         // change suffix icon size
-        suffixIconConstraints: (textFieldType == AppTextFieldType.password || suffixIcon != null)
-            ? const BoxConstraints(maxHeight: 48, maxWidth: 48)
-            : const BoxConstraints(maxHeight: 48, maxWidth: 16),
+        suffixIconConstraints: (textFieldType == AppTextFieldType.password || suffixIcon != null) ? const BoxConstraints(maxHeight: 48, maxWidth: 48) : const BoxConstraints(maxHeight: 48, maxWidth: 16),
 
         // show password obscure icon in suffix when textfield type is password and suffix icon is not provided otherwise show the provided suffix icon
         suffixIcon: Padding(
@@ -155,8 +152,7 @@ class AppTextField extends StatelessWidget {
                             suffixIcon,
                             height: suffixIconSize ?? 20,
                             width: suffixIconSize ?? 20,
-                            colorFilter: ColorFilter.mode(
-                                prefixIconColor ?? AppColors.gray.shade400, BlendMode.srcIn),
+                            colorFilter: ColorFilter.mode(prefixIconColor ?? AppColors.gray.shade400, BlendMode.srcIn),
                             fit: BoxFit.scaleDown,
                           )
                         : null,

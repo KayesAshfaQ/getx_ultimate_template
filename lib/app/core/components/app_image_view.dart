@@ -46,7 +46,7 @@ class AppImageView extends StatelessWidget {
     super.key,
     this.height = 48,
     this.width,
-    this.color = AppColors.gray,
+    this.color,
     this.fit = BoxFit.cover,
     this.isImageCircular = false,
     this.errorImage = 'assets/images/image_not_supported.png',
@@ -113,17 +113,11 @@ class AppImageView extends StatelessWidget {
         path,
         width: width ?? height,
         height: height,
-        colorFilter: ColorFilter.mode(color!, BlendMode.srcIn),
+        colorFilter: color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
       );
     } else if (path.startsWith('file://')) {
       return _imageWidget(FileImage(File(path)));
-    } else if (path.endsWith('.jpg') ||
-        path.endsWith('.jpeg') ||
-        path.endsWith('.png') ||
-        path.endsWith('.gif') ||
-        path.endsWith('.bmp') ||
-        path.endsWith('.webp') ||
-        path.endsWith('.wbmp')) {
+    } else if (path.endsWith('.jpg') || path.endsWith('.jpeg') || path.endsWith('.png') || path.endsWith('.gif') || path.endsWith('.bmp') || path.endsWith('.webp') || path.endsWith('.wbmp')) {
       return _imageWidget(AssetImage(path));
     } else {
       throw FormatException('Unsupported image format: $path');

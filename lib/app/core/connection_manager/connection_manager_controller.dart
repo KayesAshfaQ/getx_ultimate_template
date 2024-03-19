@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../utils/misc.dart';
-import '../common_widgets/app_snackbars.dart';
+import '../components/app_snackbars.dart';
 import 'connection_type.dart';
 
 class ConnectionManagerController extends GetxController {

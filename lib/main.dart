@@ -41,8 +41,7 @@ void main() async {
 
   runApp(
     ScreenUtilInit(
-      // todo add your (Xd / Figma) artboard size
-      designSize: const Size(375, 812),
+      designSize: const Size(390, 866),
       minTextAdapt: true,
       splitScreenMode: true,
       useInheritedMediaQuery: true,

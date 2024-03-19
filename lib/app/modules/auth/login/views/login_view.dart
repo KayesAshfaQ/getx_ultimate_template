@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:sl_v4/app/routes/app_pages.dart';
 
 import '../controllers/login_controller.dart';
-import '../../../../core/common_widgets/app_button.dart';
-import '../../../../core/common_widgets/app_text_field.dart';
+import '../../../../core/components/app_button.dart';
+import '../../../../core/components/app_text_field.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});

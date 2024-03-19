@@ -40,6 +40,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.cartItemCount = 0,
     this.showElevation = true,
     this.showBackButton = true,
+    this.showCartButton = true,
     this.backgroundColor = AppColors.white,
     this.onBackButtonPressed,
     this.onCartPressed,
@@ -48,7 +49,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int cartItemCount;
   final bool showElevation;
   final Color? backgroundColor;
-  final bool showBackButton;
+  final bool showBackButton, showCartButton;
   final VoidCallback? onBackButtonPressed;
   final VoidCallback? onCartPressed;
 
@@ -123,6 +124,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               hintText: 'Search...',
               border: borderStyle,
               contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+              fillColor: AppColors.white,
+              filled: true,
               enabledBorder: borderStyle,
               focusedBorder: borderStyle,
               errorBorder: borderStyle,
@@ -132,48 +135,50 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
 
         // ---------------- Cart Action ----------------
-        Container(
-          alignment: Alignment.centerRight,
-          padding: REdgeInsets.symmetric(horizontal: 12),
-          child: RippleView(
-            onTap: onCartPressed ??
-                () {
-                  // TODO: Navigate to cart screen
-                },
-            isCircular: true,
-            child: Stack(
-              children: <Widget>[
-                AppImageView(
-                  Assets.iconsCart.path,
-                  height: 24.h,
-                ),
-                if (cartItemCount > 0)
-                  Positioned(
-                    right: 0,
-                    child: Container(
-                      padding: const EdgeInsets.all(1),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(6),
+        showCartButton
+            ? Container(
+                alignment: Alignment.centerRight,
+                padding: REdgeInsets.symmetric(horizontal: 12),
+                child: RippleView(
+                  onTap: onCartPressed ??
+                      () {
+                        // TODO: Navigate to cart screen
+                      },
+                  isCircular: true,
+                  child: Stack(
+                    children: <Widget>[
+                      AppImageView(
+                        Assets.iconsCart.path,
+                        height: 24.h,
                       ),
-                      constraints: const BoxConstraints(
-                        minWidth: 12,
-                        minHeight: 12,
-                      ),
-                      child: Text(
-                        '$cartItemCount',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 8,
+                      if (cartItemCount > 0)
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            constraints: const BoxConstraints(
+                              minWidth: 12,
+                              minHeight: 12,
+                            ),
+                            child: Text(
+                              '$cartItemCount',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 8,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                    ],
                   ),
-              ],
-            ),
-          ),
-        ),
+                ),
+              )
+            : SizedBox(width: 16.w),
       ]),
     );
   }

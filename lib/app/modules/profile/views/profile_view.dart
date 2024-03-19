@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
-import 'package:sl_v4/app/core/common_widgets/app_image_view.dart';
-import 'package:sl_v4/app/core/common_widgets/app_scaffold.dart';
-import 'package:sl_v4/app/core/common_widgets/common_appbar.dart';
+import 'package:sl_v4/app/core/components/app_image_view.dart';
+import 'package:sl_v4/app/core/components/app_scaffold.dart';
+import 'package:sl_v4/app/core/components/common_appbar.dart';
 import 'package:sl_v4/app/core/utils/misc.dart';
 
 import '../../../core/config/app_colors.dart';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+
+  // primary colors
   static const MaterialColor primary = MaterialColor(
     0xFFeb1e3a,
     <int, Color>{
@@ -33,6 +35,10 @@ class AppColors {
     },
   );
 
+
+  static const white = Color(0xffffffff);
+  static const black = Color(0xff000000);
+
   static const MaterialColor gray = MaterialColor(
     0xFF667085,
     <int, Color>{
@@ -49,7 +55,11 @@ class AppColors {
     },
   );
 
-  static const MaterialColor textColorSwatch = MaterialColor(
+  // text colors
+  static const primaryText = Color(0xFF101828);
+  static const secondaryText = Color(0xFF667085);
+
+  static const MaterialColor text = MaterialColor(
     0xFF101828,
     <int, Color>{
       50: Color(0xFFe7e8ea),
@@ -60,6 +70,18 @@ class AppColors {
     },
   );
 
+  // background colors
+  static const background = Color(0xFFf0f1f3);
+  static const scaffoldBackground = Color(0xFFf0f1f3);
+
+  // component colors
+  static const card = Color(0xFFFFFFFF);
+  static const divider = Color(0xFFe7e8ea);
+
+  static const iconDark = Color(0xFF5f646f);
+  static const iconLight = Color(0xFFe7e8ea);
+
+  // status colors
   static const MaterialColor success = MaterialColor(
     0xFF12b76a,
     <int, Color>{
@@ -84,9 +106,21 @@ class AppColors {
     },
   );
 
-  static const white = Color(0xffffffff);
-  static const black = Color(0xff000000);
-
+  // other colors
   static const shimmerBase = Color(0xFFD9D9D9);
   static const shimmerHighlight = Color(0xFFF6F6F6);
+
+  static const transparent = Color(0x00000000);
+  static const transparentWhite = Color(0x80ffffff);
+  static const transparentBlack = Color(0x80000000);
+  static const transparentGray = Color(0x80999999);
+  static const transparentPrimary = Color(0x80eb1e3a);
+
+  static const shadow = Color(0x33000000);
+  static const shadowLight = Color(0x22000000);
+  static const shadowDark = Color(0x66000000);
+
+  static const overlay = Color(0x66000000);
+  static const overlayLight = Color(0x22000000);
+  static const overlayDark = Color(0x99000000);
 }

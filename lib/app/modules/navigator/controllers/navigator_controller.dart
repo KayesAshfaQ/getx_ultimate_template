@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sl_v4/app/core/base/base_controller.dart';
 import 'package:sl_v4/app/modules/cart/views/cart_view.dart';
 import 'package:sl_v4/app/modules/home/views/home_view.dart';
+import 'package:sl_v4/app/modules/home/views/home_viewx.dart';
 import 'package:sl_v4/app/modules/message/views/message_view.dart';
 import 'package:sl_v4/app/modules/profile/views/profile_view.dart';
 

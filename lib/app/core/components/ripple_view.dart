@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -36,7 +38,8 @@ class RippleView extends StatelessWidget {
     this.padding = 8,
     this.elevation = 0,
     this.isCircular = false,
-    this.color = AppColors.white,
+    this.color = AppColors.transparent,
+    this.rippleColor = AppColors.primary,
     this.onTap,
   });
 
@@ -44,7 +47,7 @@ class RippleView extends StatelessWidget {
   final double elevation;
   final double padding;
   final bool isCircular;
-  final Color color;
+  final Color color, rippleColor;
   final VoidCallback? onTap;
 
   @override
@@ -55,8 +58,8 @@ class RippleView extends StatelessWidget {
       borderRadius: BorderRadius.circular(4.r),
       child: InkWell(
         onTap: onTap,
-        splashColor: AppColors.primary.withOpacity(0.25),
-        highlightColor: AppColors.primary.withOpacity(0.1),
+        splashColor: rippleColor.withOpacity(0.25),
+        highlightColor: rippleColor.withOpacity(0.1),
         borderRadius: BorderRadius.circular(4.r),
         child: Container(
           padding: REdgeInsets.all(padding),

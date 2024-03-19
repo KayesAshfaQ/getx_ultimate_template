@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../common_widgets/app_dialogue.dart';
-import '../common_widgets/app_snackbars.dart';
+import '../components/app_dialogue.dart';
+import '../components/app_snackbars.dart';
 
 class PermissionHelper {
   /// Requests a specific permission from the user.

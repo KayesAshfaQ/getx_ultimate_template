@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:logger/logger.dart';
 
+import '../config/remote_config.dart';
+
 /// Prints a log message to the console.
 ///
 /// The [printLog] function prints a log message to the console. It takes a [message] as a required parameter and
@@ -56,5 +58,18 @@ void hideLoader({int delayInMilliSeconds = 1}) {
     Future.delayed(Duration(milliseconds: delayInMilliSeconds), () {
       EasyLoading.dismiss();
     });
+  }
+}
+
+// get base image url
+String getImageURL({
+  ImageSize size = ImageSize.large,
+  ImageType type = ImageType.product,
+  required String? path,
+}) {
+  if (path == null || path.isEmpty) {
+    return '';
+  } else {
+    return "$baseImageURL/${type.toString().split('.').last}/${size.value}/$path";
   }
 }
