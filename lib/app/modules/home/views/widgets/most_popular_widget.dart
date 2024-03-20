@@ -5,7 +5,6 @@ import 'package:sl_v4/app/core/config/app_colors.dart';
 import '../../../../core/common_widgets/product_card.dart';
 import '../../../../data/models/response/most_popular_products_response.dart';
 
-
 class MostPopularWidget extends StatelessWidget {
   final List<MostPopularType> types;
 
@@ -16,9 +15,7 @@ class MostPopularWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
+    return SliverList.separated(
       itemCount: types.length,
       separatorBuilder: (_, __) => SizedBox(height: 8.h),
       itemBuilder: (BuildContext context, int index) {

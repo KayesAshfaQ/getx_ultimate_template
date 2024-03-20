@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:sl_v4/app/core/config/app_colors.dart';
 
 class AppImageView extends StatelessWidget {
   /// `AppImageViewer` is a stateless widget that displays an image from a given path.

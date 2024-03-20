@@ -39,8 +39,14 @@ By following these conventions, we can maintain a clean and understandable commi
 
 FlutterGen is a tool that generates type-safe asset paths for your Flutter project. To use FlutterGen, follow these steps:
 
+````bash
+dart run build_runner build ```bash
+````
+
+or
+
 ```bash
-dart run build_runner build
+flutter pub run build_runner build
 ```
 
 By using `build_runner` , we can generate asset paths in your Dart code to refer to your assets in a type-safe manner.

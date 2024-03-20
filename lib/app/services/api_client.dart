@@ -260,9 +260,7 @@ class ApiClient {
       final response = await _dio.download(
         url,
         savePath,
-        options: Options(
-            receiveTimeout: const Duration(seconds: _timeoutInSeconds),
-            sendTimeout: const Duration(seconds: _timeoutInSeconds)),
+        options: Options(receiveTimeout: const Duration(seconds: _timeoutInSeconds), sendTimeout: const Duration(seconds: _timeoutInSeconds)),
         onReceiveProgress: onReceiveProgress,
       );
 
@@ -413,9 +411,9 @@ class ApiClient {
       retries: 3, // retry count (optional)
       retryDelays: const [
         // set delays between retries (optional)
-        Duration(seconds: 1), // wait 1 sec before first retry
-        Duration(seconds: 2), // wait 2 sec before second retry
-        Duration(seconds: 3), // wait 3 sec before third retry
+        Duration(seconds: 5), // wait 1 sec before first retry
+        Duration(seconds: 10), // wait 2 sec before second retry
+        Duration(seconds: 15), // wait 3 sec before third retry
       ],
     );
   }
@@ -491,8 +489,7 @@ class ApiClient {
   }
 
   /// handle timeout exception
-  static ApiResponse _handleTimeoutException(
-      {required String url, required bool isErrorToastRequired}) {
+  static ApiResponse _handleTimeoutException({required String url, required bool isErrorToastRequired}) {
     return _handleError(
       showToast: isErrorToastRequired,
       ApiException(

@@ -14,7 +14,7 @@ class HomePageRepository {
       ApiEndPoints.activePageSettings,
       RequestType.get,
       isAuthorizationRequired: false,
-      isRetryRequired: true,
+      isRetryRequired: false,
       isErrorToastRequired: false,
       isCacheRequired: true,
     );
@@ -31,7 +31,7 @@ class HomePageRepository {
       ApiEndPoints.popularCategories,
       RequestType.get,
       isAuthorizationRequired: false,
-      isRetryRequired: true,
+      isRetryRequired: false,
       isErrorToastRequired: false,
       isCacheRequired: true,
     );
@@ -48,7 +48,7 @@ class HomePageRepository {
       ApiEndPoints.allCategoryList,
       RequestType.get,
       isAuthorizationRequired: false,
-      isRetryRequired: true,
+      isRetryRequired: false,
       isErrorToastRequired: false,
       isCacheRequired: true,
     );
@@ -65,7 +65,7 @@ class HomePageRepository {
       ApiEndPoints.getCategories(searchQuery, rowsPerPage, currentPage, sortField, sortOrder, statusId),
       RequestType.get,
       isAuthorizationRequired: false,
-      isRetryRequired: true,
+      isRetryRequired: false,
       isErrorToastRequired: false,
       isCacheRequired: true,
     );
@@ -83,7 +83,7 @@ class HomePageRepository {
       ApiEndPoints.getBestShops(currentPage, rowsPerPage),
       RequestType.get,
       isAuthorizationRequired: false,
-      isRetryRequired: true,
+      isRetryRequired: false,
       isErrorToastRequired: false,
       isCacheRequired: true,
     );
@@ -101,7 +101,7 @@ class HomePageRepository {
       ApiEndPoints.getMostPopularProducts,
       RequestType.get,
       isAuthorizationRequired: false,
-      isRetryRequired: true,
+      isRetryRequired: false,
       isErrorToastRequired: false,
       isCacheRequired: true,
     );
@@ -119,7 +119,7 @@ class HomePageRepository {
       ApiEndPoints.getJustForYou(currentPage, rowsPerPage),
       RequestType.get,
       isAuthorizationRequired: false,
-      isRetryRequired: true,
+      isRetryRequired: false,
       isErrorToastRequired: false,
       isCacheRequired: true,
     );

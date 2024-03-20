@@ -17,8 +17,6 @@ class HomeController extends GetxController {
   int currentPage = 1;
   bool hasNextPage = false;
 
-  final isHeaderCollapsed = false.obs;
-
   final isLoading = true.obs;
   final isDrawerOpen = false.obs;
   final currentSlider = 0.obs;
@@ -39,13 +37,6 @@ class HomeController extends GetxController {
     initFetch();
 
     scrollController.addListener(() async {
-
-      if(scrollController.offset > 350) {
-        isHeaderCollapsed.value = true;
-      } else {
-        isHeaderCollapsed.value = false;
-      }
-
       // scroll controller activates when 70% of the scroll is reached
       if (scrollController.offset >= (scrollController.position.maxScrollExtent * 0.7) && showProductLoading.value == false && hasNextPage) {
         printLog('current offset: ${scrollController.offset}\n,showProductLoading value: ${showProductLoading.value}\nmaxScrollExtent: ${scrollController.position.maxScrollExtent}\n70% of maxScrollExtent: ${scrollController.position.maxScrollExtent * 0.7}');
@@ -67,11 +58,11 @@ class HomeController extends GetxController {
 
   initFetch() {
     fetchCarouseImagesList();
-    // fetchPopularCategoriesWidgetList();
-    // fetchAllCategoriesWidgetList("", 10, 1, "", "", 1);
-    // fetchBestShops();
-    // fetchMostPopular();
-    // fetchJustForYou();
+    fetchPopularCategoriesWidgetList();
+    fetchAllCategoriesWidgetList("", 10, 1, "", "", 1);
+    fetchBestShops();
+    fetchMostPopular();
+    fetchJustForYou();
   }
 
   Future<void> fetchCarouseImagesList() async {

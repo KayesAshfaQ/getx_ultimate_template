@@ -845,6 +845,9 @@ class Assets {
   /// File path: assets/images/pp.jpeg
   static const AssetGenImage imagesPp = AssetGenImage('assets/images/pp.jpeg');
 
+  /// File path: assets/images/promotional_demo.png
+  static const AssetGenImage imagesPromotionalDemo = AssetGenImage('assets/images/promotional_demo.png');
+
   /// File path: assets/logo/shoplover_logo.svg
   static const SvgGenImage logoShoploverLogo = SvgGenImage('assets/logo/shoplover_logo.svg');
 
@@ -1130,6 +1133,7 @@ class Assets {
         iconsUser,
         imagesHomeHeaderBg,
         imagesPp,
+        imagesPromotionalDemo,
         logoShoploverLogo,
         logoShoploverLogoForHome
       ];
