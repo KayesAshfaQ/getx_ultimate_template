@@ -10,14 +10,14 @@ import '../../../data/models/response/product.dart';
 import '../../../data/repository/home_page_repository.dart';
 
 class HomeController extends GetxController {
-  final _paginateController = ScrollController();
-  ScrollController get paginateController => _paginateController;
+  final scrollController = ScrollController();
 
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-  GlobalKey<ScaffoldState> get scaffoldKey => _scaffoldKey;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   int currentPage = 1;
   bool hasNextPage = false;
+
+  final isHeaderCollapsed = false.obs;
 
   final isLoading = true.obs;
   final isDrawerOpen = false.obs;
@@ -38,10 +38,17 @@ class HomeController extends GetxController {
   void onInit() {
     initFetch();
 
-    paginateController.addListener(() async {
+    scrollController.addListener(() async {
+
+      if(scrollController.offset > 350) {
+        isHeaderCollapsed.value = true;
+      } else {
+        isHeaderCollapsed.value = false;
+      }
+
       // scroll controller activates when 70% of the scroll is reached
-      if (paginateController.offset >= (paginateController.position.maxScrollExtent * 0.7) && showProductLoading.value == false && hasNextPage) {
-        printLog('current offset: ${paginateController.offset}\n,showProductLoading value: ${showProductLoading.value}\nmaxScrollExtent: ${paginateController.position.maxScrollExtent}\n70% of maxScrollExtent: ${paginateController.position.maxScrollExtent * 0.7}');
+      if (scrollController.offset >= (scrollController.position.maxScrollExtent * 0.7) && showProductLoading.value == false && hasNextPage) {
+        printLog('current offset: ${scrollController.offset}\n,showProductLoading value: ${showProductLoading.value}\nmaxScrollExtent: ${scrollController.position.maxScrollExtent}\n70% of maxScrollExtent: ${scrollController.position.maxScrollExtent * 0.7}');
         currentPage++;
         await fetchJustForYou();
       }
@@ -70,8 +77,6 @@ class HomeController extends GetxController {
   Future<void> fetchCarouseImagesList() async {
     isLoading.value = true;
     final carouselResponse = await HomePageRepository.getBannerSliders();
-
-    
 
     if (carouselResponse != null && carouselResponse.success == true) {
       bannerOneItems.value = carouselResponse.data!.slider ?? <HomePageBanner>[];

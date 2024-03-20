@@ -83,15 +83,15 @@ class AppImageView extends StatelessWidget {
         imageBuilder: (context, imageProvider) => _imageWidget(
           imageProvider,
         ),
-        progressIndicatorBuilder: (context, data, progress) {
-          double value = 0.0;
-          if (progress.totalSize != null) {
-            var totalBytes = progress.totalSize!;
-            var receivedBytes = progress.downloaded;
-            value = receivedBytes / totalBytes;
-          }
-          return CircularProgressIndicator(value: value);
-        },
+        // progressIndicatorBuilder: (context, data, progress) {
+        //   double value = 0.0;
+        //   if (progress.totalSize != null) {
+        //     var totalBytes = progress.totalSize!;
+        //     var receivedBytes = progress.downloaded;
+        //     value = receivedBytes / totalBytes;
+        //   }
+        //   return CircularProgressIndicator(value: value);
+        // },
         placeholder: (context, url) => Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,

@@ -25,8 +25,6 @@ import 'widgets/most_popular_widget.dart';
 class HomeView2 extends GetView<HomeController> {
   const HomeView2({super.key});
 
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +50,7 @@ class HomeView2 extends GetView<HomeController> {
                     onRefresh: controller.onRefresh,
                     child: CustomScrollView(
                       // child: SingleChildScrollView(
-                      controller: controller.paginateController,
+                      controller: controller.scrollController,
                       physics: const ClampingScrollPhysics(
                         parent: AlwaysScrollableScrollPhysics(),
                       ),

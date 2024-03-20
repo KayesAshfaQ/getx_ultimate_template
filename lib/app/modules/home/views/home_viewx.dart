@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sl_v4/app/core/components/app_image_view.dart';
@@ -20,13 +22,24 @@ class HomeView extends GetView<HomeController> {
     return AppScaffold(
       scaffoldKey: controller.scaffoldKey,
       body: CustomScrollView(
+        controller: controller.scrollController,
         slivers: [
           SliverPersistentHeader(
             pinned: true,
-            delegate: HeaderDelegate(
-              bannerItems: controller.bannerOneItems,
+            delegate: SliverAppBarDelegate(
+              minHeight: 60.0, // You can adjust this value as needed
+              maxHeight: 350.h,
             ),
           ),
+          // SliverToBoxAdapter(
+          //     child: controller.isHeaderCollapsed.value
+          //         ? const CommonAppBar(
+          //             showBackButton: false,
+          //             showCartButton: false,
+          //             backgroundColor: Colors.transparent,
+          //             showElevation: false,
+          //           )
+          //         : HeaderWidget()),
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -43,15 +56,203 @@ class HomeView extends GetView<HomeController> {
   }
 }
 
-class HeaderDelegate extends SliverPersistentHeaderDelegate {
-  final List<HomePageBanner> bannerItems;
-
-  const HeaderDelegate({
-    required this.bannerItems,
+class HeaderWidget extends StatelessWidget {
+  const HeaderWidget({
+    super.key,
   });
 
   @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 354.h,
+      child: Stack(
+        children: [
+          AppImageView(
+            Assets.imagesHomeHeaderBg.path,
+            height: 253.h,
+            width: Get.width,
+            fit: BoxFit.fill,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              16.verticalSpace,
+              Row(
+                children: [
+                  16.horizontalSpace,
+                  AppImageView(
+                    Assets.logoShoploverLogo.path,
+                    height: 28.2.h,
+                    width: 128.61.w,
+                  ),
+                  Spacer(),
+                  RippleView(
+                    rippleColor: AppColors.white,
+                    isCircular: true,
+                    onTap: () {
+                      //Get.toNamed(Routes.searchResultPage);
+                    },
+                    child: AppImageView(
+                      Assets.iconsSearch.path,
+                      height: 24.w,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  8.horizontalSpace,
+                  RippleView(
+                    rippleColor: AppColors.white,
+                    isCircular: true,
+                    onTap: () {
+                      //Get.toNamed(Routes.cartPage);
+                    },
+                    child: AppImageView(
+                      Assets.iconsCart.path,
+                      height: 24.w,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  16.horizontalSpace,
+                ],
+              ),
+              //8.verticalSpace,
+              const CommonAppBar(
+                showBackButton: false,
+                showCartButton: false,
+                backgroundColor: Colors.transparent,
+                showElevation: false,
+              ),
+              4.verticalSpace,
+              Container(
+                height: 168.h,
+                width: Get.width,
+                margin: EdgeInsets.symmetric(horizontal: 16.w),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(10.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: AppColors.black.withOpacity(0.08),
+                      spreadRadius: 0.01,
+                      blurRadius: 0.01,
+                    ),
+                  ],
+                ),
+                child: /*bannerItems.isEmpty
+                      ? const SizedBox()
+                      :*/
+                    CarouselSlider.builder(
+                  //itemCount: bannerItems.length,
+                  itemCount: 3,
+                  options: CarouselOptions(
+                      //aspectRatio: 2.77,
+                      //height: 150.h,
+                      //height: 135.h,
+                      viewportFraction: 1,
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      autoPlay: true,
+                      autoPlayInterval: const Duration(seconds: 5),
+                      autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+                      autoPlayCurve: Curves.fastLinearToSlowEaseIn,
+                      enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,
+                      onPageChanged: (index, reason) {
+                        //controller.currentSlider.value = index;
+                      }),
+                  itemBuilder: (context, index, realIndex) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(10.r),
+                      child: AppImageView(
+                        'https://fakeimg.pl/600x400/4449db/909090',
+                        //bannerItems[index].imagePathApp ?? '',
+                        height: 168.h,
+                        width: Get.width,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          Container(
+            height: 40.h,
+            margin: EdgeInsets.fromLTRB(40.w, 260.h, 40.w, 0),
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(10.r),
+              boxShadow: [
+                BoxShadow(
+                  // create a hard shadow effect
+                  color: AppColors.black.withOpacity(0.08),
+                  spreadRadius: 0.01,
+                  blurRadius: 0.01,
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                8.horizontalSpace,
+                Text(
+                  // userAddress.$,
+                  "Set your Default location ",
+                  style: TextStyle(
+                    color: AppColors.gray.shade700,
+                    overflow: TextOverflow.ellipsis,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                const Spacer(),
+                Padding(
+                  padding: EdgeInsets.only(left: 12.w),
+                  child: SizedBox(
+                    height: 17.h,
+                    child: VerticalDivider(
+                      width: 1.w,
+                      thickness: 1.h,
+                      color: AppColors.gray,
+                      indent: 2.h,
+                    ),
+                  ),
+                ),
+                8.horizontalSpace,
+                AppImageView(
+                  Assets.iconsCart.path,
+                  height: 16.h,
+                  width: 16.w,
+                  color: AppColors.gray.shade700,
+                ),
+                8.horizontalSpace
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  SliverAppBarDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+  });
+
+  final double minHeight;
+  final double maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    //return  SizedBox.expand(child: child);
+
     final progress = shrinkOffset / maxExtent;
 
     return Material(
@@ -71,201 +272,15 @@ class HeaderDelegate extends SliverPersistentHeaderDelegate {
           AnimatedOpacity(
             duration: const Duration(milliseconds: 100),
             opacity: 1 - progress,
-            child: AnimatedContainer(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(Assets.imagesHomeHeaderBg.path),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              duration: const Duration(milliseconds: 100),
-              // padding: EdgeInsets.lerp(
-              //   EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              //   EdgeInsets.only(bottom: 16),
-              //   progress,
-              // ),
-              // alignment: Alignment.lerp(
-              //   Alignment.bottomLeft,
-              //   Alignment.bottomCenter,
-              //   progress,
-              // ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  16.verticalSpace,
-                  Row(
-                    children: [
-                      16.horizontalSpace,
-                      AppImageView(
-                        Assets.logoShoploverLogo.path,
-                        height: 32.w,
-                      ),
-                      Spacer(),
-                      RippleView(
-                        rippleColor: AppColors.white,
-                        isCircular: true,
-                        onTap: () {
-                          //Get.toNamed(Routes.searchResultPage);
-                        },
-                        child: AppImageView(
-                          Assets.iconsSearch.path,
-                          height: 24.w,
-                          color: AppColors.white,
-                        ),
-                      ),
-                      8.horizontalSpace,
-                      RippleView(
-                        rippleColor: AppColors.white,
-                        isCircular: true,
-                        onTap: () {
-                          //Get.toNamed(Routes.cartPage);
-                        },
-                        child: AppImageView(
-                          Assets.iconsCart.path,
-                          height: 24.w,
-                          color: AppColors.white,
-                        ),
-                      ),
-                      16.horizontalSpace,
-                    ],
-                  ),
-                  8.verticalSpace,
-                  const CommonAppBar(
-                    showBackButton: false,
-                    showCartButton: false,
-                    backgroundColor: Colors.transparent,
-                    showElevation: false,
-                  ),
-                  Obx(
-                    () => Container(
-                      color: AppColors.white,
-                      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0),
-                      child: bannerItems.isEmpty
-                          ? const SizedBox()
-                          : CarouselSlider.builder(
-                              itemCount: bannerItems.length,
-                              options: CarouselOptions(
-                                  aspectRatio: 2.77,
-                                  // height: 164,
-                                  //height: 135.h,
-                                  viewportFraction: 1,
-                                  initialPage: 0,
-                                  enableInfiniteScroll: true,
-                                  autoPlay: true,
-                                  autoPlayInterval: const Duration(seconds: 5),
-                                  autoPlayAnimationDuration: const Duration(milliseconds: 1000),
-                                  autoPlayCurve: Curves.fastLinearToSlowEaseIn,
-                                  enlargeCenterPage: true,
-                                  clipBehavior: Clip.none,
-                                  scrollDirection: Axis.horizontal,
-                                  onPageChanged: (index, reason) {
-                                    //controller.currentSlider.value = index;
-                                  }),
-                              itemBuilder: (context, index, realIndex) {
-                                return Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0),
-                                  child: Image.network(
-                                    bannerItems[index].imagePathApp ?? '',
-                                    height: 164.h,
-                                    width: Get.width,
-                                    fit: BoxFit.cover,
-                                  ),
-                                );
-                              },
-                            ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            child: const HeaderWidget(),
           ),
         ],
       ),
     );
   }
 
-  stemp() {
-    return GestureDetector(
-      onTap: () {
-        //Get.toNamed(Routes.searchResultPage);
-      },
-      child: Center(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 0),
-          // width: Get.width - 32.w,
-          // margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 0),
-          height: 40.h,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.r),
-              // border: Border.all(color: Colors.red, width: 1),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.black.withOpacity(0.08),
-                  spreadRadius: 0.01,
-                  blurRadius: 0.01,
-                ),
-              ],
-            ),
-            child: TextField(
-              onTap: () {},
-              enabled: false,
-              decoration: InputDecoration(
-                isDense: true,
-                // important line
-                contentPadding: const EdgeInsets.fromLTRB(0, 11, 0, 0),
-                // control your hints text size
-                border: InputBorder.none,
-                fillColor: const Color.fromRGBO(241, 241, 241, 1),
-                filled: true,
-                hintText: "home_screen_search".tr,
-                hintStyle: const TextStyle(fontFamily: 'iregular', color: Color.fromRGBO(99, 99, 99, 1), fontSize: 14),
-                // suffixIconColor: Colors.grey,
-                prefixIcon: Icon(Icons.search, color: Colors.grey),
-                // CircleAvatar(
-                //   backgroundColor: Colors.transparent,
-                //   child: SvgPicture.asset(
-                //     'assets/icons/search.svg',
-                //     height: 14.h,
-                //     width: 14.h,
-                //   ),
-                // ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: const BorderSide(
-                    //color: Color.fromRGBO(241, 241, 241, 1),
-                    color: Colors.red, width: 1,
-                  ),
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: const BorderSide(
-                    //color: Color.fromRGBO(241, 241, 241, 1),
-                    color: Colors.red, width: 1,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  borderSide: const BorderSide(
-                    //color: Color.fromRGBO(241, 241, 241, 1),
-                    color: Colors.red, width: 1,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+  @override
+  bool shouldRebuild(SliverAppBarDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight || minHeight != oldDelegate.minHeight;
   }
-
-  @override
-  double get maxExtent => 264;
-
-  @override
-  double get minExtent => kToolbarHeight;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) => true;
 }
