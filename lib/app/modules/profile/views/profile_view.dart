@@ -7,10 +7,12 @@ import 'package:sl_v4/app/core/components/app_scaffold.dart';
 import 'package:sl_v4/app/core/components/common_appbar.dart';
 import 'package:sl_v4/app/core/utils/misc.dart';
 
+import '../../../core/components/app_text_field.dart';
 import '../../../core/config/app_colors.dart';
 import '../../../core/localization/localization_service.dart';
 import '../../../core/localization/strings_enum.dart';
 import '../../../gen/assets.gen.dart';
+import '../../../gen/fonts.gen.dart';
 import '../controllers/profile_controller.dart';
 import 'widgets/profile_row.dart';
 
@@ -133,14 +135,7 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                         TextButton(
                           onPressed: () {},
-                          style: ButtonStyle(
-                              overlayColor: MaterialStatePropertyAll(Colors.grey),
-                              shape: MaterialStatePropertyAll(
-                                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Color.fromRGBO(234, 234, 234, 1)),
-                              padding: MaterialStatePropertyAll(
-                                  REdgeInsets.symmetric(horizontal: 16, vertical: 8))),
+                          style: ButtonStyle(overlayColor: MaterialStatePropertyAll(Colors.grey), shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))), backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(234, 234, 234, 1)), padding: MaterialStatePropertyAll(REdgeInsets.symmetric(horizontal: 16, vertical: 8))),
                           child: Text(
                             "Edit Profile",
                             maxLines: 2,
@@ -231,9 +226,7 @@ class ProfileView extends GetView<ProfileController> {
                         onTap: () {
                           printLog('Changes Language Called!');
                           LocalizationService.updateLanguage(
-                            LocalizationService.getCurrentLocal().languageCode == 'en'
-                                ? 'bn'
-                                : 'en',
+                            LocalizationService.getCurrentLocal().languageCode == 'en' ? 'bn' : 'en',
                           );
                         },
                         icon: Assets.iconsChangeLanguage.path,
@@ -263,26 +256,13 @@ class ProfileView extends GetView<ProfileController> {
                             content: Text('profile_logout_alert'.tr),
                             actions: [
                               TextButton(
-                                  style: ButtonStyle(
-                                      overlayColor: MaterialStatePropertyAll(Colors.grey[850]),
-                                      backgroundColor:
-                                          const MaterialStatePropertyAll(AppColors.primary),
-                                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5),
-                                          side: const BorderSide(color: Colors.black)))),
+                                  style: ButtonStyle(overlayColor: MaterialStatePropertyAll(Colors.grey[850]), backgroundColor: const MaterialStatePropertyAll(AppColors.primary), shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5), side: const BorderSide(color: Colors.black)))),
                                   onPressed: () {
                                     Get.back();
                                   },
-                                  child: Text('common_no'.tr,
-                                      style: const TextStyle(color: Colors.white))),
+                                  child: Text('common_no'.tr, style: const TextStyle(color: Colors.white))),
                               TextButton(
-                                  style: ButtonStyle(
-                                      overlayColor: MaterialStatePropertyAll(Colors.grey[850]),
-                                      backgroundColor:
-                                          const MaterialStatePropertyAll(AppColors.primary),
-                                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5),
-                                          side: const BorderSide(color: Colors.black)))),
+                                  style: ButtonStyle(overlayColor: MaterialStatePropertyAll(Colors.grey[850]), backgroundColor: const MaterialStatePropertyAll(AppColors.primary), shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(5), side: const BorderSide(color: Colors.black)))),
                                   onPressed: () {
                                     // controller.logout();
                                   },

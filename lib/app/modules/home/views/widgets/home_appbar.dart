@@ -4,10 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/components/app_image_view.dart';
+import '../../../../core/components/app_text_field.dart';
 import '../../../../core/components/common_appbar.dart';
 import '../../../../core/components/ripple_view.dart';
 import '../../../../core/config/app_colors.dart';
 import '../../../../gen/assets.gen.dart';
+import '../../../../gen/fonts.gen.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({
@@ -101,12 +103,15 @@ class HomeAppBar extends StatelessWidget {
                 ],
               ),
               //8.verticalSpace,
-              const CommonAppBar(
-                showBackButton: false,
-                showCartButton: false,
-                backgroundColor: Colors.transparent,
-                showElevation: false,
-              ),
+
+              _searchBar(),
+
+              // const CommonAppBar(
+              //   showBackButton: false,
+              //   showCartButton: false,
+              //   backgroundColor: Colors.transparent,
+              //   showElevation: false,
+              // ),
               4.verticalSpace,
               Stack(
                 alignment: Alignment.bottomCenter,
@@ -226,4 +231,32 @@ class HomeAppBar extends StatelessWidget {
       ),
     );
   }
+
+  Widget _searchBar() => Container(
+        margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        child: AppTextField(
+          hint: 'Search...',
+          textFieldType: AppTextFieldType.none,
+          radius: 6.r,
+          defaultBorderColor: AppColors.primary.shade300,
+          defaultBorderWidth: 1,
+          filledColor: AppColors.white,
+          hintStyle: TextStyle(
+            fontSize: 14.0,
+            fontFamily: FontFamily.inter,
+            fontWeight: FontWeight.w500,
+            color: AppColors.gray.shade200,
+          ),
+          textStyle: TextStyle(
+            fontSize: 14.0,
+            fontFamily: FontFamily.inter,
+            fontWeight: FontWeight.w500,
+            color: AppColors.gray.shade700,
+          ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+          prefixIcon: Assets.iconsSearch.path,
+          prefixIconSize: 20,
+          prefixIconColor: AppColors.gray.shade200,
+        ),
+      );
 }

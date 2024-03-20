@@ -5,6 +5,7 @@ import '../../gen/assets.gen.dart';
 import '../../gen/fonts.gen.dart';
 import '../config/app_colors.dart';
 import 'app_image_view.dart';
+import 'app_text_field.dart';
 import 'ripple_view.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -109,28 +110,28 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
         // ---------------- Search Field ----------------
         Expanded(
-          child: TextField(
-            maxLines: 1,
-            maxLength: 256,
-            style: TextStyle(
+          child: AppTextField(
+            hint: 'Search...',
+            textFieldType: AppTextFieldType.password,
+            radius: 6.r,
+
+            defaultBorderColor: AppColors.primary.shade300,
+            defaultBorderWidth: 1,
+
+            //filledColor: AppColors.white,
+            hintStyle: TextStyle(
+              fontSize: 14.0,
+              fontFamily: FontFamily.inter,
+              fontWeight: FontWeight.w500,
+              color: AppColors.gray.shade200,
+            ),
+            textStyle: TextStyle(
               fontSize: 14.0,
               fontFamily: FontFamily.inter,
               fontWeight: FontWeight.w500,
               color: AppColors.gray.shade700,
             ),
-            decoration: InputDecoration(
-              counterText: '',
-              isDense: true,
-              hintText: 'Search...',
-              border: borderStyle,
-              contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-              fillColor: AppColors.white,
-              filled: true,
-              enabledBorder: borderStyle,
-              focusedBorder: borderStyle,
-              errorBorder: borderStyle,
-              focusedErrorBorder: borderStyle,
-            ),
+            contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
           ),
         ),
 
