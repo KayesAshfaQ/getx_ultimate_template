@@ -812,6 +812,9 @@ class Assets {
   /// File path: assets/icons/my_wishList.svg
   static const SvgGenImage iconsMyWishList = SvgGenImage('assets/icons/my_wishList.svg');
 
+  /// File path: assets/icons/notification_outline.svg
+  static const SvgGenImage iconsNotificationOutline = SvgGenImage('assets/icons/notification_outline.svg');
+
   /// File path: assets/icons/notifications.svg
   static const SvgGenImage iconsNotifications = SvgGenImage('assets/icons/notifications.svg');
 
@@ -826,6 +829,9 @@ class Assets {
 
   /// File path: assets/icons/search.svg
   static const SvgGenImage iconsSearch = SvgGenImage('assets/icons/search.svg');
+
+  /// File path: assets/icons/settings_outline.svg
+  static const SvgGenImage iconsSettingsOutline = SvgGenImage('assets/icons/settings_outline.svg');
 
   /// File path: assets/icons/support_ticket.svg
   static const SvgGenImage iconsSupportTicket = SvgGenImage('assets/icons/support_ticket.svg');
@@ -1122,11 +1128,13 @@ class Assets {
         iconsLogout,
         iconsManageShippingAddress,
         iconsMyWishList,
+        iconsNotificationOutline,
         iconsNotifications,
         iconsPaymentMethod,
         iconsPurchaseHistory,
         iconsRefundRequests,
         iconsSearch,
+        iconsSettingsOutline,
         iconsSupportTicket,
         iconsTermsConditions,
         iconsTrackOrdersIcon,

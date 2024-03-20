@@ -68,6 +68,8 @@ class HomeAppBar extends StatelessWidget {
                     width: 128.61.w,
                   ),
                   const Spacer(),
+
+                  // ------------------- notification button -------------------
                   RippleView(
                     rippleColor: AppColors.white,
                     isCircular: true,
@@ -75,12 +77,14 @@ class HomeAppBar extends StatelessWidget {
                       //Get.toNamed(Routes.searchResultPage);
                     },
                     child: AppImageView(
-                      Assets.iconsSearch.path,
+                      Assets.iconsNotificationOutline.path,
                       height: 24.w,
                       color: AppColors.white,
                     ),
                   ),
                   8.horizontalSpace,
+
+                  // ------------------- setting button -------------------
                   RippleView(
                     rippleColor: AppColors.white,
                     isCircular: true,
@@ -88,7 +92,7 @@ class HomeAppBar extends StatelessWidget {
                       //Get.toNamed(Routes.cartPage);
                     },
                     child: AppImageView(
-                      Assets.iconsCart.path,
+                      Assets.iconsSettingsOutline.path,
                       height: 24.w,
                       color: AppColors.white,
                     ),
