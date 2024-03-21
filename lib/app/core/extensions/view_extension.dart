@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-extension EmailValidator on GetInterface {
+extension Gaps on GetInterface {
   Widget gapVertical(double value) {
     return value.verticalSpace;
   }
@@ -22,4 +22,27 @@ extension EmailValidator on GetInterface {
       child: value.horizontalSpace,
     );
   }
+}
+
+extension Shadows on GetInterface {
+  BoxShadow get boxShadow1 => BoxShadow(
+        color: Colors.grey.withOpacity(0.5),
+        spreadRadius: 2,
+        blurRadius: 5,
+        offset: const Offset(0, 3),
+      );
+
+  BoxShadow get boxShadow2 => BoxShadow(
+        color: Colors.black.withOpacity(0.1),
+        spreadRadius: 1,
+        blurRadius: 5,
+        offset: const Offset(0, 3), // changes position of shadow
+      );
+
+  BoxShadow get boxShadow3 => BoxShadow(
+        color: Colors.black.withOpacity(0.1),
+        spreadRadius: 1,
+        blurRadius: 10,
+        offset: const Offset(0, 3), // changes position of shadow
+      );
 }

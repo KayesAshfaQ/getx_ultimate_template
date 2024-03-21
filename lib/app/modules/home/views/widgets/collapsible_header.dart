@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:sl_v4/app/core/extensions/view_extension.dart';
 
 import '../../../../core/components/app_image_view.dart';
 import '../../../../core/components/app_text_field.dart';
@@ -17,9 +18,13 @@ class CollapsibleHeader extends StatelessWidget {
   const CollapsibleHeader({
     super.key,
     required this.bannerItems,
+    this.selectedBannerIndex = 0,
+    this.onBannerSelected,
   });
 
   final List<HomePageBanner> bannerItems;
+  final int selectedBannerIndex;
+  final Function(int, CarouselPageChangedReason)? onBannerSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +53,10 @@ class CollapsibleHeader extends StatelessWidget {
       height: 340.h,
       child: Stack(
         children: [
+          // ------------------- header background -------------------
           AppImageView(
             Assets.imagesHomeHeaderBg.path,
-            height: 253.h,
+            height: 232.h,
             width: Get.width,
             fit: BoxFit.fill,
           ),
@@ -62,8 +68,10 @@ class CollapsibleHeader extends StatelessWidget {
               Row(
                 children: [
                   16.horizontalSpace,
+
+                  // ------------------- appbar logo -------------------
                   AppImageView(
-                    Assets.logoShoploverLogo.path,
+                    Assets.logoShoploverMono.path,
                     height: 28.2.h,
                     width: 128.61.w,
                   ),
@@ -105,6 +113,7 @@ class CollapsibleHeader extends StatelessWidget {
               Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
+                  // ------------------- carousel -------------------
                   Container(
                     height: 168.h,
                     width: Get.width,
@@ -114,11 +123,7 @@ class CollapsibleHeader extends StatelessWidget {
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(10.r),
                       boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.08),
-                          spreadRadius: 0.01,
-                          blurRadius: 0.01,
-                        ),
+                        Get.boxShadow3,
                       ],
                     ),
                     child: bannerItems.isEmpty
@@ -126,21 +131,20 @@ class CollapsibleHeader extends StatelessWidget {
                         : CarouselSlider.builder(
                             itemCount: bannerItems.length,
                             options: CarouselOptions(
-                                //aspectRatio: 2.77,
-                                //height: 150.h,
-                                //height: 135.h,
-                                viewportFraction: 1,
-                                initialPage: 0,
-                                enableInfiniteScroll: true,
-                                autoPlay: true,
-                                autoPlayInterval: const Duration(seconds: 5),
-                                autoPlayAnimationDuration: const Duration(milliseconds: 1000),
-                                autoPlayCurve: Curves.fastLinearToSlowEaseIn,
-                                enlargeCenterPage: true,
-                                scrollDirection: Axis.horizontal,
-                                onPageChanged: (index, reason) {
-                                  //controller.currentSlider.value = index;
-                                }),
+                              //aspectRatio: 2.77,
+                              //height: 150.h,
+                              //height: 135.h,
+                              viewportFraction: 1,
+                              initialPage: 0,
+                              enableInfiniteScroll: true,
+                              autoPlay: true,
+                              autoPlayInterval: const Duration(seconds: 5),
+                              autoPlayAnimationDuration: const Duration(milliseconds: 1200),
+                              autoPlayCurve: Curves.fastLinearToSlowEaseIn,
+                              enlargeCenterPage: true,
+                              scrollDirection: Axis.horizontal,
+                              onPageChanged: onBannerSelected,
+                            ),
                             itemBuilder: (context, index, realIndex) {
                               return ClipRRect(
                                 borderRadius: BorderRadius.circular(10.r),
@@ -154,56 +158,83 @@ class CollapsibleHeader extends StatelessWidget {
                             },
                           ),
                   ),
-                  Container(
-                    height: 40.h,
-                    width: Get.width - (80.w), // remove margin width of both side
-                    decoration: BoxDecoration(
-                      color: AppColors.white,
-                      borderRadius: BorderRadius.circular(10.r),
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.black.withOpacity(0.08),
-                          spreadRadius: 0.01,
-                          blurRadius: 0.01,
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      // ------------------- location bar -------------------
+                      Container(
+                        margin: EdgeInsets.only(top: 16.h),
+                        height: 40.h,
+                        width: Get.width - (80.w), // remove margin width of both side
+                        decoration: BoxDecoration(
+                          color: AppColors.white,
+                          borderRadius: BorderRadius.circular(10.r),
+                          boxShadow: [Get.boxShadow3],
                         ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        8.horizontalSpace,
-                        Text(
-                          Strings.setDeliveryLocation.tr,
-                          style: TextStyle(
-                            color: AppColors.gray.shade700,
-                            overflow: TextOverflow.ellipsis,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400,
-                          ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            16.horizontalSpace,
+                            Expanded(
+                              child: Text(
+                                Strings.setDeliveryLocation.tr,
+                                style: TextStyle(
+                                  color: AppColors.gray.shade700,
+                                  overflow: TextOverflow.ellipsis,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              child: SizedBox(
+                                height: 16.h,
+                                child: VerticalDivider(
+                                  width: 1.w,
+                                  thickness: 1,
+                                  color: AppColors.gray,
+                                ),
+                              ),
+                            ),
+                            AppImageView(
+                              Assets.iconsLocation.path,
+                              height: 16.h,
+                              width: 16.w,
+                            ),
+                            16.horizontalSpace
+                          ],
                         ),
-                        const Spacer(),
-                        Padding(
-                          padding: EdgeInsets.only(left: 12.w),
-                          child: SizedBox(
-                            height: 17.h,
-                            child: VerticalDivider(
-                              width: 1.w,
-                              thickness: 1.h,
-                              color: AppColors.gray,
-                              indent: 2.h,
+                      ),
+                      Positioned(
+                        top: 0,
+
+                        // ------------------- dot indicator -------------------
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            bannerItems.length,
+                            (index) => Container(
+                              margin: EdgeInsets.only(right: 4.w),
+                              height: 8.w,
+                              width: 8.w,
+                              decoration: selectedBannerIndex == index
+                                  ? const BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    )
+                                  : BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: Colors.white, // Border color
+                                        width: 1.0, // Border width
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
-                        8.horizontalSpace,
-                        AppImageView(
-                          Assets.iconsCart.path,
-                          height: 16.h,
-                          width: 16.w,
-                          color: AppColors.gray.shade700,
-                        ),
-                        8.horizontalSpace
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -214,6 +245,7 @@ class CollapsibleHeader extends StatelessWidget {
     );
   }
 
+  /// search bar of the header
   Widget _searchBar() => Container(
         margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         child: GestureDetector(
@@ -230,7 +262,7 @@ class CollapsibleHeader extends StatelessWidget {
               fontSize: 14.0,
               fontFamily: FontFamily.inter,
               fontWeight: FontWeight.w500,
-              color: AppColors.gray.shade300,
+              color: AppColors.gray.shade400,
             ),
             textStyle: TextStyle(
               fontSize: 14.0,
@@ -238,10 +270,11 @@ class CollapsibleHeader extends StatelessWidget {
               fontWeight: FontWeight.w500,
               color: AppColors.gray.shade700,
             ),
-            contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+            contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
             prefixIcon: Assets.iconsSearch.path,
             prefixIconSize: 20,
-            prefixIconColor: AppColors.gray.shade300,
+            prefixIconConstraints: BoxConstraints.tight(const Size(40, 20)), // prefix icon container size
+            prefixIconColor: AppColors.gray.shade400,
           ),
         ),
       );

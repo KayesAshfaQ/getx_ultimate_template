@@ -803,6 +803,9 @@ class Assets {
   /// File path: assets/icons/home.svg
   static const SvgGenImage iconsHome = SvgGenImage('assets/icons/home.svg');
 
+  /// File path: assets/icons/location.svg
+  static const SvgGenImage iconsLocation = SvgGenImage('assets/icons/location.svg');
+
   /// File path: assets/icons/logout.svg
   static const SvgGenImage iconsLogout = SvgGenImage('assets/icons/logout.svg');
 
@@ -857,8 +860,8 @@ class Assets {
   /// File path: assets/logo/shoplover_logo.svg
   static const SvgGenImage logoShoploverLogo = SvgGenImage('assets/logo/shoplover_logo.svg');
 
-  /// File path: assets/logo/shoplover_logo_for_home.svg
-  static const SvgGenImage logoShoploverLogoForHome = SvgGenImage('assets/logo/shoplover_logo_for_home.svg');
+  /// File path: assets/logo/shoplover_mono.svg
+  static const SvgGenImage logoShoploverMono = SvgGenImage('assets/logo/shoplover_mono.svg');
 
   /// List of all assets
   static List<dynamic> get values => [
@@ -1125,6 +1128,7 @@ class Assets {
         iconsChat,
         iconsHeart,
         iconsHome,
+        iconsLocation,
         iconsLogout,
         iconsManageShippingAddress,
         iconsMyWishList,
@@ -1143,7 +1147,7 @@ class Assets {
         imagesPp,
         imagesPromotionalDemo,
         logoShoploverLogo,
-        logoShoploverLogoForHome
+        logoShoploverMono
       ];
 }
 

@@ -75,6 +75,8 @@ class AppTextField extends StatelessWidget {
     this.suffixIconSize,
     this.suffixIconColor,
     this.suffixClick,
+    this.prefixIconConstraints,
+    this.suffixIconConstraints,
     this.maxLength = 256,
     this.maxLines = 1,
     this.minLines = 1,
@@ -114,6 +116,7 @@ class AppTextField extends StatelessWidget {
   final double? suffixIconSize;
   final Color? suffixIconColor;
   final VoidCallback? suffixClick;
+  final BoxConstraints? prefixIconConstraints, suffixIconConstraints;
 
   final int? maxLength;
   final int? maxLines;
@@ -132,7 +135,6 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
       controller: controller,
       enabled: isEnable,
       focusNode: focusNode,
@@ -160,7 +162,13 @@ class AppTextField extends StatelessWidget {
         errorBorder: _inputBorder(isError: true),
         focusedErrorBorder: _inputBorder(isFocused: true, isError: true),
 
-        prefixIconConstraints: prefixIcon != null ? const BoxConstraints(maxHeight: 48, maxWidth: 48) : null,
+        prefixIconConstraints: prefixIcon != null
+            ? (prefixIconConstraints ??
+                const BoxConstraints(
+                  maxHeight: 48,
+                  maxWidth: 48,
+                ))
+            : null,
 
         // show prefix icon
         prefixIcon: prefixIcon != null
@@ -185,10 +193,11 @@ class AppTextField extends StatelessWidget {
 
         // change suffix icon size
         suffixIconConstraints: (textFieldType == AppTextFieldType.password || suffixIcon != null)
-            ? const BoxConstraints(
-                maxHeight: 48,
-                maxWidth: 48,
-              )
+            ? (suffixIconConstraints ??
+                const BoxConstraints(
+                  maxHeight: 48,
+                  maxWidth: 48,
+                ))
             : null,
 
         // show password obscure icon as suffix when textfield type is password and suffix icon is not provided otherwise show the provided suffix icon

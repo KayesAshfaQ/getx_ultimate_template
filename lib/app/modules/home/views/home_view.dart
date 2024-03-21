@@ -14,7 +14,7 @@ import '../../../core/components/app_scaffold.dart';
 import '../../../gen/assets.gen.dart';
 import '../controllers/home_controller.dart';
 import 'widgets/featuread_category.dart';
-import 'widgets/home_appbar.dart';
+import 'widgets/collapsible_header.dart';
 import 'widgets/most_popular_widget.dart';
 import 'widgets/offer_widget.dart';
 
@@ -30,8 +30,15 @@ class HomeView extends GetView<HomeController> {
         controller: controller.scrollController,
         slivers: [
           // ------------------- header -------------------
-          CollapsibleHeader(
-            bannerItems: controller.bannerOneItems,
+          Obx(
+            () => CollapsibleHeader(
+              bannerItems: controller.bannerOneItems,
+              onBannerSelected: (index, reason) {
+                print('index: $index, reason: $reason');
+                controller.currentSlider.value = index;
+              },
+              selectedBannerIndex: controller.currentSlider.value,
+            ),
           ),
           Get.gapVerticalSliver(16),
 
