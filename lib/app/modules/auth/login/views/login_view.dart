@@ -49,8 +49,7 @@ class LoginView extends GetView<LoginController> {
                         color: Colors.white,
                       ),
                   onTap: () async {
-                    //controller.onPressLogin();
-                    Get.offAllNamed(Routes.NAVIGATOR);
+                    controller.onPressLogin();
                   },
                 ),
               ],

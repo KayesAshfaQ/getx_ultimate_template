@@ -15,8 +15,9 @@ class HomePageRepository {
       RequestType.get,
       isAuthorizationRequired: false,
       isRetryRequired: false,
+      isLogRequired: true,
       isErrorToastRequired: false,
-      isCacheRequired: true,
+      isCacheRequired: false,
     );
 
     if (res.isSuccess && res.value.data != null) {

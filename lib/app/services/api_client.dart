@@ -34,32 +34,12 @@ enum RequestType {
 // TODO: header customization (isMobile: true, justForYou keys, etc...)
 
 class ApiClient {
-  static final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: baseURL,
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-    ),
-  );
-
-  static final _prettyDioLog = PrettyDioLogger(
-    requestHeader: true,
-    requestBody: true,
-    responseBody: true,
-    responseHeader: false,
-    error: true,
-    compact: true,
-    maxWidth: 90,
-  );
-
   // request timeout (default 10 seconds)
   static const int _timeoutInSeconds = 10;
 
-  /// dio getter (used for testing)
-  static get dio => _dio;
-
   /// connection manager
   /// used to check the internet connection before making the api call
-  static final _connectionManager = Get.find<ConnectionManagerController>();
+  //static final _connectionManager = Get.find<ConnectionManagerController>();
 
   /// `call` is a method used to make HTTP requests.
   ///
@@ -95,9 +75,9 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
     Function(int value, int progress)? onReceiveProgress,
     Function(int total, int progress)? onSendProgress, // while sending (uploading) progress
-    bool isAuthorizationRequired = true,
+    bool isAuthorizationRequired = false,
     bool isLoaderRequired = false,
-    bool isLogRequired = true,
+    bool isLogRequired = false,
     bool isRetryRequired = false,
     bool isErrorToastRequired = true,
     bool isCacheRequired = false,
@@ -105,39 +85,39 @@ class ApiClient {
   }) async {
     try {
       // check the internet connection before making the api call (if there is no internet connection, then return)
-      if (!_checkInternetConnection()) {
-        return Result.error(
-          ApiException(
-            message: Strings.noInternetConnection.tr,
-            url: url,
-          ),
-        );
-      }
+      // if (!_checkInternetConnection()) {
+      //   return Result.error(
+      //     ApiException(
+      //       message: Strings.noInternetConnection.tr,
+      //       url: url,
+      //     ),
+      //   );
+      // }
+
+      // indicate loading state
+      if (isLoaderRequired) showLoader();
+
+      final dio = _getDio();
 
       // add refresh token interceptor
-      _dio.interceptors.addIf(isAuthorizationRequired, _getAuthTokenInterceptor());
+      dio.interceptors.addIf(isAuthorizationRequired, _getAuthTokenInterceptor(dio));
 
       // add pretty logger if showLog is true
-      _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
+      dio.interceptors.addIf(isLogRequired, _prettyLogger());
 
       // add retry interceptor
-      _dio.interceptors.addIf(isRetryRequired, _getRetryInterceptor());
+      dio.interceptors.addIf(isRetryRequired, _getRetryInterceptor(dio));
 
       // Add cache interceptor with global/default options
-      _dio.interceptors.addIf(
+      dio.interceptors.addIf(
         isCacheRequired,
         DioCacheInterceptor(options: await _getCacheOptions()),
       );
 
-      // 1) indicate loading state
-      if (isLoaderRequired) {
-        showLoader();
-      }
-
-      // 2) try to perform http request
+      // try to perform http request
       late Response<Map<String, dynamic>> response;
       if (requestType == RequestType.get) {
-        response = await _dio.get(
+        response = await dio.get(
           url,
           onReceiveProgress: onReceiveProgress,
           queryParameters: queryParameters,
@@ -145,7 +125,7 @@ class ApiClient {
           data: data,
         );
       } else if (requestType == RequestType.post) {
-        response = await _dio.post(
+        response = await dio.post(
           url,
           data: data,
           onReceiveProgress: onReceiveProgress,
@@ -154,7 +134,7 @@ class ApiClient {
           options: Options(headers: headers),
         );
       } else if (requestType == RequestType.put) {
-        response = await _dio.put(
+        response = await dio.put(
           url,
           data: data,
           onReceiveProgress: onReceiveProgress,
@@ -163,7 +143,7 @@ class ApiClient {
           options: Options(headers: headers),
         );
       } else if (requestType == RequestType.patch) {
-        response = await _dio.patch(
+        response = await dio.patch(
           url,
           data: data,
           onReceiveProgress: onReceiveProgress,
@@ -172,7 +152,7 @@ class ApiClient {
           options: Options(headers: headers),
         );
       } else {
-        response = await _dio.delete(
+        response = await dio.delete(
           url,
           data: data,
           queryParameters: queryParameters,
@@ -180,7 +160,7 @@ class ApiClient {
         );
       }
 
-      // 3) hide loader if it's showing
+      // hide loader if it's showing
       if (isLoaderRequired) hideLoader();
 
       // 4) return response (api done successfully)
@@ -236,28 +216,30 @@ class ApiClient {
   }) async {
     try {
       // check the internet connection before making the api call (if there is no internet connection, then return)
-      if (!_checkInternetConnection()) {
-        return Result.error(
-          ApiException(
-            message: Strings.noInternetConnection.tr,
-            url: url,
-          ),
-        );
-      }
+      // if (!_checkInternetConnection()) {
+      //   return Result.error(
+      //     ApiException(
+      //       message: Strings.noInternetConnection.tr,
+      //       url: url,
+      //     ),
+      //   );
+      // }
 
       // indicate loading state
       if (isLoaderRequired) showLoader();
 
+      final dio = _getDio();
+
       // add refresh token interceptor
-      _dio.interceptors.addIf(isAuthorizationRequired, _getAuthTokenInterceptor());
+      dio.interceptors.addIf(isAuthorizationRequired, _getAuthTokenInterceptor(dio));
 
       // add pretty logger if showLog is true
-      _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
+      dio.interceptors.addIf(isLogRequired, _prettyLogger());
 
       // add retry interceptor
-      _dio.interceptors.addIf(isRetryRequired, _getRetryInterceptor());
+      dio.interceptors.addIf(isRetryRequired, _getRetryInterceptor(dio));
 
-      final response = await _dio.download(
+      final response = await dio.download(
         url,
         savePath,
         options: Options(receiveTimeout: const Duration(seconds: _timeoutInSeconds), sendTimeout: const Duration(seconds: _timeoutInSeconds)),
@@ -306,26 +288,28 @@ class ApiClient {
   }) async {
     try {
       // check the internet connection before making the api call (if there is no internet connection, then return)
-      if (!_checkInternetConnection()) {
-        return Result.error(
-          ApiException(
-            message: Strings.noInternetConnection.tr,
-            url: url,
-          ),
-        );
-      }
+      // if (!_checkInternetConnection()) {
+      //   return Result.error(
+      //     ApiException(
+      //       message: Strings.noInternetConnection.tr,
+      //       url: url,
+      //     ),
+      //   );
+      // }
+
+      final dio = _getDio();
 
       // show loader if required
       if (isLoaderRequired) showLoader();
 
       // add refresh token interceptor
-      _dio.interceptors.addIf(isAuthorizationRequired, _getAuthTokenInterceptor());
+      dio.interceptors.addIf(isAuthorizationRequired, _getAuthTokenInterceptor(dio));
 
       // add pretty logger if showLog is true
-      _dio.interceptors.addIf(isLogRequired, _prettyDioLog);
+      dio.interceptors.addIf(isLogRequired, _prettyLogger());
 
       // add retry interceptor
-      _dio.interceptors.addIf(isRetryRequired, _getRetryInterceptor());
+      dio.interceptors.addIf(isRetryRequired, _getRetryInterceptor(dio));
 
       // add content type to the header
       headers.addAll({'Content-Type': 'multipart/form-data'});
@@ -345,7 +329,7 @@ class ApiClient {
       //   ]
       // });
 
-      final response = await _dio.post(
+      final response = await dio.post(
         url,
         data: formData,
         options: Options(
@@ -365,8 +349,16 @@ class ApiClient {
     }
   }
 
+  /// Dio instance
+  static Dio _getDio() => Dio(
+        BaseOptions(
+          baseUrl: baseURL,
+          headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        ),
+      );
+
   // authorization token interceptor
-  static Interceptor _getAuthTokenInterceptor() {
+  static Interceptor _getAuthTokenInterceptor(Dio dio) {
     return InterceptorsWrapper(
       onRequest: (options, handler) async {
         // get token from local storage
@@ -403,10 +395,22 @@ class ApiClient {
     return 'your_new_access_token';
   }
 
+  static Interceptor _prettyLogger() {
+    return PrettyDioLogger(
+      requestHeader: true,
+      requestBody: true,
+      responseBody: true,
+      responseHeader: false,
+      error: true,
+      compact: true,
+      maxWidth: 90,
+    );
+  }
+
   /// Retry interceptor
-  static Interceptor _getRetryInterceptor() {
+  static Interceptor _getRetryInterceptor(Dio dio) {
     return RetryInterceptor(
-      dio: _dio,
+      dio: dio,
       logPrint: print, // specify log function (optional)
       retries: 3, // retry count (optional)
       retryDelays: const [
@@ -460,18 +464,18 @@ class ApiClient {
   }
 
   /// check internet connection
-  static bool _checkInternetConnection() {
-    // check the internet connection before making the api call (if there is no internet connection, then return)
-    if (!_connectionManager.isInternetConnected.value) {
-      printLog(
-        'internet connection status: ${_connectionManager.connectionStatusMessage.value}',
-        level: Level.error,
-      );
-      return false;
-    } else {
-      return true;
-    }
-  }
+  // static bool _checkInternetConnection() {
+  //   // check the internet connection before making the api call (if there is no internet connection, then return)
+  //   if (!_connectionManager.isInternetConnected.value) {
+  //     printLog(
+  //       'internet connection status: ${_connectionManager.connectionStatusMessage.value}',
+  //       level: Level.error,
+  //     );
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
   /// handle unexpected error
   static ApiResponse _handleUnexpectedException({

@@ -106,12 +106,6 @@ class HomeAppBar extends StatelessWidget {
 
               _searchBar(),
 
-              // const CommonAppBar(
-              //   showBackButton: false,
-              //   showCartButton: false,
-              //   backgroundColor: Colors.transparent,
-              //   showElevation: false,
-              // ),
               4.verticalSpace,
               Stack(
                 alignment: Alignment.bottomCenter,
