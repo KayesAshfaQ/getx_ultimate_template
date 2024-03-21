@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,12 +16,12 @@ class FeaturedCategories extends StatelessWidget {
       sliver: SliverGrid.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 5,
-          mainAxisExtent: 118.h,
+          mainAxisExtent: 100.h,
           crossAxisSpacing: 6.w,
         ),
         itemCount: 10,
         itemBuilder: (context, index) {
-          return InkWell(
+          return GestureDetector(
             onTap: () async {},
             child: Column(
               mainAxisSize: MainAxisSize.min,

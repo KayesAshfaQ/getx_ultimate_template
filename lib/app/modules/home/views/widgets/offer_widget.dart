@@ -17,8 +17,9 @@ class OffersSection extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 6.w,
-          mainAxisSpacing: 8.w,
-          childAspectRatio: 172 / 52,
+          mainAxisSpacing: 6.w,
+          mainAxisExtent: 52.h,
+          //childAspectRatio: 172 / 52,
         ),
         itemCount: 4,
         itemBuilder: (context, index) {
@@ -29,7 +30,7 @@ class OffersSection extends StatelessWidget {
               children: [
                 AppImageView(
                   Assets.imagesPromotionalDemo.path,
-                  height: 52.w,
+                  height: 52.h,
                   width: 172.w,
                 ),
               ],

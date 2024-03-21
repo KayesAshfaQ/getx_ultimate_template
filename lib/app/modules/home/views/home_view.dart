@@ -11,6 +11,7 @@ import 'package:sl_v4/app/modules/home/views/widgets/category_widget.dart';
 import 'package:sl_v4/app/modules/home/views/widgets/just_for_you_widget.dart';
 
 import '../../../core/components/app_scaffold.dart';
+import '../../../core/utils/misc.dart';
 import '../../../gen/assets.gen.dart';
 import '../controllers/home_controller.dart';
 import 'widgets/featuread_category.dart';
@@ -34,7 +35,7 @@ class HomeView extends GetView<HomeController> {
             () => CollapsibleHeader(
               bannerItems: controller.bannerOneItems,
               onBannerSelected: (index, reason) {
-                print('index: $index, reason: $reason');
+                printLog('index: $index, reason: $reason');
                 controller.currentSlider.value = index;
               },
               selectedBannerIndex: controller.currentSlider.value,
