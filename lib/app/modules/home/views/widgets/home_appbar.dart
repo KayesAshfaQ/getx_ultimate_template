@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import '../../../../core/components/app_image_view.dart';
 import '../../../../core/components/app_text_field.dart';
-import '../../../../core/components/common_appbar.dart';
 import '../../../../core/components/ripple_view.dart';
 import '../../../../core/config/app_colors.dart';
 import '../../../../gen/assets.gen.dart';
@@ -31,14 +30,7 @@ class HomeAppBar extends StatelessWidget {
         background: _header(),
         title: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            return constraints.maxHeight < 64
-                ? const CommonAppBar(
-                    showBackButton: false,
-                    showCartButton: false,
-                    backgroundColor: Colors.transparent,
-                    showElevation: false,
-                  )
-                : const SizedBox.shrink();
+            return constraints.maxHeight < 64 ? _searchBar() : const SizedBox.shrink();
           },
         ),
       ),
