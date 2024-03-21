@@ -19,4 +19,7 @@ class Strings {
   static const String cart = 'Cart';
   static const String profile = 'Profile';
   static const String settings = 'Settings';
+
+  static const String search = 'Search';
+  static const String setDeliveryLocation = 'Set your delivery location';
 }

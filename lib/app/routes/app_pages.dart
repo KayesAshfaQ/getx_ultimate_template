@@ -18,6 +18,8 @@ import '../modules/product_details/bindings/product_details_binding.dart';
 import '../modules/product_details/views/product_details_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
+import '../modules/search_result/bindings/search_result_binding.dart';
+import '../modules/search_result/views/search_result_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 
@@ -80,6 +82,11 @@ class AppPages {
       name: _Paths.PRODUCT_DETAILS,
       page: () => const ProductDetailsView(),
       binding: ProductDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_RESULT,
+      page: () => const SearchResultView(),
+      binding: SearchResultBinding(),
     ),
   ];
 }

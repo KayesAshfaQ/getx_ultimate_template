@@ -29,8 +29,10 @@ class HomeView extends GetView<HomeController> {
       body: CustomScrollView(
         controller: controller.scrollController,
         slivers: [
-          // ------------------- app bar -------------------
-          const HomeAppBar(),
+          // ------------------- header -------------------
+          CollapsibleHeader(
+            bannerItems: controller.bannerOneItems,
+          ),
           Get.gapVerticalSliver(16),
 
           // ------------------- featured categories -------------------

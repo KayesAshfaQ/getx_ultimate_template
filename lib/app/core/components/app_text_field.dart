@@ -132,6 +132,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      
       controller: controller,
       enabled: isEnable,
       focusNode: focusNode,

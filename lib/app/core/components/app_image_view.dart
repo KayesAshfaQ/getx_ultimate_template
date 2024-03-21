@@ -6,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
+enum ProgressIndicatorType { loader, shimmer }
+
 class AppImageView extends StatelessWidget {
   /// `AppImageViewer` is a stateless widget that displays an image from a given path.
   ///
@@ -25,6 +27,7 @@ class AppImageView extends StatelessWidget {
   /// * `color`: The color filter to apply to the image. Defaults to `AppColors.gray`.
   /// * `fit`: How the image should be inscribed into the box. Defaults to `BoxFit.cover`.
   /// * `isImageCircular`: Whether the image should be displayed in a circular shape. Defaults to `false`.
+  /// * `progressIndicatorType`: The type of progress indicator to display while the image is loading. Defaults to `ProgressIndicatorType.shimmer`.
   /// * `errorImage`: The image to display in case of an error. Defaults to 'assets/images/image_not_supported.png'.
   ///
   /// Example of using `AppImageViewer`:
@@ -49,6 +52,7 @@ class AppImageView extends StatelessWidget {
     this.fit = BoxFit.cover,
     this.isImageCircular = false,
     this.errorImage = 'assets/images/image_not_supported.png',
+    this.progressIndicatorType = ProgressIndicatorType.shimmer,
   });
 
   final String path;
@@ -57,6 +61,7 @@ class AppImageView extends StatelessWidget {
   final BoxFit fit;
   final bool isImageCircular;
   final String errorImage;
+  final ProgressIndicatorType progressIndicatorType;
 
   Widget _imageWidget(ImageProvider<Object> imageProvider) {
     return Container(
@@ -82,27 +87,32 @@ class AppImageView extends StatelessWidget {
         imageBuilder: (context, imageProvider) => _imageWidget(
           imageProvider,
         ),
-        // progressIndicatorBuilder: (context, data, progress) {
-        //   double value = 0.0;
-        //   if (progress.totalSize != null) {
-        //     var totalBytes = progress.totalSize!;
-        //     var receivedBytes = progress.downloaded;
-        //     value = receivedBytes / totalBytes;
-        //   }
-        //   return CircularProgressIndicator(value: value);
-        // },
-        placeholder: (context, url) => Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
-          highlightColor: Colors.grey[100]!,
-          child: Container(
-            width: width ?? height,
-            height: height,
-            decoration: BoxDecoration(
-              shape: isImageCircular ? BoxShape.circle : BoxShape.rectangle,
-              color: Colors.white,
-            ),
-          ),
-        ),
+        // in case you want to show a progress indicator while the image is loading from the network
+        progressIndicatorBuilder: progressIndicatorType == ProgressIndicatorType.loader
+            ? (context, data, progress) {
+                double value = 0.0;
+                if (progress.totalSize != null) {
+                  var totalBytes = progress.totalSize!;
+                  var receivedBytes = progress.downloaded;
+                  value = receivedBytes / totalBytes;
+                }
+                return CircularProgressIndicator(value: value);
+              }
+            : null,
+        placeholder: progressIndicatorType == ProgressIndicatorType.shimmer
+            ? (context, url) => Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    width: width ?? height,
+                    height: height,
+                    decoration: BoxDecoration(
+                      shape: isImageCircular ? BoxShape.circle : BoxShape.rectangle,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+            : null,
         errorWidget: (context, url, error) => _imageWidget(
           AssetImage(errorImage),
         ),
