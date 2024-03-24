@@ -836,6 +836,9 @@ class Assets {
   /// File path: assets/icons/settings_outline.svg
   static const SvgGenImage iconsSettingsOutline = SvgGenImage('assets/icons/settings_outline.svg');
 
+  /// File path: assets/icons/star.svg
+  static const SvgGenImage iconsStar = SvgGenImage('assets/icons/star.svg');
+
   /// File path: assets/icons/support_ticket.svg
   static const SvgGenImage iconsSupportTicket = SvgGenImage('assets/icons/support_ticket.svg');
 
@@ -851,8 +854,14 @@ class Assets {
   /// File path: assets/images/home_header_bg.png
   static const AssetGenImage imagesHomeHeaderBg = AssetGenImage('assets/images/home_header_bg.png');
 
-  /// File path: assets/images/pp.jpeg
-  static const AssetGenImage imagesPp = AssetGenImage('assets/images/pp.jpeg');
+  /// File path: assets/images/no_image_found.png
+  static const AssetGenImage imagesNoImageFound = AssetGenImage('assets/images/no_image_found.png');
+
+  /// File path: assets/images/no_pp.png
+  static const AssetGenImage imagesNoPp = AssetGenImage('assets/images/no_pp.png');
+
+  /// File path: assets/images/placeholder_deals.png
+  static const AssetGenImage imagesPlaceholderDeals = AssetGenImage('assets/images/placeholder_deals.png');
 
   /// File path: assets/images/promotional_demo.png
   static const AssetGenImage imagesPromotionalDemo = AssetGenImage('assets/images/promotional_demo.png');
@@ -1139,12 +1148,15 @@ class Assets {
         iconsRefundRequests,
         iconsSearch,
         iconsSettingsOutline,
+        iconsStar,
         iconsSupportTicket,
         iconsTermsConditions,
         iconsTrackOrdersIcon,
         iconsUser,
         imagesHomeHeaderBg,
-        imagesPp,
+        imagesNoImageFound,
+        imagesNoPp,
+        imagesPlaceholderDeals,
         imagesPromotionalDemo,
         logoShoploverLogo,
         logoShoploverMono

@@ -61,13 +61,14 @@ class HomePageRepository {
     return null;
   }
 
-  Future<AllCategoryListResponse?> getAllCategories(searchQuery, rowsPerPage, currentPage, sortField, sortOrder, statusId) async {
+  Future<AllCategoryListResponse?> getAllCategories(currentPage, rowsPerPage) async {
     final res = await ApiClient.call(
-      ApiEndPoints.getCategories(searchQuery, rowsPerPage, currentPage, sortField, sortOrder, statusId),
+      ApiEndPoints.getCategories(currentPage, rowsPerPage),
       RequestType.get,
       isAuthorizationRequired: false,
       isRetryRequired: false,
       isErrorToastRequired: false,
+      isLogRequired: true,
       isCacheRequired: true,
     );
 

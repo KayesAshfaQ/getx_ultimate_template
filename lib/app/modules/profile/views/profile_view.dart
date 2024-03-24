@@ -68,7 +68,7 @@ class ProfileView extends GetView<ProfileController> {
                       margin: REdgeInsets.all(4),
                       child: ClipRRect(
                         child: AppImageView(
-                          Assets.iconsHeart.path, // TODO: Add user image
+                          Assets.imagesNoPp.path, // TODO: Add user image
                         ),
                       ),
                     ),

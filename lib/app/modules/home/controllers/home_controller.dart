@@ -59,7 +59,7 @@ class HomeController extends GetxController {
   initFetch() {
     fetchCarouseImagesList();
     fetchPopularCategoriesWidgetList();
-    fetchAllCategoriesWidgetList("", 10, 1, "", "", 1);
+    fetchAllCategoriesWidgetList();
     fetchBestShops();
     fetchMostPopular();
     fetchJustForYou();
@@ -120,8 +120,8 @@ class HomeController extends GetxController {
     );
   }
 
-  Future<void> fetchAllCategoriesWidgetList(searchQuery, rowsPerPage, currentPage, sortField, sortOrder, statusId) async {
-    var response = await HomePageRepository().getAllCategories(searchQuery, rowsPerPage, currentPage, sortField, sortOrder, statusId);
+  Future<void> fetchAllCategoriesWidgetList({rowsPerPage = 10, currentPage = 1}) async {
+    var response = await HomePageRepository().getAllCategories(currentPage, rowsPerPage);
     allCategories.clear();
 
     if (response != null && response.success == true) {
@@ -151,25 +151,4 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-  final warrenties = [
-    "1 year ",
-    "2 year Warranty",
-    "3 year ",
-    "5 year Warranty",
-    "10 year ",
-    "1 year ",
-    "2 year Warranty",
-    "3 year ",
-    "5 year Warranty",
-    "10 year",
-  ].obs;
-
-  final rattings = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-  ].obs;
 }

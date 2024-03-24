@@ -18,22 +18,19 @@ class OffersSection extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 6.w,
           mainAxisSpacing: 6.w,
-          mainAxisExtent: 52.h,
-          //childAspectRatio: 172 / 52,
+          childAspectRatio: 1 / 0.31,
         ),
         itemCount: 4,
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () async {},
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AppImageView(
-                  Assets.imagesPromotionalDemo.path,
-                  height: 52.h,
-                  width: 172.w,
-                ),
-              ],
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.r),
+              child: AppImageView(
+                Assets.imagesPromotionalDemo.path,
+                height: 52.h,
+                width: 172.w,
+              ),
             ),
           );
         },

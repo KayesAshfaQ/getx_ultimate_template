@@ -5,6 +5,7 @@ import 'package:sl_v4/app/core/components/app_image_view.dart';
 
 import '../../../../core/config/app_colors.dart';
 import '../../../../data/models/response/all_category_list_response.dart';
+import '../../../../gen/assets.gen.dart';
 
 class CategoryWidget extends StatelessWidget {
   final List<AllCategoryListItem> allCategories;
@@ -32,7 +33,7 @@ class CategoryWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 "Category",
                                 style: TextStyle(
                                   fontSize: 16,
@@ -57,7 +58,7 @@ class CategoryWidget extends StatelessWidget {
                             },
                             child: Row(
                               children: [
-                                Text(
+                                const Text(
                                   "View All",
                                   style: TextStyle(
                                     fontSize: 16,
@@ -120,22 +121,24 @@ class CategoryWidget extends StatelessWidget {
                               children: [
                                 SizedBox(height: 12.r),
                                 AppImageView(
-                                  allCategories[index].icon!.isNotEmpty ? "${allCategories[index].icon}" : 'assets/images/no_image_found.png',
-                                  fit: BoxFit.fill,
+                                  allCategories[index].icon!.isNotEmpty ? "${allCategories[index].icon}" : Assets.imagesNoImageFound.path,
+                                  fit: BoxFit.cover,
                                   isImageCircular: true,
                                   width: 55.w,
                                   height: 55.w,
                                 ),
                                 SizedBox(height: 10.r),
-                                Text(allCategories[index].name!,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.gray,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis),
+                                Text(
+                                  allCategories[index].name!,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.gray,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ],
                             ),
                           );

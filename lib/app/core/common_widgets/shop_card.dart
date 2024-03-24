@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:sl_v4/app/core/components/app_image_view.dart';
 import 'package:sl_v4/app/core/config/app_colors.dart';
+import 'package:sl_v4/app/core/extensions/view_extension.dart';
+import 'package:sl_v4/app/core/utils/misc.dart';
+import 'package:sl_v4/app/gen/fonts.gen.dart';
 
 import '../../data/models/response/best_shop_list_response.dart';
 import '../components/clipper_helper.dart';
@@ -29,17 +33,11 @@ class ShopCard extends StatelessWidget {
         height: 255.h,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-            // color: Colors.amberAccent,
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(8).r,
-            border: Border.all(color: Colors.grey.shade300),
-            boxShadow: const [
-              BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.08),
-                blurRadius: 4,
-                offset: Offset(0, 2),
-              ),
-            ]),
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(8).r,
+          border: Border.all(color: Colors.grey.shade300),
+          boxShadow: [Get.bexShadow2],
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,12 +50,16 @@ class ShopCard extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 5, bottom: 0, right: 0, left: 0).r,
                     alignment: Alignment.center,
                     child: ClipRRect(
-                      borderRadius: const BorderRadius.vertical(top: Radius.circular(0), bottom: Radius.zero),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(0),
+                        bottom: Radius.zero,
+                      ),
 
                       child: AppImageView(
-                        '$baseImageURL/${bestShop!.shopLogo!}',
-                        height: 150.h,
-                        width: 150.w,
+                        //'$baseImageURL/${bestShop!.shopLogo!}',
+                        getImageURL(path: bestShop!.shopLogo!, type: ImageType.product, size: ImageSize.medium),
+                        height: Get.height,
+                        width: Get.width,
                         fit: BoxFit.contain,
                       ),
 
@@ -78,11 +80,11 @@ class ShopCard extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    top: 10,
+                    top: 8,
                     child: ClipPath(
                       clipper: CardBannerClipPath(),
                       child: Container(
-                        padding: const EdgeInsets.fromLTRB(9, 7, 9, 6).r,
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6).r,
                         decoration: BoxDecoration(
                           color: bestShop!.sellerTypeName!.contains("verified") ? Colors.green : AppColors.gray,
                           borderRadius: BorderRadius.all(const Radius.circular(4).r),
@@ -98,7 +100,12 @@ class ShopCard extends StatelessWidget {
                         child: Text(
                           bestShop!.sellerTypeName!,
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 10.h, fontWeight: FontWeight.w500, fontFamily: 'inter'),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: FontFamily.inter,
+                          ),
                         ),
                       ),
                     ),
@@ -119,13 +126,18 @@ class ShopCard extends StatelessWidget {
                 bestShop!.shopName!,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
-                style: TextStyle(color: AppColors.black, fontSize: 14.h, fontWeight: FontWeight.w500, fontFamily: 'inter'),
+                style: const TextStyle(
+                  color: AppColors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: FontFamily.inter,
+                ),
               ),
             ),
             bestShop!.followers?.toInt() == null
                 ? const SizedBox()
                 : Visibility(
-                    visible: true, //widget.bestShop!.followers!.toInt() > 0,
+                    visible: true,
                     child: Container(
                       height: 20.h,
                       padding: const EdgeInsets.only(
@@ -136,7 +148,12 @@ class ShopCard extends StatelessWidget {
                         "${bestShop!.followers!} Followers",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
-                        style: const TextStyle(color: Color(0xFF414141), fontSize: 12, fontWeight: FontWeight.w400, fontFamily: 'inter'),
+                        style: const TextStyle(
+                          color: Color(0xFF414141),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'inter',
+                        ),
                       ),
                     )),
 
@@ -165,7 +182,12 @@ class ShopCard extends StatelessWidget {
                                 "${bestShop!.averageRating!}",
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
-                                style: const TextStyle(color: Color(0xFF414141), fontSize: 12, fontWeight: FontWeight.w500, fontFamily: 'inter'),
+                                style: const TextStyle(
+                                  color: Color(0xFF414141),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: FontFamily.inter,
+                                ),
                               ),
                             ],
                           ),

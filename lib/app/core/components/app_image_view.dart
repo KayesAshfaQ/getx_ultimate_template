@@ -28,7 +28,7 @@ class AppImageView extends StatelessWidget {
   /// * `fit`: How the image should be inscribed into the box. Defaults to `BoxFit.cover`.
   /// * `isImageCircular`: Whether the image should be displayed in a circular shape. Defaults to `false`.
   /// * `progressIndicatorType`: The type of progress indicator to display while the image is loading. Defaults to `ProgressIndicatorType.shimmer`.
-  /// * `errorImage`: The image to display in case of an error. Defaults to 'assets/images/image_not_supported.png'.
+  /// * `errorImage`: The image to display in case of an error. Defaults to 'assets/images/no_image_found.png'.
   ///
   /// Example of using `AppImageViewer`:
   ///
@@ -51,7 +51,7 @@ class AppImageView extends StatelessWidget {
     this.color,
     this.fit = BoxFit.cover,
     this.isImageCircular = false,
-    this.errorImage = 'assets/images/image_not_supported.png',
+    this.errorImage = 'assets/images/no_image_found.png',
     this.progressIndicatorType = ProgressIndicatorType.shimmer,
   });
 

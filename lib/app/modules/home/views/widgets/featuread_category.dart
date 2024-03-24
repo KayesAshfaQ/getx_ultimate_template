@@ -19,8 +19,9 @@ class FeaturedCategories extends StatelessWidget {
       sliver: SliverGrid.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 5,
-          mainAxisExtent: 104.h,
+          //mainAxisExtent: 104.h,
           crossAxisSpacing: 6.w,
+          childAspectRatio: 1 / 1.56,
         ),
         itemCount: 10,
         itemBuilder: (context, index) {

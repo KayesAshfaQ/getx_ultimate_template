@@ -3,16 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:sl_v4/app/core/config/app_colors.dart';
 import 'package:sl_v4/app/core/config/remote_config.dart';
+import 'package:sl_v4/app/core/extensions/app_extension.dart';
+import 'package:sl_v4/app/core/extensions/view_extension.dart';
 import 'package:sl_v4/app/core/utils/misc.dart';
 
 import '../../data/models/response/product.dart';
+import '../../gen/assets.gen.dart';
 import '../../routes/app_pages.dart';
 import '../components/app_image_view.dart';
 import '../components/clipper_helper.dart';
-import '../config/app_config.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
@@ -131,7 +132,7 @@ class ProductCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '৳${NumberFormat.decimalPattern('en_us').format(product.price ?? 0)}',
+                  '৳${product.price ?? 0}'.addCommaOnNumbers(),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: const TextStyle(
@@ -143,7 +144,7 @@ class ProductCard extends StatelessWidget {
                 ),
                 if ((product.discountAmt ?? 0) > 0)
                   Text(
-                    '৳${NumberFormat.decimalPattern('en_us').format((product.price ?? 0) - product.discountAmt!)}',
+                    '৳${product.price ?? 0}'.addCommaOnNumbers(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: const TextStyle(
@@ -159,11 +160,11 @@ class ProductCard extends StatelessWidget {
             8.verticalSpace,
             Row(
               children: [
-                Icon(
-                  Icons.star,
-                  color: AppColors.primary,
-                  size: 16.h,
+                AppImageView(
+                  Assets.iconsStar.path,
+                  height: 16.h,
                 ),
+                Get.gapHorizontal(2),
                 Text(
                   "${product.ratings ?? 0} (${product.totalRating ?? 0})",
                   overflow: TextOverflow.ellipsis,

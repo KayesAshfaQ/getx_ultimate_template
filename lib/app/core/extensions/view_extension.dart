@@ -32,14 +32,20 @@ extension Shadows on GetInterface {
         offset: const Offset(0, 3),
       );
 
-  BoxShadow get boxShadow2 => BoxShadow(
+  BoxShadow get bexShadow2 => BoxShadow(
+        color: Colors.black.withOpacity(0.08),
+        offset: const Offset(0, 2),
+        blurRadius: 4,
+      );
+
+  BoxShadow get boxShadow3 => BoxShadow(
         color: Colors.black.withOpacity(0.1),
         spreadRadius: 1,
         blurRadius: 5,
         offset: const Offset(0, 3), // changes position of shadow
       );
 
-  BoxShadow get boxShadow3 => BoxShadow(
+  BoxShadow get boxShadow4 => BoxShadow(
         color: Colors.black.withOpacity(0.1),
         spreadRadius: 1,
         blurRadius: 10,

@@ -123,7 +123,7 @@ class CollapsibleHeader extends StatelessWidget {
                       color: AppColors.white,
                       borderRadius: BorderRadius.circular(10.r),
                       boxShadow: [
-                        Get.boxShadow3,
+                        Get.boxShadow4,
                       ],
                     ),
                     child: bannerItems.isEmpty
@@ -169,7 +169,7 @@ class CollapsibleHeader extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: AppColors.white,
                           borderRadius: BorderRadius.circular(10.r),
-                          boxShadow: [Get.boxShadow3],
+                          boxShadow: [Get.boxShadow4],
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
