@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:sl_v4/app/core/components/ripple_view.dart';
+import 'package:sl_v4/app/core/extensions/view_extension.dart';
 
 import '../../../../core/components/app_image_view.dart';
 import '../../../../gen/assets.gen.dart';
@@ -16,32 +19,31 @@ class FeaturedCategories extends StatelessWidget {
       sliver: SliverGrid.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 5,
-          mainAxisExtent: 100.h,
+          mainAxisExtent: 104.h,
           crossAxisSpacing: 6.w,
         ),
         itemCount: 10,
         itemBuilder: (context, index) {
-          return GestureDetector(
+          return RippleView(
             onTap: () async {},
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 AppImageView(
                   Assets.imagesHomeHeaderBg.path,
-                  height: 56.w,
+                  height: 56.h,
                   isImageCircular: true,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 6.h),
-                  child: const Text(
-                    'Fashion House',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    ),
+                Get.gapVertical(2.h),
+                const Text(
+                  'Fashion House leos',
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ],

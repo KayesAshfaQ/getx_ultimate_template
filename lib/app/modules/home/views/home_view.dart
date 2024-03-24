@@ -41,7 +41,7 @@ class HomeView extends GetView<HomeController> {
               selectedBannerIndex: controller.currentSlider.value,
             ),
           ),
-          Get.gapVerticalSliver(16),
+          //Get.gapVerticalSliver(16),
 
           // ------------------- featured categories -------------------
           const FeaturedCategories(),
