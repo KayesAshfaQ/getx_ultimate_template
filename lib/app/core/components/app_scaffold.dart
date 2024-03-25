@@ -54,6 +54,7 @@ class AppScaffold extends StatelessWidget {
     this.bottomSheet,
     this.floatingActionButtonLocation,
     this.extendBody,
+    this.statusBarColor = AppColors.white,
     this.statusBarBrightness = Brightness.dark,
     this.navigationBarBrightness = Brightness.dark,
   });
@@ -73,6 +74,7 @@ class AppScaffold extends StatelessWidget {
   final Widget? bottomSheet;
   final bool? extendBody;
   final FloatingActionButtonLocation? floatingActionButtonLocation;
+  final Color statusBarColor;
   final Brightness statusBarBrightness;
   final Brightness navigationBarBrightness;
 
@@ -82,9 +84,13 @@ class AppScaffold extends StatelessWidget {
       onTap: () => FocusScope.of(context).unfocus(),
       child: AnnotatedRegion(
         value: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarBrightness: statusBarBrightness,
+          statusBarColor: statusBarColor,
+          // For Android.
+          // Use [light] for white status bar and [dark] for black status bar.
           statusBarIconBrightness: statusBarBrightness,
+          // For iOS.
+          // Use [dark] for white status bar and [light] for black status bar.
+          statusBarBrightness: statusBarBrightness,
           systemNavigationBarColor: Colors.transparent,
           systemNavigationBarIconBrightness: navigationBarBrightness,
           systemNavigationBarContrastEnforced: false,
