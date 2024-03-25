@@ -37,6 +37,7 @@ class FeaturedCategories extends StatelessWidget {
                   isImageCircular: true,
                 ),
                 Get.gapVertical(2.h),
+                
                 const Text(
                   'Fashion House leos',
                   maxLines: 2,

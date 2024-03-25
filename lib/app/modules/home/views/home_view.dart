@@ -31,17 +31,7 @@ class HomeView extends GetView<HomeController> {
         controller: controller.scrollController,
         slivers: [
           // ------------------- header -------------------
-          Obx(
-            () => CollapsibleHeader(
-              bannerItems: controller.bannerOneItems,
-              onBannerSelected: (index, reason) {
-                printLog('index: $index, reason: $reason');
-                controller.currentSlider.value = index;
-              },
-              selectedBannerIndex: controller.currentSlider.value,
-            ),
-          ),
-          //Get.gapVerticalSliver(16),
+          CollapsibleHeader(controller: controller),
 
           // ------------------- featured categories -------------------
           const FeaturedCategories(),

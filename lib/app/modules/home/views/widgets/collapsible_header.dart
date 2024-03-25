@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sl_v4/app/core/extensions/view_extension.dart';
+import 'package:sl_v4/app/modules/home/controllers/home_controller.dart';
 
 import '../../../../core/components/app_image_view.dart';
 import '../../../../core/components/app_text_field.dart';
 import '../../../../core/components/ripple_view.dart';
 import '../../../../core/config/app_colors.dart';
 import '../../../../core/localization/strings_enum.dart';
-import '../../../../data/models/response/banner_data_response.dart';
+import '../../../../core/utils/misc.dart';
 import '../../../../gen/assets.gen.dart';
 import '../../../../gen/fonts.gen.dart';
 import '../../../../routes/app_pages.dart';
@@ -17,14 +18,10 @@ import '../../../../routes/app_pages.dart';
 class CollapsibleHeader extends StatelessWidget {
   const CollapsibleHeader({
     super.key,
-    required this.bannerItems,
-    this.selectedBannerIndex = 0,
-    this.onBannerSelected,
+    required this.controller,
   });
 
-  final List<HomePageBanner> bannerItems;
-  final int selectedBannerIndex;
-  final Function(int, CarouselPageChangedReason)? onBannerSelected;
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -126,37 +123,42 @@ class CollapsibleHeader extends StatelessWidget {
                         Get.boxShadow4,
                       ],
                     ),
-                    child: bannerItems.isEmpty
-                        ? const SizedBox()
-                        : CarouselSlider.builder(
-                            itemCount: bannerItems.length,
-                            options: CarouselOptions(
-                              //aspectRatio: 2.77,
-                              //height: 150.h,
-                              //height: 135.h,
-                              viewportFraction: 1,
-                              initialPage: 0,
-                              enableInfiniteScroll: true,
-                              autoPlay: true,
-                              autoPlayInterval: const Duration(seconds: 5),
-                              autoPlayAnimationDuration: const Duration(milliseconds: 1200),
-                              autoPlayCurve: Curves.fastLinearToSlowEaseIn,
-                              enlargeCenterPage: true,
-                              scrollDirection: Axis.horizontal,
-                              onPageChanged: onBannerSelected,
+                    child: Obx(
+                      () => controller.bannerOneItems.isEmpty
+                          ? const SizedBox()
+                          : CarouselSlider.builder(
+                              itemCount: controller.bannerOneItems.length,
+                              options: CarouselOptions(
+                                //aspectRatio: 2.77,
+                                //height: 150.h,
+                                //height: 135.h,
+                                viewportFraction: 1,
+                                initialPage: 0,
+                                enableInfiniteScroll: true,
+                                autoPlay: true,
+                                autoPlayInterval: const Duration(seconds: 5),
+                                autoPlayAnimationDuration: const Duration(milliseconds: 1200),
+                                autoPlayCurve: Curves.fastLinearToSlowEaseIn,
+                                enlargeCenterPage: true,
+                                scrollDirection: Axis.horizontal,
+                                onPageChanged: (index, reason) {
+                                  printLog('index: $index, reason: $reason');
+                                  controller.currentSlider.value = index;
+                                },
+                              ),
+                              itemBuilder: (context, index, realIndex) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.r),
+                                  child: AppImageView(
+                                    controller.bannerOneItems[index].imagePathApp ?? '',
+                                    height: 168.h,
+                                    width: Get.width,
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              },
                             ),
-                            itemBuilder: (context, index, realIndex) {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(10.r),
-                                child: AppImageView(
-                                  bannerItems[index].imagePathApp ?? '',
-                                  height: 168.h,
-                                  width: Get.width,
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            },
-                          ),
+                    ),
                   ),
                   Stack(
                     alignment: Alignment.bottomCenter,
@@ -210,26 +212,28 @@ class CollapsibleHeader extends StatelessWidget {
                         top: 0,
 
                         // ------------------- dot indicator -------------------
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: List.generate(
-                            bannerItems.length,
-                            (index) => Container(
-                              margin: EdgeInsets.only(right: 4.w),
-                              height: 8.w,
-                              width: 8.w,
-                              decoration: selectedBannerIndex == index
-                                  ? const BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                    )
-                                  : BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        color: Colors.white, // Border color
-                                        width: 1.0, // Border width
+                        child: Obx(
+                          () => Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List.generate(
+                              controller.bannerOneItems.length,
+                              (index) => Container(
+                                margin: EdgeInsets.only(right: 4.w),
+                                height: 8.w,
+                                width: 8.w,
+                                decoration: controller.currentSlider.value == index
+                                    ? const BoxDecoration(
+                                        color: Colors.white,
+                                        shape: BoxShape.circle,
+                                      )
+                                    : BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: Colors.white, // Border color
+                                          width: 1.0, // Border width
+                                        ),
                                       ),
-                                    ),
+                              ),
                             ),
                           ),
                         ),
