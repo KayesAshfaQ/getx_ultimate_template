@@ -121,7 +121,7 @@ class CategoryWidget extends StatelessWidget {
                               children: [
                                 SizedBox(height: 12.r),
                                 AppImageView(
-                                  allCategories[index].icon!.isNotEmpty ? "${allCategories[index].icon}" : Assets.imagesNoImageFound.path,
+                                  (allCategories[index].icon != null && allCategories[index].icon!.isNotEmpty) ? "${allCategories[index].icon}" : Assets.imagesNoImageFound.path,
                                   fit: BoxFit.cover,
                                   isImageCircular: true,
                                   width: 55.w,

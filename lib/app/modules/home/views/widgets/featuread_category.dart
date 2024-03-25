@@ -21,12 +21,13 @@ class FeaturedCategories extends StatelessWidget {
           crossAxisCount: 5,
           //mainAxisExtent: 104.h,
           crossAxisSpacing: 6.w,
-          childAspectRatio: 1 / 1.56,
+          childAspectRatio: 1 / 1.55,
         ),
         itemCount: 10,
         itemBuilder: (context, index) {
           return RippleView(
             onTap: () async {},
+            padding: 4,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,7 +38,6 @@ class FeaturedCategories extends StatelessWidget {
                   isImageCircular: true,
                 ),
                 Get.gapVertical(2.h),
-                
                 const Text(
                   'Fashion House leos',
                   maxLines: 2,
