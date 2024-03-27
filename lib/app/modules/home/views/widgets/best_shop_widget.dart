@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sl_v4/app/core/config/app_colors.dart';
-import 'package:sl_v4/app/core/extensions/view_extension.dart';
 
 import '../../../../core/common_widgets/shop_card.dart';
 import '../../../../data/models/response/best_shop_list_response.dart';

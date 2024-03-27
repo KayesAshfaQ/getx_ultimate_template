@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sl_v4/app/core/components/app_image_view.dart';
-import 'package:sl_v4/app/core/components/ripple_view.dart';
 import 'package:sl_v4/app/core/extensions/view_extension.dart';
 
 import '../../../../core/config/app_colors.dart';
