@@ -148,7 +148,7 @@ class CollapsibleHeader extends StatelessWidget {
                             ),
                             itemBuilder: (context, index, realIndex) {
                               return ClipRRect(
-                                borderRadius: BorderRadius.circular(10.r),
+                                borderRadius: BorderRadius.circular(8.r),
                                 child: AppImageView(
                                   controller.bannerOneItems[index].imagePathApp ?? '',
                                   height: 168.h,

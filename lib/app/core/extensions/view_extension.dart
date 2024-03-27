@@ -4,22 +4,22 @@ import 'package:get/get.dart';
 
 extension Gaps on GetInterface {
   Widget gapVertical(double value) {
-    return value.verticalSpace;
+    return RSizedBox.vertical(value);
   }
 
   Widget gapHorizontal(double value) {
-    return value.horizontalSpace;
+    return RSizedBox.horizontal(value);
   }
 
   Widget gapVerticalSliver(double value) {
     return SliverToBoxAdapter(
-      child: value.verticalSpace,
+      child: RSizedBox.vertical(value),
     );
   }
 
   Widget gapHorizontalSliver(double value) {
     return SliverToBoxAdapter(
-      child: value.horizontalSpace,
+      child: RSizedBox.horizontal(value),
     );
   }
 }

@@ -101,7 +101,7 @@ class AppScaffold extends StatelessWidget {
           child: Scaffold(
             key: scaffoldKey,
             extendBody: extendBody ?? false,
-            backgroundColor: AppColors.white,
+            backgroundColor: backgroundColor,
             extendBodyBehindAppBar: extendBodyBehindAppBar,
             resizeToAvoidBottomInset: resizeToAvoidBottomInset,
             appBar: appBar,

@@ -23,6 +23,7 @@ class HomeView extends GetView<HomeController> {
       scaffoldKey: controller.scaffoldKey,
       statusBarColor: AppColors.primary,
       statusBarBrightness: Brightness.light,
+      backgroundColor: AppColors.background,
       body: CustomScrollView(
         controller: controller.scrollController,
         slivers: [
@@ -31,19 +32,15 @@ class HomeView extends GetView<HomeController> {
 
           // ------------------- featured categories -------------------
           const FeaturedCategories(),
-          Get.gapVerticalSliver(16),
 
           // ------------------- offers section -------------------
           const OffersSection(),
-          Get.gapVerticalSliver(16),
 
           // ------------------- most popular items -------------------
           MostPopularWidget(types: controller.mostPopularProducts),
-          Get.gapVerticalSliver(16),
 
           // ------------------- category section -------------------
           CategoryWidget(allCategories: controller.allCategories),
-          Get.gapVerticalSliver(16),
 
           // ------------------- best shop section -------------------
           BestShopWidget(bestShops: controller.bestShops),

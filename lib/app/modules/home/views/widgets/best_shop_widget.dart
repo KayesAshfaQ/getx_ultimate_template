@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sl_v4/app/core/config/app_colors.dart';
+import 'package:sl_v4/app/core/extensions/view_extension.dart';
 
 import '../../../../core/common_widgets/shop_card.dart';
 import '../../../../data/models/response/best_shop_list_response.dart';
+import 'view_all_button.dart';
 
 class BestShopWidget extends StatelessWidget {
   const BestShopWidget({
@@ -23,16 +25,13 @@ class BestShopWidget extends StatelessWidget {
         () => bestShops.isEmpty
             ? const SizedBox.shrink()
             : Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.w,
-                  vertical: 16.h,
-                ),
+                padding: REdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 child: Column(
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Best Shops',
                           style: TextStyle(
                             fontSize: 16,
@@ -40,30 +39,8 @@ class BestShopWidget extends StatelessWidget {
                             color: AppColors.black,
                           ),
                         ),
-                        const Spacer(),
-                        const Text(
-                          "View All",
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.primary,
-                          ),
-                        ),
-                        8.horizontalSpace,
-                        Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primary,
-                            borderRadius: BorderRadius.circular(3.r),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(4.r),
-                            child: Icon(
-                              Icons.arrow_forward_ios_rounded,
-                              size: 8.r,
-                              color: AppColors.white,
-                            ),
-                          ),
-                        ),
+                        Spacer(),
+                        ViewAllButton(),
                       ],
                     ),
                     16.verticalSpace,

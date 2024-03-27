@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sl_v4/app/core/components/app_image_view.dart';
+import 'package:sl_v4/app/core/components/ripple_view.dart';
+import 'package:sl_v4/app/core/extensions/view_extension.dart';
 
 import '../../../../core/config/app_colors.dart';
 import '../../../../data/models/response/all_category_list_response.dart';
 import '../../../../gen/assets.gen.dart';
+import 'view_all_button.dart';
 
 class CategoryWidget extends StatelessWidget {
   final List<AllCategoryListItem> allCategories;
@@ -25,7 +28,7 @@ class CategoryWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 12.r),
+                      padding: REdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -52,60 +55,24 @@ class CategoryWidget extends StatelessWidget {
                               ),
                             ],
                           ),
-                          InkWell(
-                            onTap: () {
-                              //Get.to(ReviewView());
-                            },
-                            child: Row(
-                              children: [
-                                const Text(
-                                  "View All",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.primary,
-                                  ),
-                                ),
-                                SizedBox(width: 8.w),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(3.r),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: AppColors.primary,
-                                      borderRadius: BorderRadius.circular(3.r),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4.r),
-                                      child: Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        size: 8.r,
-                                        color: AppColors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                          const ViewAllButton(),
                         ],
                       ),
                     ),
                     Container(
-                      height: allCategories.length > 3 ? 244.h : 122.h,
+                      height: allCategories.length > 5 ? 244.h : 122.h,
                       width: Get.width,
-                      padding: EdgeInsets.only(left: 16.r),
+                      padding: REdgeInsets.symmetric(horizontal: 16),
                       child: GridView.builder(
                         itemCount: allCategories.length,
                         scrollDirection: Axis.horizontal,
                         clipBehavior: Clip.none,
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),
-                        padding: EdgeInsets.all(0.r),
+                        padding: EdgeInsets.zero,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: allCategories.length > 3 ? 2 : 1,
+                          crossAxisCount: allCategories.length > 5 ? 2 : 1,
                           childAspectRatio: 1,
-                          crossAxisSpacing: 0.r,
-                          mainAxisSpacing: 0.r,
                         ),
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
@@ -113,13 +80,11 @@ class CategoryWidget extends StatelessWidget {
                             width: 105.w,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              border: Border.all(
-                                color: AppColors.gray,
-                              ),
+                              border: Border.all(color: AppColors.gray.shade200, width: 0.25),
                             ),
                             child: Column(
                               children: [
-                                SizedBox(height: 12.r),
+                                Get.gapVertical(8),
                                 AppImageView(
                                   (allCategories[index].icon != null && allCategories[index].icon!.isNotEmpty) ? "${allCategories[index].icon}" : Assets.imagesNoImageFound.path,
                                   fit: BoxFit.cover,
@@ -127,13 +92,13 @@ class CategoryWidget extends StatelessWidget {
                                   width: 55.w,
                                   height: 55.w,
                                 ),
-                                SizedBox(height: 10.r),
+                                Get.gapVertical(8),
                                 Text(
                                   allCategories[index].name!,
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
-                                    color: AppColors.gray,
+                                    color: AppColors.text,
                                   ),
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
