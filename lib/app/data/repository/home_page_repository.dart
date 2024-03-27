@@ -1,7 +1,7 @@
 import 'package:sl_v4/app/data/models/response/banner_data_response.dart';
 
-import '../../services/api_client.dart';
-import '../../services/api_end_points.dart';
+import '../../services/network_client/api_client.dart';
+import '../../services/network_client/api_end_points.dart';
 import '../models/response/all_category_list_response.dart';
 import '../models/response/best_shop_list_response.dart';
 import '../models/response/just_for_you_products_response.dart';

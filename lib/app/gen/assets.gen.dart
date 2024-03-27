@@ -857,6 +857,9 @@ class Assets {
   /// File path: assets/images/no_image_found.png
   static const AssetGenImage imagesNoImageFound = AssetGenImage('assets/images/no_image_found.png');
 
+  /// File path: assets/images/no_internet.png
+  static const AssetGenImage imagesNoInternet = AssetGenImage('assets/images/no_internet.png');
+
   /// File path: assets/images/no_pp.png
   static const AssetGenImage imagesNoPp = AssetGenImage('assets/images/no_pp.png');
 
@@ -1155,6 +1158,7 @@ class Assets {
         iconsUser,
         imagesHomeHeaderBg,
         imagesNoImageFound,
+        imagesNoInternet,
         imagesNoPp,
         imagesPlaceholderDeals,
         imagesPromotionalDemo,

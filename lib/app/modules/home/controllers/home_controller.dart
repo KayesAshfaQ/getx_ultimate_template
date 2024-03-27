@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sl_v4/app/services/internet_connection/internet_connection_checker.dart';
 import '../../../core/utils/misc.dart';
 import '../../../data/models/response/all_category_list_response.dart';
 import '../../../data/models/response/best_shop_list_response.dart';
