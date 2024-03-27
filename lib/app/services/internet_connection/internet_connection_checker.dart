@@ -11,13 +11,11 @@ class InternetConnectionCheckService extends GetxService {
 
   bool isInternetConnected = true;
 
-  Future<void> updateNetStatus() async {
+  Future<void> checkStatus() async {
     isInternetConnected = await InternetConnectionChecker().hasConnection;
   }
 
-  void _checkNetStatus(InternetConnectionStatus status) {
-    printLog('inside the internet connection checker service _checkNetStatus');
-
+  void _onStatusChange(InternetConnectionStatus status) {
     switch (status) {
       case InternetConnectionStatus.connected:
         printLog('Data connection is available.');
@@ -42,8 +40,7 @@ class InternetConnectionCheckService extends GetxService {
   @override
   void onInit() {
     super.onInit();
-    printLog('inside the internet connection checker service');
-    _streamSubscription = InternetConnectionChecker().onStatusChange.listen(_checkNetStatus);
+    _streamSubscription = InternetConnectionChecker().onStatusChange.listen(_onStatusChange);
   }
 
   @override

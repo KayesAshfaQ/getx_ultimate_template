@@ -13,11 +13,13 @@ import 'app/core/utils/analytics_helper.dart';
 import 'app/core/utils/awesome_notifications_helper.dart';
 import 'app/core/utils/crashlytics_helper.dart';
 import 'app/core/utils/fcm_helper.dart';
-import 'app/core/utils/initial_binding.dart';
+import 'app/core/bindings/initial_binding.dart';
 import 'app/routes/app_pages.dart';
-import 'firebase_options.dart';
+import 'app/core/config/firebase_options.dart';
 
 void main() async {
+  // TODO: stop auto orientation for the app
+
   // make sure that all app widgets are initialized
   WidgetsFlutterBinding.ensureInitialized();
 

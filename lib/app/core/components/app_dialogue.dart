@@ -77,7 +77,7 @@ void showNoInternetConnectionDialog() {
           onPressed: () async {
             // check the internet connection again and update the status
             final service = Get.find<InternetConnectionCheckService>();
-            await service.updateNetStatus();
+            await service.checkStatus();
 
             // if the internet connection is available, close the dialog
             if (service.isInternetConnected) {
