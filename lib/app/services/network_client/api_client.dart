@@ -14,7 +14,6 @@ import '../../core/config/app_colors.dart';
 import '../../core/config/app_config.dart';
 import '../../core/config/app_keys.dart';
 import '../../core/config/remote_config.dart';
-import '../../core/connection_manager/connection_manager_controller.dart';
 import '../../core/localization/strings_enum.dart';
 import '../../core/utils/get_storage_helper.dart';
 import '../../core/utils/misc.dart';
