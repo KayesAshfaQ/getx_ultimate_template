@@ -2,11 +2,11 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:sl_v4/app/core/components/app_scaffold.dart';
-import 'package:sl_v4/app/gen/assets.gen.dart';
 
+import '../../../core/components/app_scaffold.dart';
 import '../../../core/config/app_colors.dart';
 import '../../../core/localization/strings_enum.dart';
+import '../../../gen/assets.gen.dart';
 import '../controllers/navigator_controller.dart';
 
 class NavigatorView extends GetView<NavigatorController> {

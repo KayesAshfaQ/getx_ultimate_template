@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:sl_v4/app/core/utils/misc.dart';
+
+import 'misc.dart';
 
 class PathUtil {
   PathUtil._();

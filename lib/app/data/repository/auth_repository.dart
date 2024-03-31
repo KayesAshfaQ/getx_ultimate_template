@@ -1,9 +1,10 @@
-import 'package:sl_v4/app/core/utils/get_storage_helper.dart';
-import 'package:sl_v4/app/data/models/response/login_response.dart';
-import 'package:sl_v4/app/services/network_client/api_client.dart';
+
 
 import '../../core/config/app_keys.dart';
+import '../../core/utils/get_storage_helper.dart';
 import '../../core/utils/path_util.dart';
+import '../../services/network_client/api_client.dart';
+import '../models/response/signin_response.dart';
 
 // marker interface
 class AuthRepository {

@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:sl_v4/app/core/utils/misc.dart';
 
 import '../../core/components/app_dialogue.dart';
+import '../../core/utils/misc.dart';
 
 class InternetConnectionCheckService extends GetxService {
   late StreamSubscription _streamSubscription;

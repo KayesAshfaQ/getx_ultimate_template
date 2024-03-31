@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sl_v4/app/gen/fonts.gen.dart';
 
+import '../../gen/fonts.gen.dart';
 import 'app_colors.dart';
 
 class AppTheme {

@@ -14,8 +14,6 @@ abstract class Routes {
   static const LOGIN = _Paths.LOGIN;
   static const SIGNUP = _Paths.SIGNUP;
   static const FORGOT_PASS = _Paths.FORGOT_PASS;
-  static const PRODUCT_DETAILS = _Paths.PRODUCT_DETAILS;
-  static const SEARCH_RESULT = _Paths.SEARCH_RESULT;
 }
 
 abstract class _Paths {
@@ -29,6 +27,4 @@ abstract class _Paths {
   static const LOGIN = '/login';
   static const SIGNUP = '/signup';
   static const FORGOT_PASS = '/forgot-pass';
-  static const PRODUCT_DETAILS = '/product-details';
-  static const SEARCH_RESULT = '/search-result';
 }
