@@ -112,7 +112,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         Expanded(
           child: AppTextField(
             hint: 'Search...',
-            textFieldType: AppTextFieldType.password,
+            textFieldType: AppTextFieldType.none,
             radius: 6.r,
 
             defaultBorderColor: AppColors.primary.shade300,

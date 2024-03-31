@@ -36,7 +36,9 @@ class NavigatorView extends GetView<NavigatorController> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      body: controller.setBody(),
+      body: Obx(
+        () => controller.navPages[controller.selectedBottomNav],
+      ),
       bottomNavigationBar: bottomNavigationBar(),
     );
   }
@@ -47,7 +49,7 @@ class NavigatorView extends GetView<NavigatorController> {
       activeColor: AppColors.primary,
       backgroundColor: AppColors.white,
       curve: Curves.easeInOutQuad,
-      onTap: (index) => controller.selectedBottomNav.value = index,
+      onTap: (index) => controller.selectedBottomNav = index,
       style: TabStyle.react,
       items: [
         bottomTab(icon: Assets.iconsHome.path, title: Strings.home.tr),

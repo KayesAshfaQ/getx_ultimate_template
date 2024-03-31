@@ -7,7 +7,13 @@ import '../../message/views/message_view.dart';
 import '../../profile/views/profile_view.dart';
 
 class NavigatorController extends GetxController {
-  final selectedBottomNav = 0.obs;
+  final _selectedBottomNav = 0.obs;
+
+  int get selectedBottomNav => _selectedBottomNav.value;
+
+  set selectedBottomNav(int value) {
+    _selectedBottomNav.value = value;
+  }
 
   final navPages = <Widget>[
     const HomeView(),
@@ -29,9 +35,5 @@ class NavigatorController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-  }
-
-  Widget setBody() {
-    return navPages[selectedBottomNav.value];
   }
 }

@@ -1,4 +1,4 @@
-# sl_v4
+# getx_ultimate_template
 
 A new Flutter project.
 
