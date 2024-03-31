@@ -1,4 +1,4 @@
-package com.shoplover.sl_v4
+package com.example.getx_ultimate_template
 
 import io.flutter.embedding.android.FlutterActivity
 
