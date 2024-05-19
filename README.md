@@ -50,3 +50,11 @@ flutter pub run build_runner build
 ```
 
 By using `build_runner` , we can generate asset paths in your Dart code to refer to your assets in a type-safe manner.
+
+## Build apk with flavors enabled
+
+To build an APK for Android with flavors enabled, run the following command:
+
+```bash
+flutter build apk -t [targetFile] --[BuildType] --flavor [Flavor Name]
+```
