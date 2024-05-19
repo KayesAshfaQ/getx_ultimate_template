@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../core/components/app_scaffold.dart';
+import '../../../core/view/components/app_scaffold.dart';
 import '../../../core/localization/strings_enum.dart';
 import '../controllers/message_controller.dart';
 

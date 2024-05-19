@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../config/app_colors.dart';
+import '../../values/app_colors.dart';
 
 class ShimmerMaker extends StatelessWidget {
   const ShimmerMaker({

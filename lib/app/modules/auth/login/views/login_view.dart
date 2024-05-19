@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../controllers/login_controller.dart';
-import '../../../../core/components/app_button.dart';
-import '../../../../core/components/app_text_field.dart';
+import '../../../../core/view/components/app_button.dart';
+import '../../../../core/view/components/app_text_field.dart';
 
 class LoginView extends GetView<LoginController> {
   const LoginView({super.key});

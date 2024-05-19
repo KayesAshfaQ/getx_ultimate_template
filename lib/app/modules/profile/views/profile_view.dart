@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../core/components/app_scaffold.dart';
-import '../../../core/components/common_appbar.dart';
+import '../../../core/view/components/app_scaffold.dart';
+import '../../../core/view/components/common_appbar.dart';
 import '../controllers/profile_controller.dart';
 
 class ProfileView extends GetView<ProfileController> {

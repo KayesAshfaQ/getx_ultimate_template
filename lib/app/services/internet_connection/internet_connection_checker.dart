@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import '../../core/components/app_dialogue.dart';
+import '../../core/view/components/app_dialogue.dart';
 import '../../core/utils/misc.dart';
 
 class InternetConnectionCheckService extends GetxService {

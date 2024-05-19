@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../config/app_colors.dart';
+import '../../values/app_colors.dart';
 
 class AppSnackbars {
   /// Displays a snackbar with the specified parameters.
