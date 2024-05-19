@@ -1,3 +1,5 @@
+import 'package:getx_ultimate_template/app/core/values/api_end_points.dart';
+
 enum ImageSize { small, medium, large, original }
 
 enum ImageType { product }
@@ -19,6 +21,15 @@ extension ImageSizeExtension on ImageSize {
   }
 }
 
-// Server address
-const String baseURL = "http://192.168.145.167:8060/api/v1/";
-const String baseImageURL = "http://sl-dev-s3.s3.amazonaws.com";
+// get base image url
+String getImageURL({
+  ImageSize size = ImageSize.large,
+  ImageType type = ImageType.product,
+  required String? path,
+}) {
+  if (path == null || path.isEmpty) {
+    return '';
+  } else {
+    return "${ApiEndPoints.baseImageURL}/${type.toString().split('.').last}/${size.value}/$path";
+  }
+}

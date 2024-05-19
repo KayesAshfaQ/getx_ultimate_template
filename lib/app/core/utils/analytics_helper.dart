@@ -1,12 +1,17 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
+import '../config/app_config.dart';
+
 class AnalyticsHelper {
   // prevent making instance
   AnalyticsHelper._();
 
   /// initialize analytics
   static Future<void> initAnalytics() async {
+    // check if analytics are enabled
+    if (!AppConfig.isAnalyticsEnabled) return;
+
     await FirebaseAnalytics.instance.setAnalyticsCollectionEnabled(true);
   }
 

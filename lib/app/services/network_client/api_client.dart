@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 import 'package:dio/dio.dart';
+import 'package:getx_ultimate_template/flavors/build_config.dart';
 import 'package:logger/logger.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
@@ -13,7 +14,6 @@ import '../../core/view/components/app_snackbars.dart';
 import '../../core/values/app_colors.dart';
 import '../../core/config/app_config.dart';
 import '../../core/config/app_keys.dart';
-import '../../core/config/remote_config.dart';
 import '../../core/localization/strings_enum.dart';
 import '../../core/utils/get_storage_helper.dart';
 import '../../core/utils/misc.dart';
@@ -351,7 +351,7 @@ class ApiClient {
   /// Dio instance
   static Dio _getDio() => Dio(
         BaseOptions(
-          baseUrl: baseURL,
+          baseUrl: BuildConfig.instance.config.baseUrl,
           headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
         ),
       );

@@ -1,5 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
+import 'package:getx_ultimate_template/app/core/config/app_config.dart';
 
 import 'misc.dart';
 
@@ -8,6 +9,9 @@ class CrashlyticsHelper {
   CrashlyticsHelper._();
 
   static Future<void> initCrashlytics() async {
+    // check if crashlytics are enabled
+    if (!AppConfig.isCrashlyticsEnabled) return;
+
     try {
       final crashlytics = FirebaseCrashlytics.instance;
 

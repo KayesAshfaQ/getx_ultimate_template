@@ -6,6 +6,7 @@ import '../config/firebase_options.dart';
 import '../config/app_keys.dart';
 import 'awesome_notifications_helper.dart';
 import 'get_storage_helper.dart';
+import 'misc.dart';
 
 class FcmHelper {
   // prevent making instance
@@ -38,7 +39,7 @@ class FcmHelper {
       // if you are connected to firebase and still get error
       // check the todo up in the function else ignore the error
       // or stop fcm service from main.dart class
-      Logger().e(error);
+      printLog('FCM Initialization Error', level: Level.error, error: error);
     }
   }
 
@@ -73,14 +74,14 @@ class FcmHelper {
         _generateFcmToken();
       }
     } catch (error) {
-      Logger().e(error);
+      printLog('FCM TOKEN ERROR', level: Level.error, error: error);
     }
   }
 
   /// this method will be triggered when the app generate fcm
   /// token successfully
   static _sendFcmTokenToServer() {
-    var token = GetStorageHelper.get(fcmTokenKey);
+    final token = GetStorageHelper.get(fcmTokenKey);
     // TODO SEND FCM TOKEN TO SERVER
   }
 
@@ -93,8 +94,7 @@ class FcmHelper {
       id: 10,
       title: message.notification?.title ?? 'Tittle',
       body: message.notification?.body ?? 'Body',
-      payload: message.data
-          .cast(), // pass payload to the notification card so you can use it (when user click on notification)
+      payload: message.data.cast(), // pass payload to the notification card so you can use it (when user click on notification)
     );
   }
 
@@ -104,8 +104,7 @@ class FcmHelper {
       id: 10,
       title: message.notification?.title ?? 'Tittle',
       body: message.notification?.body ?? 'Body',
-      payload: message.data
-          .cast(), // pass payload to the notification card so you can use it (when user click on notification)
+      payload: message.data.cast(), // pass payload to the notification card so you can use it (when user click on notification)
     );
   }
 }
