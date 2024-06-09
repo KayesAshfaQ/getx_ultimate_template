@@ -84,7 +84,7 @@ flutter:
         - asset: assets/fonts/kalpurush.ttf
 
 spider:
-  generate_tests: true
+  generate_tests: false
   no_comments: true
   export: true
   use_part_of: true

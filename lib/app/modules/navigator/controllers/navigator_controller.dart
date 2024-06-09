@@ -1,10 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../../cart/views/cart_view.dart';
+import '../../explore/views/explore_view.dart';
 import '../../home/views/home_view.dart';
-import '../../message/views/message_view.dart';
-import '../../profile/views/profile_view.dart';
+import '../../settings/views/settings_view.dart';
 
 class NavigatorController extends GetxController {
   final _selectedBottomNav = 0.obs;
@@ -17,9 +16,8 @@ class NavigatorController extends GetxController {
 
   final navPages = <Widget>[
     const HomeView(),
-    const MessageView(),
-    const CartView(),
-    const ProfileView(),
+    const ExploreView(),
+    const SettingsView(),
   ];
 
   @override

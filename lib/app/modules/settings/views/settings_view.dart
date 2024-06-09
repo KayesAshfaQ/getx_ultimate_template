@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
-import '../../../core/localization/strings_enum.dart';
-import '../controllers/cart_controller.dart';
+import '../controllers/settings_controller.dart';
 
-class CartView extends GetView<CartController> {
-  const CartView({super.key});
-
+class SettingsView extends GetView<SettingsController> {
+  const SettingsView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.cart.tr),
+        title: const Text('SettingsView'),
         centerTitle: true,
       ),
       body: const Center(
         child: Text(
-          'CartView is working',
+          'SettingsView is working',
           style: TextStyle(fontSize: 20),
         ),
       ),

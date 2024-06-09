@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import '../../cart/bindings/cart_binding.dart';
-import '../../home/bindings/home_binding.dart';
-import '../../message/bindings/message_binding.dart';
-import '../../profile/bindings/profile_binding.dart';
+
 import '../controllers/navigator_controller.dart';
+import '../../home/bindings/home_binding.dart';
+import '../../explore/bindings/explore_binding.dart';
+import '../../settings/bindings/settings_binding.dart';
 
 class NavigatorBinding extends Bindings {
   @override
@@ -12,8 +12,7 @@ class NavigatorBinding extends Bindings {
       () => NavigatorController(),
     );
     HomeBinding().dependencies();
-    MessageBinding().dependencies();
-    CartBinding().dependencies();
-    ProfileBinding().dependencies();
+    ExploreBinding().dependencies();
+    SettingsBinding().dependencies();
   }
 }

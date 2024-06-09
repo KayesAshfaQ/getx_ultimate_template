@@ -1,21 +1,13 @@
 import 'package:get/get.dart';
 
-import '../modules/auth/forgot_pass/bindings/forgot_pass_binding.dart';
-import '../modules/auth/forgot_pass/views/forgot_pass_view.dart';
-import '../modules/auth/login/bindings/login_binding.dart';
-import '../modules/auth/login/views/login_view.dart';
-import '../modules/auth/signup/bindings/signup_binding.dart';
-import '../modules/auth/signup/views/signup_view.dart';
-import '../modules/cart/bindings/cart_binding.dart';
-import '../modules/cart/views/cart_view.dart';
+import '../modules/explore/bindings/explore_binding.dart';
+import '../modules/explore/views/explore_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/message/bindings/message_binding.dart';
-import '../modules/message/views/message_view.dart';
 import '../modules/navigator/bindings/navigator_binding.dart';
 import '../modules/navigator/views/navigator_view.dart';
-import '../modules/profile/bindings/profile_binding.dart';
-import '../modules/profile/views/profile_view.dart';
+import '../modules/settings/bindings/settings_binding.dart';
+import '../modules/settings/views/settings_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 
@@ -45,35 +37,14 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.MESSAGE,
-      page: () => const MessageView(),
-      binding: MessageBinding(),
+      name: _Paths.EXPLORE,
+      page: () => const ExploreView(),
+      binding: ExploreBinding(),
     ),
     GetPage(
-      name: _Paths.CART,
-      page: () => const CartView(),
-      binding: CartBinding(),
+      name: _Paths.SETTINGS,
+      page: () => const SettingsView(),
+      binding: SettingsBinding(),
     ),
-    GetPage(
-      name: _Paths.PROFILE,
-      page: () => const ProfileView(),
-      binding: ProfileBinding(),
-    ),
-    GetPage(
-      name: _Paths.LOGIN,
-      page: () => const LoginView(),
-      binding: LoginBinding(),
-    ),
-    GetPage(
-      name: _Paths.SIGNUP,
-      page: () => const SignupView(),
-      binding: SignupBinding(),
-    ),
-    GetPage(
-      name: _Paths.FORGOT_PASS,
-      page: () => const ForgotPassView(),
-      binding: ForgotPassBinding(),
-    ),
-    
   ];
 }
