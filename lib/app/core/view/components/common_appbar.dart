@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../gen/assets.gen.dart';
 import '../../../gen/fonts.gen.dart';
-import '../../values/app_colors.dart';
+import '../../values/theme/app_colors.dart';
 import 'app_image_view.dart';
 import 'app_text_field.dart';
 import 'ripple_view.dart';

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../values/app_colors.dart';
+import '../../values/theme/app_colors.dart';
 
 class RippleView extends StatelessWidget {
   /// `RippleView` is a stateless widget that provides a ripple effect on tap.

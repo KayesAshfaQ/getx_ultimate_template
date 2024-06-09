@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:getx_ultimate_template/app/core/extensions/app_validator.dart';
 
-import '../../values/app_colors.dart';
+import '../../values/theme/app_colors.dart';
 
 enum AppTextFieldType {
   none,

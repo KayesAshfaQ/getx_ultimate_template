@@ -1,7 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
-import '../config/app_config.dart';
+import '../values/config/app_config.dart';
 
 class AnalyticsHelper {
   // prevent making instance

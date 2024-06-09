@@ -1,6 +1,6 @@
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
-import 'package:getx_ultimate_template/app/core/config/app_config.dart';
+import 'package:getx_ultimate_template/app/core/values/config/app_config.dart';
 
 import 'misc.dart';
 

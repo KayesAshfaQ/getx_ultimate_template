@@ -1,6 +1,6 @@
 import 'package:logger/logger.dart';
 
-import '/app/core/values/app_values.dart';
+import '../app/core/values/const/app_values.dart';
 
 class EnvConfig {
   final String appName;

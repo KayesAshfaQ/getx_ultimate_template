@@ -1,6 +1,6 @@
 import '/flavors/env_config.dart';
 import 'environment.dart';
-import '../app/core/config/init_services.dart';
+import '../app/core/values/config/init_services.dart';
 
 class BuildConfig {
   late final Environment environment;

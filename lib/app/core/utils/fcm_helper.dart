@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logger/logger.dart';
 
-import '../config/firebase_options.dart';
-import '../config/app_keys.dart';
+import '../values/config/firebase_options.dart';
+import '../values/const/app_keys.dart';
 import 'awesome_notifications_helper.dart';
 import 'get_storage_helper.dart';
 import 'misc.dart';

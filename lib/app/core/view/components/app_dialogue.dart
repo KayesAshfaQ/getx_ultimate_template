@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../../gen/assets.gen.dart';
 import '../../../services/internet_connection/internet_connection_checker.dart';
-import '../../values/app_colors.dart';
+import '../../values/theme/app_colors.dart';
 import 'app_image_view.dart';
 
 void showConfirmationDialog({

@@ -11,9 +11,9 @@ import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:path_provider/path_provider.dart' as path;
 
 import '../../core/view/components/app_snackbars.dart';
-import '../../core/values/app_colors.dart';
-import '../../core/config/app_config.dart';
-import '../../core/config/app_keys.dart';
+import '../../core/values/theme/app_colors.dart';
+import '../../core/values/config/app_config.dart';
+import '../../core/values/const/app_keys.dart';
 import '../../core/localization/strings_enum.dart';
 import '../../core/utils/get_storage_helper.dart';
 import '../../core/utils/misc.dart';

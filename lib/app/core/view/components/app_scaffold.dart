@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../values/app_colors.dart';
+import '../../values/theme/app_colors.dart';
 
 class AppScaffold extends StatelessWidget {
   /// A custom scaffold widget for the application.

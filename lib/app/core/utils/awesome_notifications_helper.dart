@@ -1,7 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_ultimate_template/app/core/config/app_config.dart';
+import 'package:getx_ultimate_template/app/core/values/config/app_config.dart';
 
 import '../../routes/app_pages.dart';
 

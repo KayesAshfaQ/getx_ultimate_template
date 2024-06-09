@@ -4,13 +4,13 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'app_config.dart';
 import 'firebase_options.dart';
-import '../utils/analytics_helper.dart';
-import '../utils/awesome_notifications_helper.dart';
-import '../utils/crashlytics_helper.dart';
-import '../utils/fcm_helper.dart';
+import '../../utils/analytics_helper.dart';
+import '../../utils/awesome_notifications_helper.dart';
+import '../../utils/crashlytics_helper.dart';
+import '../../utils/fcm_helper.dart';
 import '/flavors/build_config.dart';
 import '/flavors/env_config.dart';
-import '../../../flavors/environment.dart';
+import '../../../../flavors/environment.dart';
 
 instantiateServices({
   required Environment environment,

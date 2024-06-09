@@ -1,4 +1,4 @@
-import '../models/response/signin_response.dart';
+import '../models/remote/response/signin_response.dart';
 
 abstract class AuthRepository {
   Future<SignInResponse?> login(String email, String password);

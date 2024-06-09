@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import '../bindings/initial_binding.dart';
-import '../config/app_config.dart';
-import '../config/app_theme.dart';
-import '../localization/localization_service.dart';
-import '../utils/analytics_helper.dart';
-import 'loader_style.dart';
-import '../../routes/app_pages.dart';
+import '../../bindings/initial_binding.dart';
+import 'app_config.dart';
+import '../theme/app_theme.dart';
+import '../../localization/localization_service.dart';
+import '../../utils/analytics_helper.dart';
+import '../theme/loader_style.dart';
+import '../../../routes/app_pages.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

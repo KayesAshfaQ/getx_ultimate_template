@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../core/view/components/app_scaffold.dart';
-import '../../../core/values/app_colors.dart';
+import '../../../core/values/theme/app_colors.dart';
 import '../../../core/localization/strings_enum.dart';
 import '../../../gen/assets.gen.dart';
 import '../controllers/navigator_controller.dart';

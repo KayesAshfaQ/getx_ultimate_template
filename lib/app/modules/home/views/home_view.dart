@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/view/components/app_scaffold.dart';
-import '../../../core/values/app_colors.dart';
+import '../../../core/values/theme/app_colors.dart';
 import '../../../core/localization/strings_enum.dart';
 import '../controllers/home_controller.dart';
 
