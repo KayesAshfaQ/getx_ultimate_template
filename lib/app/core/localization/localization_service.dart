@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-import '../../gen/fonts.gen.dart';
 import '../values/const/app_keys.dart';
 import '../utils/get_storage_helper.dart';
+import '../values/const/font_family.dart';
 import 'bn_BD/bn_bd_translation.dart';
 import 'en_US/en_us_translation.dart';
 
@@ -33,7 +32,7 @@ class LocalizationService extends Translations {
   static Map<String, TextStyle> supportedLanguagesFontsFamilies = {
     // todo add your English font families (add to assets/fonts, pubspec and name it here) default is poppins for english and cairo for arabic
     'en': const TextStyle(fontFamily: FontFamily.inter),
-    'bn': const TextStyle(fontFamily: FontFamily.solaiman),
+    'bn': const TextStyle(fontFamily: FontFamily.kalpurush),
   };
 
   @override

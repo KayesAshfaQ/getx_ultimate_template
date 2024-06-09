@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../gen/fonts.gen.dart';
+import '../../../../core/values/const/font_family.dart';
 
 class ProfileRow extends StatelessWidget {
   final String icon, title, count;

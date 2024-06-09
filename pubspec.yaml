@@ -37,13 +37,13 @@ dependencies:
   google_sign_in: ^6.2.1
   sign_in_with_apple: ^6.0.0
   convex_bottom_bar: ^3.2.0
-  flutter_sslcommerz: ^2.2.2-nullsafety.0
   flutter_gen: ^5.4.0
   path_provider: ^2.1.2
+  spider: ^4.2.2
 
-  flutter_launcher_icons: # change app icon
-  change_app_package_name: # change package name
-  rename_app: # rename app
+  flutter_launcher_icons:
+  change_app_package_name:
+  rename_app:
 
 dev_dependencies:
   flutter_test:
@@ -51,24 +51,6 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   build_runner:
   flutter_gen_runner:
-
-flutter_gen:
-  output: lib/app/gen/
-  line_length: 999
-  parse_metadata: false
-
-  integrations:
-    flutter_svg: true
-    flare_flutter: false
-    rive: false
-    lottie: true
-
-  assets:
-    enabled: true
-    outputs:
-      style: camel-case
-      class_name: Assets
-    exclude: []
 
 flutter:
   uses-material-design: true
@@ -97,9 +79,21 @@ flutter:
           weight: 800
         - asset: assets/fonts/Inter-Black.ttf
           weight: 900
-    - family: solaiman
+    - family: kalpurush
       fonts:
-        - asset: assets/fonts/solaiman-Lipi.ttf
-    - family: siyam_rupali
-      fonts:
-        - asset: assets/fonts/Siyam-Rupali-ANSI.ttf
+        - asset: assets/fonts/kalpurush.ttf
+
+spider:
+  generate_tests: true
+  no_comments: true
+  export: true
+  use_part_of: true
+  use_references_list: false
+  package: app/core/values/resources
+  groups:
+    - path: assets/icons
+      class_name: AppIcons
+      types: [.png, .svg]
+    - path: assets/images
+      class_name: AppImages
+      types: [.png, .jpg, .jpeg, .webp]

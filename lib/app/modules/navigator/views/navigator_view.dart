@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../../core/values/resources/resources.dart';
 import '../../../core/view/components/app_scaffold.dart';
 import '../../../core/values/theme/app_colors.dart';
 import '../../../core/localization/strings_enum.dart';
-import '../../../gen/assets.gen.dart';
 import '../controllers/navigator_controller.dart';
 
 class NavigatorView extends GetView<NavigatorController> {
@@ -52,10 +52,10 @@ class NavigatorView extends GetView<NavigatorController> {
       onTap: (index) => controller.selectedBottomNav = index,
       style: TabStyle.react,
       items: [
-        bottomTab(icon: Assets.iconsHome.path, title: Strings.home.tr),
-        bottomTab(icon: Assets.iconsChat.path, title: Strings.messages.tr),
-        bottomTab(icon: Assets.iconsCart.path, title: Strings.cart.tr),
-        bottomTab(icon: Assets.iconsUser.path, title: Strings.profile.tr),
+        bottomTab(icon: AppIcons.home, title: Strings.home.tr),
+        bottomTab(icon: AppIcons.chat, title: Strings.messages.tr),
+        bottomTab(icon: AppIcons.cart, title: Strings.cart.tr),
+        bottomTab(icon: AppIcons.user, title: Strings.profile.tr),
       ],
     );
   }

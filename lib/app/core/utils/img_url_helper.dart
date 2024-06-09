@@ -1,4 +1,4 @@
-import 'package:getx_ultimate_template/app/core/values/const/api_end_points.dart';
+import '../values/const/api_end_points.dart';
 
 enum ImageSize { small, medium, large, original }
 

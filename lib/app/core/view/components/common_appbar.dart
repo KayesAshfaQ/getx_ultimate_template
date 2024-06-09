@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:getx_ultimate_template/app/core/values/resources/resources.dart';
 
-import '../../../gen/assets.gen.dart';
-import '../../../gen/fonts.gen.dart';
+import '../../values/const/font_family.dart';
 import '../../values/theme/app_colors.dart';
 import 'app_image_view.dart';
 import 'app_text_field.dart';
@@ -100,7 +100,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                   isCircular: true,
                   padding: 8,
                   child: AppImageView(
-                    Assets.iconsBack.path,
+                    AppIcons.back,
                     height: 16.h,
                     isImageCircular: true,
                   ),
@@ -149,7 +149,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Stack(
                     children: <Widget>[
                       AppImageView(
-                        Assets.iconsCart.path,
+                        AppIcons.cart,
                         height: 24.h,
                       ),
                       if (cartItemCount > 0)

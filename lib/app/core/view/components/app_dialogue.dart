@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../../../gen/assets.gen.dart';
 import '../../../services/internet_connection/internet_connection_checker.dart';
+import '../../values/resources/resources.dart';
 import '../../values/theme/app_colors.dart';
 import 'app_image_view.dart';
 
@@ -48,8 +48,8 @@ void showNoInternetConnectionDialog() {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        AppImageView(
-          Assets.imagesNoInternet.path,
+        const AppImageView(
+          AppImages.noInternet,
           height: 60,
           fit: BoxFit.contain,
         ),
