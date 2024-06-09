@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_ultimate_template/app/data/repository/auth_repository_impl.dart';
 
 import '../../../../core/utils/analytics_helper.dart';
 import '../../../../data/repository/auth_repository.dart';

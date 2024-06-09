@@ -2,8 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:logger/logger.dart';
 
-import 'img_url_helper.dart';
-
 /// Prints a log message to the console.
 ///
 /// The [printLog] function prints a log message to the console. It takes a [message] as a required parameter and
