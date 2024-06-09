@@ -149,7 +149,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Stack(
                     children: <Widget>[
                       AppImageView(
-                        AppIcons.cart,
+                        AppIcons.heart,
                         height: 24.h,
                       ),
                       if (cartItemCount > 0)

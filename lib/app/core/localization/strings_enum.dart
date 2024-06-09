@@ -15,11 +15,9 @@ class Strings {
   static const String internetError = 'internet error';
 
   static const String home = 'Home';
-  static const String messages = 'Messages';
-  static const String cart = 'Cart';
+  static const String explore = 'Explore';
   static const String profile = 'Profile';
   static const String settings = 'Settings';
 
   static const String search = 'Search';
-  static const String setDeliveryLocation = 'Set your delivery location';
 }

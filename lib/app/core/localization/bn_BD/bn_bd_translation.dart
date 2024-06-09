@@ -14,10 +14,8 @@ final Map<String, String> bnBD = {
   Strings.urlNotFound: 'Url পাওয়া যায়নি',
   Strings.internetError: 'ত্রুটি ঘটেছে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন! ⚠️',
   Strings.home: 'হোম',
-  Strings.messages: 'বার্তা',
-  Strings.cart: 'কার্ট',
+  Strings.explore: 'অন্বেষণ',
   Strings.profile: 'প্রোফাইল',
   Strings.settings: 'সেটিংস',
   Strings.search: 'অনুসন্ধান',
-  Strings.setDeliveryLocation: 'আপনার ডেলিভারি অবস্থান নির্ণয় সেট করুন',
 };

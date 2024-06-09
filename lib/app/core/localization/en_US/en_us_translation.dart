@@ -14,10 +14,8 @@ const Map<String, String> enUs = {
   Strings.urlNotFound: 'Url not found',
   Strings.internetError: 'Error Occurred Check Your Internet Connection! ⚠️',
   Strings.home: 'Home',
-  Strings.messages: 'Messages',
-  Strings.cart: 'Cart',
+  Strings.explore: 'Explore',
   Strings.profile: 'Profile',
   Strings.settings: 'Settings',
   Strings.search: 'Search',
-  Strings.setDeliveryLocation: 'Set your Default location',
 };
