@@ -565,8 +565,11 @@ class ApiClient {
 
   /// handle error (show toast and hide loader)
   static ApiResponse _handleError(ApiException apiException, {required bool showToast}) {
-    String msg = apiException.toString();
-    AppSnackbars.showToast(message: msg, color: AppColors.error);
+    // show toast if required
+    if (showToast) {
+      String msg = apiException.toString();
+      AppSnackbars.showToast(message: msg, color: AppColors.error);
+    }
 
     // hide loader again in case error occurred and a loader still showing
     hideLoader();
