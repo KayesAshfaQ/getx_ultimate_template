@@ -37,8 +37,7 @@ class LoginController extends GetxController {
 
   void onPressLogin() async {
 
-    final AuthRepository repo = AuthRepositoryImpl();
-
+    final repo = Get.find<AuthRepository>();
     final res = await repo.login(emailController.text, passwordController.text);
 
     if (res != null) {
