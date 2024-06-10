@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '../../../core/values/resources/resources.dart';
 import '../../../core/view/components/app_image_view.dart';
@@ -19,24 +20,27 @@ class NavigatorView extends GetView<NavigatorController> {
       ),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
-          type: BottomNavigationBarType.shifting,
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: AppColors.background,
+          selectedItemColor: AppColors.primary,
+          unselectedItemColor: Colors.grey.shade600,
+          selectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.w500,
+          ),
           currentIndex: controller.selectedBottomNav,
           onTap: (index) => controller.selectedBottomNav = index,
           items: [
             _bottomNavItem(
               icon: AppIcons.home,
               label: Strings.home.tr,
-              backgroundColor: AppColors.primary,
             ),
             _bottomNavItem(
               icon: AppIcons.explore,
               label: Strings.explore.tr,
-              backgroundColor: AppColors.primary,
             ),
             _bottomNavItem(
               icon: AppIcons.settingsOutline,
               label: Strings.settings.tr,
-              backgroundColor: AppColors.primary,
             ),
           ],
         ),
@@ -47,15 +51,13 @@ class NavigatorView extends GetView<NavigatorController> {
   BottomNavigationBarItem _bottomNavItem({
     required String icon,
     required String label,
-    Color backgroundColor = AppColors.primary,
-    Color iconColor = AppColors.white,
+    Color selectedIconColor = AppColors.primary,
   }) {
     return BottomNavigationBarItem(
-      backgroundColor: backgroundColor,
       label: label,
       icon: AppImageView(
         icon,
-        color: iconColor,
+        color: selectedIconColor,
         height: 24,
       ),
     );
