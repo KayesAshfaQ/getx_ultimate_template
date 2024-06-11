@@ -37,7 +37,7 @@ class AppColors {
   static const white = Color(0xffffffff);
   static const black = Color(0xff000000);
 
-  static const MaterialColor gray = MaterialColor(
+  static const MaterialColor grey = MaterialColor(
     0xFF667085,
     <int, Color>{
       50: Color(0xFFf0f1f3),

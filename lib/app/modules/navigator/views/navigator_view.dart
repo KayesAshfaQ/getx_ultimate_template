@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
-import '../../../core/values/resources/resources.dart';
 import '../../../core/view/components/app_image_view.dart';
 import '../../../core/view/components/app_scaffold.dart';
 import '../../../core/values/theme/app_colors.dart';
-import '../../../core/localization/strings_enum.dart';
 import '../controllers/navigator_controller.dart';
 
 class NavigatorView extends GetView<NavigatorController> {
@@ -16,7 +13,7 @@ class NavigatorView extends GetView<NavigatorController> {
   Widget build(BuildContext context) {
     return AppScaffold(
       body: Obx(
-        () => controller.navPages[controller.selectedBottomNav],
+        () => selectedPage(),
       ),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
@@ -27,39 +24,49 @@ class NavigatorView extends GetView<NavigatorController> {
           selectedLabelStyle: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
-          currentIndex: controller.selectedBottomNav,
-          onTap: (index) => controller.selectedBottomNav = index,
-          items: [
-            _bottomNavItem(
-              icon: AppIcons.home,
-              label: Strings.home.tr,
-            ),
-            _bottomNavItem(
-              icon: AppIcons.explore,
-              label: Strings.explore.tr,
-            ),
-            _bottomNavItem(
-              icon: AppIcons.settingsOutline,
-              label: Strings.settings.tr,
-            ),
-          ],
+          currentIndex: controller.selectedNavItem,
+          onTap: (index) => controller.selectedNavItem = index,
+          items: _bottomNavItems(
+            unselectedIconColor: AppColors.grey.shade600,
+          ),
         ),
       ),
     );
   }
 
-  BottomNavigationBarItem _bottomNavItem({
-    required String icon,
-    required String label,
+  /// Returns the selected page based on the selectedNavItem
+  Widget selectedPage() => controller.navItems[controller.selectedNavItem].page;
+
+  List<BottomNavigationBarItem> _bottomNavItems({
     Color selectedIconColor = AppColors.primary,
+    Color unselectedIconColor = AppColors.grey,
   }) {
-    return BottomNavigationBarItem(
-      label: label,
-      icon: AppImageView(
-        icon,
-        color: selectedIconColor,
-        height: 24,
-      ),
-    );
+    List<BottomNavigationBarItem> items = [];
+
+    for (var i = 0; i < controller.navItems.length; i++) {
+      items.add(
+        _bottomNavItem(
+          controller.navItems[i].icon,
+          controller.navItems[i].label,
+          controller.selectedNavItem == i ? selectedIconColor : unselectedIconColor,
+        ),
+      );
+    }
+
+    return items;
   }
+
+  BottomNavigationBarItem _bottomNavItem(
+    String icon,
+    String label,
+    Color iconColor,
+  ) =>
+      BottomNavigationBarItem(
+        label: label,
+        icon: AppImageView(
+          icon,
+          color: iconColor,
+          height: 24,
+        ),
+      );
 }

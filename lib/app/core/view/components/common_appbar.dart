@@ -71,7 +71,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
         boxShadow: showElevation
             ? [
                 BoxShadow(
-                  color: AppColors.gray.shade100.withOpacity(0.4),
+                  color: AppColors.grey.shade100.withOpacity(0.4),
                   offset: const Offset(0, 6), // hide shadow top
                   blurRadius: 5,
                 ),
@@ -123,13 +123,13 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               fontSize: 14.0,
               fontFamily: FontFamily.inter,
               fontWeight: FontWeight.w500,
-              color: AppColors.gray.shade200,
+              color: AppColors.grey.shade200,
             ),
             textStyle: TextStyle(
               fontSize: 14.0,
               fontFamily: FontFamily.inter,
               fontWeight: FontWeight.w500,
-              color: AppColors.gray.shade700,
+              color: AppColors.grey.shade700,
             ),
             contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
           ),

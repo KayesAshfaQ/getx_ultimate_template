@@ -144,7 +144,7 @@ class AppTextField extends StatelessWidget {
       maxLength: maxLength,
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: hintStyle ?? Get.textTheme.bodyMedium?.copyWith(color: AppColors.gray.shade200),
+        hintStyle: hintStyle ?? Get.textTheme.bodyMedium?.copyWith(color: AppColors.grey.shade200),
 
         labelText: label,
         labelStyle: labelStyle ?? Get.textTheme.bodyMedium?.copyWith(color: AppColors.text),
@@ -176,7 +176,7 @@ class AppTextField extends StatelessWidget {
                 child: prefixIcon is IconData
                     ? Icon(
                         prefixIcon,
-                        color: prefixIconColor ?? AppColors.gray.shade400,
+                        color: prefixIconColor ?? AppColors.grey.shade400,
                         size: prefixIconSize ?? 24,
                       )
                     : prefixIcon is String
@@ -184,7 +184,7 @@ class AppTextField extends StatelessWidget {
                             prefixIcon,
                             height: prefixIconSize ?? 20,
                             width: prefixIconSize ?? 20,
-                            colorFilter: ColorFilter.mode(prefixIconColor ?? AppColors.gray.shade400, BlendMode.srcIn),
+                            colorFilter: ColorFilter.mode(prefixIconColor ?? AppColors.grey.shade400, BlendMode.srcIn),
                             fit: BoxFit.scaleDown,
                           )
                         : null)
@@ -208,7 +208,7 @@ class AppTextField extends StatelessWidget {
                   child: textFieldType == AppTextFieldType.password && suffixIcon == null
                       ? Icon(
                           isObscure ? Icons.visibility : Icons.visibility_off,
-                          color: suffixIconColor ?? AppColors.gray.shade400,
+                          color: suffixIconColor ?? AppColors.grey.shade400,
                           size: suffixIconSize ?? 24,
                         )
                       // SvgPicture.asset(
@@ -219,7 +219,7 @@ class AppTextField extends StatelessWidget {
                       : suffixIcon is IconData
                           ? Icon(
                               suffixIcon,
-                              color: suffixIconColor ?? AppColors.gray.shade400,
+                              color: suffixIconColor ?? AppColors.grey.shade400,
                               size: suffixIconSize ?? 24,
                             )
                           : suffixIcon is String
@@ -227,7 +227,7 @@ class AppTextField extends StatelessWidget {
                                   suffixIcon,
                                   height: suffixIconSize ?? 20,
                                   width: suffixIconSize ?? 20,
-                                  colorFilter: ColorFilter.mode(prefixIconColor ?? AppColors.gray.shade400, BlendMode.srcIn),
+                                  colorFilter: ColorFilter.mode(prefixIconColor ?? AppColors.grey.shade400, BlendMode.srcIn),
                                   fit: BoxFit.scaleDown,
                                 )
                               : null,
@@ -275,7 +275,7 @@ class AppTextField extends StatelessWidget {
             : isError
                 ? AppColors.error
                 : isDisabled
-                    ? disabledBorderColor ?? AppColors.gray.shade900
+                    ? disabledBorderColor ?? AppColors.grey.shade900
                     : defaultBorderColor ?? AppColors.secondary.shade300,
         width: isFocused || (isFocused && isError)
             ? focusedBorderWidth ?? 1.6
