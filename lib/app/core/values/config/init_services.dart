@@ -9,13 +9,9 @@ import '../../utils/awesome_notifications_helper.dart';
 import '../../utils/crashlytics_helper.dart';
 import '../../utils/fcm_helper.dart';
 import '/flavors/build_config.dart';
-import '/flavors/env_config.dart';
-import '../../../../flavors/environment.dart';
 
-instantiateServices({
-  required Environment environment,
-  required EnvConfig envConfig,
-}) async {
+// TODO: configure services here based on the environment 
+instantiateServices() async {
   // set preferred orientations
   if (AppConfig.isOrientationPortraitOnly) {
     await SystemChrome.setPreferredOrientations([
@@ -42,8 +38,7 @@ instantiateServices({
   // initialize analytics
   await AnalyticsHelper.initAnalytics();
 
-  BuildConfig.instantiate(
-    envType: environment,
-    envConfig: envConfig,
-  );
+  // log build config
+  BuildConfig.instance.config.logger.i('BuildConfig: ${BuildConfig.instance.environment}');
+
 }
