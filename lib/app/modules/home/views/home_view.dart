@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/view/components/app_scaffold.dart';
-import '../../../core/values/theme/app_colors.dart';
-import '../../../core/localization/strings_enum.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -11,25 +8,16 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-      useSafeArea: true,
-      scaffoldKey: controller.scaffoldKey,
-      statusBarColor: AppColors.primary,
-      statusBarBrightness: Brightness.light,
-      backgroundColor: AppColors.background,
+    return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.home.tr),
+        title: const Text('HomeView'),
         centerTitle: true,
       ),
-      body: CustomScrollView(
-        controller: controller.scrollController,
-        slivers: const [
-          SliverToBoxAdapter(
-            child: Center(
-              child: Text('HomeView is working'),
-            ),
-          ),
-        ],
+      body: const Center(
+        child: Text(
+          'HomeView is working',
+          style: TextStyle(fontSize: 20),
+        ),
       ),
     );
   }
