@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:getx_ultimate_template/app/core/extensions/view_extension.dart';
+import 'package:getx_ultimate_template/app/core/view/components/ripple_view.dart';
 
 import '../values/const/app_values.dart';
 import '../values/theme/app_colors.dart';
@@ -15,17 +17,13 @@ abstract class BaseView<Controller extends BaseController> extends GetView<Contr
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        annotatedRegion(context),
-        Obx(() {
-          if (controller.isLoading) {
-            return showLoading();
-          }
-          return const SizedBox.shrink();
-        }),
-        pageScaffold(context),
-      ],
+    return Obx(
+      () => Stack(
+        children: [
+          annotatedRegion(context),
+          pageScaffold(context),
+        ],
+      ),
     );
   }
 
@@ -57,18 +55,19 @@ abstract class BaseView<Controller extends BaseController> extends GetView<Contr
 
   Widget pageContent(BuildContext context) {
     return SafeArea(
-      child: body(context),
-      //  Column(
-      //   children: [
-      //     Obx(() {
-      //       if (controller.message.isNotEmpty) {
-      //         return showStatusMessage();
-      //       }
-      //       return const SizedBox.shrink();
-      //     }),
-      //     body(context),
-      //   ],
-      // ),
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              controller.message.isNotEmpty ? showStatusMessage() : const SizedBox.shrink(),
+              Expanded(
+                child: body(context),
+              ),
+            ],
+          ),
+          controller.isLoading ? showLoading() : const SizedBox.shrink(),
+        ],
+      ),
     );
   }
 
@@ -109,21 +108,34 @@ abstract class BaseView<Controller extends BaseController> extends GetView<Contr
 
   Widget showStatusMessage() {
     return Container(
-      color: AppColors.primary,
-      padding: const EdgeInsets.all(AppValues.margin),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              controller.message,
-              style: const TextStyle(color: Colors.white),
+      margin: const EdgeInsets.all(AppValues.smallMargin),
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.primary,
+          borderRadius: BorderRadius.circular(AppValues.smallRadius),
+        ),
+        padding: const EdgeInsets.all(AppValues.halfPadding),
+        child: Row(
+          children: [
+            Get.gapHorizontal(AppValues.halfPadding),
+            Expanded(
+              child: Text(
+                controller.message,
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.close),
-            onPressed: controller.clearMessage,
-          ),
-        ],
+            RippleView(
+              onTap: controller.clearMessage,
+              isCircular: true,
+              padding: 2,
+              rippleColor: Colors.white,
+              child: const Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
