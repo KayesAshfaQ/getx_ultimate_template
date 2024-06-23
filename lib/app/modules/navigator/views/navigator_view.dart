@@ -41,36 +41,6 @@ class NavigatorView extends BaseView<NavigatorController> {
     );
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return AppScaffold(
-  //     useSafeArea: true,
-  //     scaffoldKey: controller.scaffoldKey,
-  //     statusBarColor: AppColors.primary,
-  //     statusBarBrightness: Brightness.light,
-  //     backgroundColor: AppColors.background,
-  //     body: Obx(
-  //       () => selectedPage(),
-  //     ),
-  //     bottomNavigationBar: Obx(
-  //       () => BottomNavigationBar(
-  //         type: BottomNavigationBarType.fixed,
-  //         backgroundColor: AppColors.white,
-  //         selectedItemColor: AppColors.primary,
-  //         unselectedItemColor: Colors.grey.shade600,
-  //         selectedLabelStyle: const TextStyle(
-  //           fontWeight: FontWeight.w500,
-  //         ),
-  //         currentIndex: controller.selectedNavItem,
-  //         onTap: (index) => controller.selectedNavItem = index,
-  //         items: _bottomNavItems(
-  //           unselectedIconColor: AppColors.grey.shade600,
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   /// Returns the selected page based on the selectedNavItem
   Widget selectedPage() => controller.navItems[controller.selectedNavItem].page;
 

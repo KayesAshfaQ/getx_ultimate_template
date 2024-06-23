@@ -30,8 +30,16 @@ abstract class BaseView<Controller extends BaseController> extends GetView<Contr
   Widget annotatedRegion(BuildContext context) {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
-        statusBarColor: statusBarColor(), //Status bar color for android
-        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: statusBarColor(),
+        // For Android.
+        // Use [light] for white status bar and [dark] for black status bar.
+        statusBarIconBrightness: Brightness.light,
+        // For iOS.
+        // Use [dark] for white status bar and [light] for black status bar.
+        statusBarBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarIconBrightness: Brightness.light,
+        systemNavigationBarContrastEnforced: false,
       ),
       child: Material(
         color: Colors.transparent,
