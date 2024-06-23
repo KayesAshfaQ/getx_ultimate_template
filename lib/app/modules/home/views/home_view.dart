@@ -28,9 +28,20 @@ class HomeView extends GetView<HomeController> {
                       itemCount: controller.repositories.length,
                       itemBuilder: (context, index) {
                         final repo = controller.repositories[index];
-                        return ListTile(
-                          title: Text(repo.name ?? ''),
-                          subtitle: Text(repo.description ?? ''),
+                        return Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                          child: ListTile(
+                            title: Text(repo.name ?? ''),
+                            subtitle: Text(
+                              repo.description ?? '',
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                         );
                       },
                     ),

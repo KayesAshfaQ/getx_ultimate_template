@@ -24,6 +24,7 @@ class SearchRepositoryImpl implements SearchRepository {
         'page': page,
         'per_page': perPage,
       },
+      isErrorToastRequired: false,
     );
 
     return res;
