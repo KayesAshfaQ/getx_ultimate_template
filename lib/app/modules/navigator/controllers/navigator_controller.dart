@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/base/base_controller.dart';
 import '../../../core/localization/strings_enum.dart';
 import '../../../core/values/resources/resources.dart';
 import '../../explore/views/explore_view.dart';

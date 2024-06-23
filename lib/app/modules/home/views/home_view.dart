@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_ultimate_template/app/core/view/components/app_scaffold.dart';
 
-import '../../../core/base/base_view.dart';
+import '../../../core/view/components/app_scaffold.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
