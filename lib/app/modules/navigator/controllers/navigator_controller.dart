@@ -9,7 +9,7 @@ import '../../home/views/home_view.dart';
 import '../../settings/views/settings_view.dart';
 import '../models/nav_item.dart';
 
-class NavigatorController extends BaseController {
+class NavigatorController extends GetxController {
   final _selectedNavItem = 0.obs;
 
   int get selectedNavItem => _selectedNavItem.value;

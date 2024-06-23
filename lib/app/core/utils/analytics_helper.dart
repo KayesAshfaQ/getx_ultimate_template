@@ -30,7 +30,7 @@ class AnalyticsHelper {
   /// send event to analytics
   static Future<void> logEvent(
     String eventName, {
-    Map<String, dynamic> parameters = const {},
+    Map<String, Object> parameters = const {},
   }) async {
     // send event to analytics
     await FirebaseAnalytics.instance.logEvent(

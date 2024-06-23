@@ -54,8 +54,8 @@ class AppScaffold extends StatelessWidget {
     this.bottomSheet,
     this.floatingActionButtonLocation,
     this.extendBody,
-    this.statusBarColor = AppColors.white,
-    this.statusBarBrightness = Brightness.dark,
+    this.statusBarColor = AppColors.primary,
+    this.statusBarBrightness = Brightness.light,
     this.navigationBarBrightness = Brightness.dark,
   });
 
