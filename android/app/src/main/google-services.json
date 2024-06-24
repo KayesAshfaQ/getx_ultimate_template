@@ -23,25 +23,6 @@
           "other_platform_oauth_client": []
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:94087615646:android:0ddb9eaebdb26d6175978f",
-        "android_client_info": {
-          "package_name": "dev.solobit.getx_ultimate_template.dev"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA1UpLUYwGj9di2AUFSoOBsSOahzQ3M9Yo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
     }
   ],
   "configuration_version": "1"

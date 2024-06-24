@@ -9,13 +9,13 @@ class AppConfig {
   static String defaultLanguage = "en";
 
   // enable or disable firebase crashlytics
-  static bool isCrashlyticsEnabled = false;
+  static bool isCrashlyticsEnabled = true;
 
   // enable or disable firebase analytics
-  static bool isAnalyticsEnabled = false;
+  static bool isAnalyticsEnabled = true;
 
   // enable or disable notification service
-  static bool isNotificationEnabled = false;
+  static bool isNotificationEnabled = true;
 
   // lock app orientation to portrait only
   static bool isOrientationPortraitOnly = true;

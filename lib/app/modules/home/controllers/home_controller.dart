@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:getx_ultimate_template/app/core/utils/misc.dart';
-import 'package:getx_ultimate_template/app/core/view/components/app_snackbars.dart';
 
+import '../../../core/view/components/app_snackbars.dart';
 import '../../../data/models/remote/response/search_repo_response.dart';
 import '../../../data/repository/remote/search_repository.dart';
 
@@ -32,12 +31,9 @@ class HomeController extends GetxController {
   }
 
   void _scrollListener() {
-    printLog('scrollListener');
     if (scrollController.offset >= scrollController.position.maxScrollExtent * _boundaryOffset) {
       // check if it's the last page
       if (isLastPage || isLoading) return;
-
-      printLog('scrollListener x');
 
       // increase page number
       page++;

@@ -10,7 +10,7 @@ import '../../utils/crashlytics_helper.dart';
 import '../../utils/fcm_helper.dart';
 import '/flavors/build_config.dart';
 
-// TODO: configure services here based on the environment 
+// TODO: configure services here based on the environment
 instantiateServices() async {
   // set preferred orientations
   if (AppConfig.isOrientationPortraitOnly) {
@@ -40,5 +40,4 @@ instantiateServices() async {
 
   // log build config
   BuildConfig.instance.config.logger.i('BuildConfig: ${BuildConfig.instance.environment}');
-
 }

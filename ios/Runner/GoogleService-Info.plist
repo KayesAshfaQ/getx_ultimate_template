@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAC31ydQrRgYKn8ZdcleK2Avtf4iyb1n9M</string>
+	<string>AIzaSyAihjMeDR-mgU8oaULArKg1P9gDvlwmb88</string>
 	<key>GCM_SENDER_ID</key>
-	<string>567425442183</string>
+	<string>94087615646</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.getx_ultimate_template</string>
+	<string>dev.solobit.getxUltimateTemplate</string>
 	<key>PROJECT_ID</key>
-	<string>dummy-app-7074</string>
+	<string>getx-ultimate-template</string>
 	<key>STORAGE_BUCKET</key>
-	<string>dummy-app-7074.appspot.com</string>
+	<string>getx-ultimate-template.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:567425442183:ios:948389defa64373134f322</string>
+	<string>1:94087615646:ios:dd24e7d16d69772975978f</string>
 </dict>
 </plist>
