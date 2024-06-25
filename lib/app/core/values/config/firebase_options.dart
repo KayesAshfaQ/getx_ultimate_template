@@ -75,11 +75,11 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions androidDev = FirebaseOptions(
-    apiKey: 'AIzaSyA1UpLUYwGj9di2AUFSoOBsSOahzQ3M9Yo',
-    appId: '1:94087615646:android:0ddb9eaebdb26d6175978f',
-    messagingSenderId: '94087615646',
-    projectId: 'getx-ultimate-template',
-    storageBucket: 'getx-ultimate-template.appspot.com',
+    apiKey: 'AIzaSyALj4ZAucPm36iadYIeqroVGDTbw488xbI',
+    appId: '1:742936556482:android:3b42e83e81ef7a91cc5c5b',
+    messagingSenderId: '742936556482',
+    projectId: 'getx-ultimate-template-dev',
+    storageBucket: 'getx-ultimate-template-dev.appspot.com',
   );
 
   static const FirebaseOptions iosProd = FirebaseOptions(
@@ -92,11 +92,11 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions iosDev = FirebaseOptions(
-    apiKey: 'AIzaSyAihjMeDR-mgU8oaULArKg1P9gDvlwmb88',
-    appId: '1:94087615646:ios:5710b152c5bc34c075978f',
-    messagingSenderId: '94087615646',
-    projectId: 'getx-ultimate-template',
-    storageBucket: 'getx-ultimate-template.appspot.com',
+    apiKey: 'AIzaSyAk3XMG_Tmzb_irPwu1KuLyPu5c9sYiZH4',
+    appId: '1:742936556482:ios:cf5b8c1cf3069147cc5c5b',
+    messagingSenderId: '742936556482',
+    projectId: 'getx-ultimate-template-dev',
+    storageBucket: 'getx-ultimate-template-dev.appspot.com',
     iosBundleId: 'dev.solobit.getxUltimateTemplate.dev',
   );
 }

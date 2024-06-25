@@ -1,32 +1,13 @@
 {
   "project_info": {
-    "project_number": "94087615646",
-    "project_id": "getx-ultimate-template",
-    "storage_bucket": "getx-ultimate-template.appspot.com"
+    "project_number": "742936556482",
+    "project_id": "getx-ultimate-template-dev",
+    "storage_bucket": "getx-ultimate-template-dev.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:94087615646:android:009d59453e7ac74c75978f",
-        "android_client_info": {
-          "package_name": "dev.solobit.getx_ultimate_template"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA1UpLUYwGj9di2AUFSoOBsSOahzQ3M9Yo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:94087615646:android:0ddb9eaebdb26d6175978f",
+        "mobilesdk_app_id": "1:742936556482:android:3b42e83e81ef7a91cc5c5b",
         "android_client_info": {
           "package_name": "dev.solobit.getx_ultimate_template.dev"
         }
@@ -34,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA1UpLUYwGj9di2AUFSoOBsSOahzQ3M9Yo"
+          "current_key": "AIzaSyALj4ZAucPm36iadYIeqroVGDTbw488xbI"
         }
       ],
       "services": {
