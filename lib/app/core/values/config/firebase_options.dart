@@ -25,7 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return BuildConfig.instance.environment == Environment.PRODUCTION ? androidProd : androidDev;
       case TargetPlatform.iOS:
-        return ios;
+        return BuildConfig.instance.environment == Environment.PRODUCTION ? iosProd : iosDev;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -82,12 +82,21 @@ class DefaultFirebaseOptions {
     storageBucket: 'getx-ultimate-template.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
+  static const FirebaseOptions iosProd = FirebaseOptions(
     apiKey: 'AIzaSyAihjMeDR-mgU8oaULArKg1P9gDvlwmb88',
     appId: '1:94087615646:ios:dd24e7d16d69772975978f',
     messagingSenderId: '94087615646',
     projectId: 'getx-ultimate-template',
     storageBucket: 'getx-ultimate-template.appspot.com',
     iosBundleId: 'dev.solobit.getxUltimateTemplate',
+  );
+
+  static const FirebaseOptions iosDev = FirebaseOptions(
+    apiKey: 'AIzaSyAihjMeDR-mgU8oaULArKg1P9gDvlwmb88',
+    appId: '1:94087615646:ios:5710b152c5bc34c075978f',
+    messagingSenderId: '94087615646',
+    projectId: 'getx-ultimate-template',
+    storageBucket: 'getx-ultimate-template.appspot.com',
+    iosBundleId: 'dev.solobit.getxUltimateTemplate.dev',
   );
 }
