@@ -2,9 +2,6 @@
 // ignore_for_file: type=lint
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb, TargetPlatform;
-import 'package:getx_ultimate_template/flavors/build_config.dart';
-
-import '../../../../flavors/environment.dart';
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -17,15 +14,18 @@ import '../../../../flavors/environment.dart';
 /// );
 /// ```
 class DefaultFirebaseOptions {
-  static FirebaseOptions get currentPlatform {
+  static FirebaseOptions get prodPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return BuildConfig.instance.environment == Environment.PRODUCTION ? androidProd : androidDev;
+        return androidProd;
       case TargetPlatform.iOS:
-        return BuildConfig.instance.environment == Environment.PRODUCTION ? iosProd : iosDev;
+        return iosProd;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -48,23 +48,39 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBqQHmoU8e1fmOZq5o0axrk2659oGRMNfQ',
-    appId: '1:94087615646:web:159e97494642503375978f',
-    messagingSenderId: '94087615646',
-    projectId: 'getx-ultimate-template',
-    authDomain: 'getx-ultimate-template.firebaseapp.com',
-    storageBucket: 'getx-ultimate-template.appspot.com',
-    measurementId: 'G-26TRZ3LXBN',
-  );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA1UpLUYwGj9di2AUFSoOBsSOahzQ3M9Yo',
-    appId: '1:94087615646:android:009d59453e7ac74c75978f',
-    messagingSenderId: '94087615646',
-    projectId: 'getx-ultimate-template',
-    storageBucket: 'getx-ultimate-template.appspot.com',
-  );
+  static FirebaseOptions get devPlatform {
+    if (kIsWeb) {
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
+    }
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return androidDev;
+      case TargetPlatform.iOS:
+        return iosDev;
+      case TargetPlatform.macOS:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.windows:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.linux:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for linux - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      default:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions are not supported for this platform.',
+        );
+    }
+  }
 
   static const FirebaseOptions androidProd = FirebaseOptions(
     apiKey: 'AIzaSyA1UpLUYwGj9di2AUFSoOBsSOahzQ3M9Yo',
@@ -74,14 +90,6 @@ class DefaultFirebaseOptions {
     storageBucket: 'getx-ultimate-template.appspot.com',
   );
 
-  static const FirebaseOptions androidDev = FirebaseOptions(
-    apiKey: 'AIzaSyALj4ZAucPm36iadYIeqroVGDTbw488xbI',
-    appId: '1:742936556482:android:3b42e83e81ef7a91cc5c5b',
-    messagingSenderId: '742936556482',
-    projectId: 'getx-ultimate-template-dev',
-    storageBucket: 'getx-ultimate-template-dev.appspot.com',
-  );
-
   static const FirebaseOptions iosProd = FirebaseOptions(
     apiKey: 'AIzaSyAihjMeDR-mgU8oaULArKg1P9gDvlwmb88',
     appId: '1:94087615646:ios:dd24e7d16d69772975978f',
@@ -89,6 +97,14 @@ class DefaultFirebaseOptions {
     projectId: 'getx-ultimate-template',
     storageBucket: 'getx-ultimate-template.appspot.com',
     iosBundleId: 'dev.solobit.getxUltimateTemplate',
+  );
+
+  static const FirebaseOptions androidDev = FirebaseOptions(
+    apiKey: 'AIzaSyALj4ZAucPm36iadYIeqroVGDTbw488xbI',
+    appId: '1:742936556482:android:3b42e83e81ef7a91cc5c5b',
+    messagingSenderId: '742936556482',
+    projectId: 'getx-ultimate-template-dev',
+    storageBucket: 'getx-ultimate-template-dev.appspot.com',
   );
 
   static const FirebaseOptions iosDev = FirebaseOptions(

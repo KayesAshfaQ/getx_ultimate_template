@@ -1,8 +1,6 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logger/logger.dart';
 
-import '../values/config/firebase_options.dart';
 import '../values/const/app_keys.dart';
 import 'awesome_notifications_helper.dart';
 import 'get_storage_helper.dart';
@@ -19,9 +17,9 @@ class FcmHelper {
   static Future<void> initFcm() async {
     try {
       // initialize fcm and firebase core
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
+      // await Firebase.initializeApp(
+      //   options: DefaultFirebaseOptions.currentPlatform,
+      // );
 
       // initialize firebase
       messaging = FirebaseMessaging.instance;

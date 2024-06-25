@@ -1,7 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:getx_ultimate_template/app/core/utils/misc.dart';
 
+import '../../../../flavors/environment.dart';
 import 'app_config.dart';
 import 'firebase_options.dart';
 import '../../utils/analytics_helper.dart';
@@ -24,7 +26,17 @@ instantiateServices() async {
   await GetStorage.init();
 
   // initialize firebase
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  if (BuildConfig.instance.environment == Environment.PRODUCTION) {
+    await Firebase.initializeApp(
+      name: 'getx-ultimate-template',
+      options: DefaultFirebaseOptions.prodPlatform,
+    );
+  } else {
+    await Firebase.initializeApp(
+      name: 'getx-ultimate-template-dev',
+      options: DefaultFirebaseOptions.devPlatform,
+    );
+  }
 
   // initialize fcm
   await FcmHelper.initFcm();
@@ -39,5 +51,5 @@ instantiateServices() async {
   await AnalyticsHelper.initAnalytics();
 
   // log build config
-  BuildConfig.instance.config.logger.i('BuildConfig: ${BuildConfig.instance.environment}');
+  printLog('BuildConfig: ${BuildConfig.instance.environment.name}');
 }
