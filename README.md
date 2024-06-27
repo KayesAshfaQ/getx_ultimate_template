@@ -66,6 +66,11 @@ dart line length: 999 (for now)
 - **config**: will contain app config such as themes, localization services
 - **utils**: for our helper classes
 
+## Flavor Configuration
+
+This project uses flavors to manage different environments. 
+Learn more about flavors [here](flavor-set.md).
+
 ## Resources
 
 - To generate model class with hive type adapters: [Hive documentation](https://docs.hivedb.dev/#/custom-objects/generate_adapter)
@@ -110,4 +115,4 @@ When committing changes, we follow certain conventions to make our commit messag
 - `build`: Changes that affect the build system or external dependencies.
 - `revert`: Reverts a previous commit.
 
-By following these conventions, we can maintain a clean and understandable commit history.
+By following these conventions, we can maintain a clean and understandable commit history. Learn more about [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/).
