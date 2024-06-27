@@ -50,6 +50,21 @@ On the iOS side, flavors are managed through Xcode configurations. It's possible
 
 ![after step 5](asset/flavor-ios-5.png)
 
+6. To add different display name for each flavor of the app, update the `Info.plist` file located in the `ios/Runner` directory.
+
+```xml
+<dict>
+...
+<key>CFBundleDisplayName</key>
+<string>$(APP_DISPLAY_NAME)</string>
+...
+</dict>
+```
+
+Then add the display name for each scheme.
+
+![after step 6](asset/flavor-ios-6.png)
+
 ### Usage
 
 #### Running Flavors
