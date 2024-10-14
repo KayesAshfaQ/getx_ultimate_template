@@ -37,31 +37,33 @@ class AwesomeNotificationsHelper {
   ///init notifications channels
   static _initNotification() async {
     await awesomeNotifications.initialize(
-        null, // null mean it will show app icon on the notification (status bar)
-        [
-          NotificationChannel(
-            channelGroupKey: NotificationChannels.generalChannelGroupKey,
-            channelKey: NotificationChannels.generalChannelKey,
-            channelName: NotificationChannels.generalChannelName,
-            groupKey: NotificationChannels.generalGroupKey,
-            channelDescription: NotificationChannels.generalChannelDescription,
-            defaultColor: Colors.green,
-            ledColor: Colors.white,
-            channelShowBadge: true,
-            playSound: true,
-            importance: NotificationImportance.Max,
-          ),
-          NotificationChannel(channelGroupKey: NotificationChannels.chatChannelGroupKey, channelKey: NotificationChannels.chatChannelKey, channelName: NotificationChannels.chatChannelName, groupKey: NotificationChannels.chatGroupKey, channelDescription: NotificationChannels.chatChannelDescription, defaultColor: Colors.green, ledColor: Colors.white, channelShowBadge: true, playSound: true, importance: NotificationImportance.Max)
-        ], channelGroups: [
-      NotificationChannelGroup(
-        channelGroupKey: NotificationChannels.generalChannelGroupKey,
-        channelGroupName: NotificationChannels.generalChannelGroupName,
-      ),
-      NotificationChannelGroup(
-        channelGroupKey: NotificationChannels.chatChannelGroupKey,
-        channelGroupName: NotificationChannels.chatChannelGroupName,
-      )
-    ]);
+      null, // null mean it will show app icon on the notification (status bar)
+      [
+        NotificationChannel(
+          channelGroupKey: NotificationChannels.generalChannelGroupKey,
+          channelKey: NotificationChannels.generalChannelKey,
+          channelName: NotificationChannels.generalChannelName,
+          groupKey: NotificationChannels.generalGroupKey,
+          channelDescription: NotificationChannels.generalChannelDescription,
+          defaultColor: Colors.green,
+          ledColor: Colors.white,
+          channelShowBadge: true,
+          playSound: true,
+          importance: NotificationImportance.Max,
+        ),
+        NotificationChannel(channelGroupKey: NotificationChannels.chatChannelGroupKey, channelKey: NotificationChannels.chatChannelKey, channelName: NotificationChannels.chatChannelName, groupKey: NotificationChannels.chatGroupKey, channelDescription: NotificationChannels.chatChannelDescription, defaultColor: Colors.green, ledColor: Colors.white, channelShowBadge: true, playSound: true, importance: NotificationImportance.Max)
+      ],
+      channelGroups: [
+        NotificationChannelGroup(
+          channelGroupKey: NotificationChannels.generalChannelGroupKey,
+          channelGroupName: NotificationChannels.generalChannelGroupName,
+        ),
+        NotificationChannelGroup(
+          channelGroupKey: NotificationChannels.chatChannelGroupKey,
+          channelGroupName: NotificationChannels.chatChannelGroupName,
+        )
+      ],
+    );
   }
 
   //display notification for user with sound

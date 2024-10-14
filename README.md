@@ -69,7 +69,7 @@ dart line length: 999 (for now)
 ## Flavor Configuration
 
 This project uses flavors to manage different environments. 
-Learn more about flavors [here](flavor-set.md).
+Learn more about flavors [here](doc/flavor-config.md).
 
 ## Resources
 

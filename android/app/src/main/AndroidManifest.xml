@@ -1,21 +1,35 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Allows applications to open network sockets. Required for internet access. -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    
+    <!-- Allows applications to access information about networks. Required to check network connectivity. -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    
+    <!-- Allows an application to read from external storage. Required for accessing files on the device. -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    
+    <!-- Allows an application to write to external storage. Required for saving files to the device. -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <!-- Allows an application to access device vibration sensor -->
+    <uses-permission android:name="android.permission.VIBRATE"/>    
+    
+    <!-- Allows an application to receive the ACTION_BOOT_COMPLETED that is broadcast after the system finishes booting. -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    
+    <!-- Allows an application to access the device's camera. Required for taking photos or recording videos. -->
     <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:label="getxUltimateTemplate"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
+            android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
@@ -40,7 +54,7 @@
             android:value="2" />
     </application>
     <!-- Required to query activities that can process text, see:
-         https://developer.android.com/training/package="dev.solobit.getx_ultimate_template">
+         https://developer.android.com/training/package-visibility and
          https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
 
          In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
