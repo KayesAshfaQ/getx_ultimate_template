@@ -81,7 +81,8 @@ void showNoInternetConnectionDialog() {
 
             // if the internet connection is available, close the dialog
             if (service.isInternetConnected) {
-              Get.back(closeOverlays: true);
+              // Get.back(closeOverlays: true);
+              Get.close();
             }
           },
         )

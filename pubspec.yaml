@@ -9,7 +9,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  get: ^4.6.6
+  # get: ^4.6.6
+  get: ^5.0.0-release-candidate-9.2.1
   get_storage: ^2.1.1
   dio: ^5.4.3
   dio_smart_retry: ^6.0.0

@@ -26,7 +26,8 @@ class InternetConnectionCheckService extends GetxService {
         //   Get.back(closeOverlays: true);
         // }
 
-        Get.back(closeOverlays: true);
+        // Get.back(closeOverlays: true);
+        Get.close();
 
         break;
       case InternetConnectionStatus.disconnected:
@@ -40,11 +41,13 @@ class InternetConnectionCheckService extends GetxService {
   @override
   void onInit() {
     super.onInit();
+    printLog('InternetConnectionCheckService initialized');
     _streamSubscription = InternetConnectionChecker().onStatusChange.listen(_onStatusChange);
   }
 
   @override
   void onClose() {
+    printLog('InternetConnectionCheckService closed');
     _streamSubscription.cancel();
 
     super.onClose();

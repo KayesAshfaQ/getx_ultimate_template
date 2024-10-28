@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import '../../../data/repository/remote/auth_repository.dart';
+import '../../../data/repository/remote/auth_repository_impl.dart';
+import '../../../data/repository/remote/search_repository.dart';
+import '../../../data/repository/remote/search_repository_impl.dart';
+import '../../../services/internet_connection/internet_connection_checker.dart';
 import '../../bindings/initial_binding.dart';
 import 'app_config.dart';
 import '../theme/app_theme.dart';
@@ -26,7 +31,12 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           title: AppConfig.appName,
           debugShowCheckedModeBanner: false,
-          initialBinding: InitialBinding(),
+          binds: [
+            // Bind.put(() => InternetConnectionCheckService(), permanent: true),
+            Bind.lazyPut(() => InternetConnectionCheckService(), fenix: true),
+            Bind.lazyPut<AuthRepository>(() => AuthRepositoryImpl()),
+            Bind.lazyPut<SearchRepository>(() => SearchRepositoryImpl()),
+          ],
           initialRoute: AppPages.INITIAL,
           getPages: AppPages.routes,
           theme: AppTheme.provideAppTheme(),

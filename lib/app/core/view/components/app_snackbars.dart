@@ -27,8 +27,8 @@ class AppSnackbars {
     required String title,
     required String message,
     required Color backgroundColor,
-    SnackPosition snackPosition = SnackPosition.TOP,
-    SnackStyle snackStyle = SnackStyle.FLOATING,
+    SnackPosition snackPosition = SnackPosition.top,
+    SnackStyle snackStyle = SnackStyle.floating,
     Color color = Colors.white,
     IconData? icon,
     int durationSeconds = 3,
@@ -134,13 +134,13 @@ class AppSnackbars {
     required String message,
     Color color = Colors.green,
     Duration? duration,
-    SnackPosition snackPosition = SnackPosition.BOTTOM,
+    SnackPosition snackPosition = SnackPosition.bottom,
   }) {
     // show snackbar
     Get.rawSnackbar(
       title: title,
       duration: duration ?? const Duration(seconds: 3),
-      snackStyle: SnackStyle.GROUNDED,
+      snackStyle: SnackStyle.grounded,
       backgroundColor: color,
       snackPosition: snackPosition,
       onTap: (snack) {
