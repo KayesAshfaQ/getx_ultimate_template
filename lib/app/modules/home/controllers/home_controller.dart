@@ -32,7 +32,7 @@ class HomeController extends GetxController {
 
   void _scrollListener() {
     if (scrollController.offset >= scrollController.position.maxScrollExtent * _boundaryOffset) {
-      // check if it's the last page
+      // check if it's the last page or still loading
       if (isLastPage || isLoading) return;
 
       // increase page number
@@ -41,6 +41,10 @@ class HomeController extends GetxController {
       // call api
       fetchRepositories();
     }
+  }
+
+  Future<void> onPullRefresh() async {
+    await fetchRepositories();
   }
 
   Future<void> fetchRepositories() async {

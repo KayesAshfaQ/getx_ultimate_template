@@ -14,38 +14,41 @@ class HomeView extends GetView<HomeController> {
         title: const Text('HomeView'),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        controller: controller.scrollController,
-        physics: const BouncingScrollPhysics(),
-        child: Obx(
-          () => Column(
-            children: [
-              controller.repositories.isEmpty
-                  ? const SizedBox.shrink()
-                  : ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: controller.repositories.length,
-                      itemBuilder: (context, index) {
-                        final repo = controller.repositories[index];
-                        return Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
-                          child: ListTile(
-                            title: Text(repo.name ?? ''),
-                            subtitle: Text(
-                              repo.description ?? '',
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
+      body: RefreshIndicator(
+        onRefresh: controller.onPullRefresh,
+        child: SingleChildScrollView(
+          controller: controller.scrollController,
+          // physics: const BouncingScrollPhysics(),
+          child: Obx(
+            () => Column(
+              children: [
+                controller.repositories.isEmpty
+                    ? const SizedBox.shrink()
+                    : ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: controller.repositories.length,
+                        itemBuilder: (context, index) {
+                          final repo = controller.repositories[index];
+                          return Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-            ],
+                            margin: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                            child: ListTile(
+                              title: Text(repo.name ?? ''),
+                              subtitle: Text(
+                                repo.description ?? '',
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+              ],
+            ),
           ),
         ),
       ),
