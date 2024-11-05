@@ -30,7 +30,6 @@ enum RequestType {
   delete,
 }
 
-// TODO: header customization (isMobile: true, justForYou keys, etc...)
 
 class ApiClient {
   // request timeout (default 10 seconds)
@@ -162,8 +161,22 @@ class ApiClient {
       // hide loader if it's showing
       if (isLoaderRequired) hideLoader();
 
-      // 4) return response (api done successfully)
-      return Result.success(response);
+      // check if the response is successful
+      if (response.statusCode == 200) {
+        // 4) return response (api done successfully)
+        return Result.success(response);
+      } else {
+        // 5) handle error (api reach the server but not performed successfully)
+        return _handleError(
+          showToast: isErrorToastRequired,
+          ApiException(
+            message: Strings.serverError.tr,
+            url: url,
+            statusCode: response.statusCode,
+            response: response,
+          ),
+        );
+      }
     } on DioException catch (error) {
       // dio error (api reach the server but not performed successfully
       return _handleDioError(error: error, url: url, isErrorToastRequired: isErrorToastRequired);
@@ -414,9 +427,9 @@ class ApiClient {
       retries: 3, // retry count (optional)
       retryDelays: const [
         // set delays between retries (optional)
-        Duration(seconds: 5), // wait 1 sec before first retry
-        Duration(seconds: 10), // wait 2 sec before second retry
-        Duration(seconds: 15), // wait 3 sec before third retry
+        Duration(seconds: 1), // wait 1 sec before first retry
+        Duration(seconds: 2), // wait 2 sec before second retry
+        Duration(seconds: 3), // wait 3 sec before third retry
       ],
     );
   }
@@ -502,7 +515,7 @@ class ApiClient {
     );
   }
 
-  /// handle no internet connection exception
+  /// handle internet connection issue
   static ApiResponse _handleSocketException({
     required String url,
     required bool isErrorToastRequired,
