@@ -12,7 +12,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<SignInResponse?> login(String email, String password) async {
     final res = await ApiClient.call(
-      'http://192.168.145.167:9040/api/v1/customer/auth/login',
+      'http://192.168.0.1:9040/api/v1/customer/auth/login',
       RequestType.post,
       isAuthorizationRequired: false,
       isLoaderRequired: true,
